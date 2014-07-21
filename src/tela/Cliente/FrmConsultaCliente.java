@@ -224,7 +224,7 @@ public class FrmConsultaCliente extends javax.swing.JFrame implements ICliente{
         BarradeTarefasjToolBar3.add(SeparadordeTarefasjSeparator);
 
         MunicipaisjButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/botoes/editar.png"))); // NOI18N
-        MunicipaisjButton.setText("Municiais");
+        MunicipaisjButton.setText("Municipais");
         MunicipaisjButton.setToolTipText("Dados Municipais");
         MunicipaisjButton.setEnabled(false);
         MunicipaisjButton.setFocusable(false);
