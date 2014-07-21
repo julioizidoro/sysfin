@@ -527,11 +527,13 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
     private void liberarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_liberarjButtonActionPerformed
         List<Contaspagar> listaContasSelecionadas = new ArrayList<Contaspagar>();
         ContasPagarController contasPagarController = new ContasPagarController();
-        for(int i=0;i<listaContas.size();i++){
-            if (listaContas.get(i).getMarcar().equalsIgnoreCase("S")){
-                Contaspagar conta = contasPagarController.consultar(listaContas.get(i).getIdcontasPagar());
-                if (conta!=null){
-                    listaContasSelecionadas.add(conta);
+        for (int i = 0; i < listaContas.size(); i++) {
+            if (listaContas.get(i).getMarcar() != null) {
+                if (listaContas.get(i).getMarcar().equalsIgnoreCase("S")) {
+                    Contaspagar conta = contasPagarController.consultar(listaContas.get(i).getIdcontasPagar());
+                    if (conta != null) {
+                        listaContasSelecionadas.add(conta);
+                    }
                 }
             }
         }
@@ -783,6 +785,9 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
     }
     
     public void marcarDesmarcarConta(int linha){
+        if (listaContas.get(linha).getMarcar()==null){
+            listaContas.get(linha).setMarcar("N");
+        }
         if (listaContas.get(linha).getMarcar().equalsIgnoreCase("N")){
             listaContas.get(linha).setMarcar("S");
         }else listaContas.get(linha).setMarcar("N");
@@ -808,6 +813,7 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         DefaultTableCellRenderer rendererValor = new DefaultTableCellRenderer();
         rendererValor.setHorizontalAlignment(SwingConstants.RIGHT);
         contasPagarjTable.getColumnModel().getColumn(0).setPreferredWidth(10);
+        contasPagarjTable.getColumnModel().getColumn(1).setCellRenderer(rendererCor);
         contasPagarjTable.getColumnModel().getColumn(1).setPreferredWidth(80);
         contasPagarjTable.getColumnModel().getColumn(2).setPreferredWidth(180);
         contasPagarjTable.getColumnModel().getColumn(3).setPreferredWidth(230);
