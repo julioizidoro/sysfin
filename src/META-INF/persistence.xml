@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="SysFinPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>IntegracaoSysTM.Orcamentoprodutosorcamento</class>
+    <class>IntegracaoSysTM.SParcelamentopagamento</class>
+    <class>IntegracaoSysTM.Viewvendasintegracao</class>
+    <class>model.Banco</class>
+    <class>model.Cliente</class>
+    <class>model.Contaspagar</class>
+    <class>model.Contasreceber</class>
+    <class>model.Dadosmunicipais</class>
+    <class>model.Formapagamento</class>
+    <class>model.Movimentobanco</class>
+    <class>model.Planocontas</class>
+    <class>model.Produto</class>
+    <class>model.Usuario</class>
+    <class>model.Vendas</class>
+    <class>modelView.Viewcontaspagar</class>
+    <class>modelView.Viewcontasreceber</class>
+    <class>modelView.Viewrelatorioconciliacao</class>
+    <class>modelView.Viewrelatoriopagamento</class>
+    <class>modelView.Viewrelatoriovendas</class>
+    <class>modelView.Viewvendas</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8082/sysfin?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="simples"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="SysTMPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>IntegracaoSysTM.Orcamentoprodutosorcamento</class>
+    <class>IntegracaoSysTM.SParcelamentopagamento</class>
+    <class>IntegracaoSysTM.Viewvendasintegracao</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8082/systm?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="simples"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+    </properties>
+  </persistence-unit>
+</persistence>
