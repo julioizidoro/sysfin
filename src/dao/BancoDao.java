@@ -57,8 +57,6 @@ public class BancoDao {
         return null;
     }
     
-    public void teste(){
-        
-    }
+   
     
 }
