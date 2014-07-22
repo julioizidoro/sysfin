@@ -15,7 +15,7 @@ import model.Cliente;
 import tela.Banco.FrmConsultaBanco;
 import tela.Cliente.FrmConsultaCliente;
 import tela.ContasPagar.FrmConsultarContasPagar;
-import tela.ContasPagar.Relatorio.FrmRelatoriosPagamentos;
+import tela.ContasPagar.Relatorio.FrmRelatoriosPagamentos01;
 import tela.ContasReceber.FrmConsultarContasReceber;
 import tela.ContasReceber.FrmRelatorioReceber;
 import tela.OutrosLancamentos.FrmConsultaOutrosLancamentos;
@@ -460,7 +460,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_adicionarPlanoContasjButton3ActionPerformed
 
     private void consultaBancojButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaBancojButton1ActionPerformed
-        new FrmRelatoriosPagamentos(usuarioLogadoBean);
+        new FrmRelatoriosPagamentos01(usuarioLogadoBean);
     }//GEN-LAST:event_consultaBancojButton1ActionPerformed
 
     private void excluirPlanoContasjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirPlanoContasjButton3ActionPerformed

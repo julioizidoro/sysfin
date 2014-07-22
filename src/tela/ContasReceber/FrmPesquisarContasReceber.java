@@ -126,7 +126,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
 
     jLabel5.setText("Nº Venda");
 
-    vencimentojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nenhum", "Vencidas", "Vencer", "Recebidas" }));
+    vencimentojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todas", "Vencidas", "Vencer", "Recebidas" }));
 
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
@@ -355,7 +355,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     private String gerarSql(){
         boolean linha = false;
         String sql = "Select v from Viewcontasreceber v where ";
-        if (vencimentojComboBox.getSelectedItem().toString().equalsIgnoreCase("Nenhum")) {
+        if (vencimentojComboBox.getSelectedItem().toString().equalsIgnoreCase("Todas")) {
             if ((dataIniciojDateChooser.getDate() != null) && (dataFinaljDateChooser.getDate() != null)) {
                 if (!linha) {
                     sql = sql + "  v.dataPagamento<='" + Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate())
@@ -377,7 +377,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
             } else if (vencimentojComboBox.getSelectedItem().toString().equalsIgnoreCase("Recebidas")) {
                 if (!linha) {
                     sql = sql + "  v.dataPagamento<='" + Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate())
-                            + "' and v.dataPagamento<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate()) + "'";
+                            + "' and v.dataPagamento<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate()) + "' and valorPago>0"  ;
                     linha = true;
                 }
             }

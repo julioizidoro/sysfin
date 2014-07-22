@@ -512,11 +512,14 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
 
     private void excluirAPagarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirAPagarjButtonActionPerformed
         int linha = contasPagarjTable.getSelectedRow();
-        if (linha>=0){
-            ContasPagarController contasPagarController = new ContasPagarController();
-            contasPagarController.excluir(listaContas.get(linha).getIdcontasPagar());
-            JOptionPane.showMessageDialog(rootPane, " Contas excluida com sucesso");
-             criarConsultaContasPagarInicial();
+        if (linha >= 0) {
+            boolean resultado = JOptionPane.showConfirmDialog(null, "Confirma exclusão?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0;
+            if (resultado) {
+                ContasPagarController contasPagarController = new ContasPagarController();
+                contasPagarController.excluir(listaContas.get(linha).getIdcontasPagar());
+                JOptionPane.showMessageDialog(rootPane, " Contas excluida com sucesso");
+                criarConsultaContasPagarInicial();
+            }
         }
     }//GEN-LAST:event_excluirAPagarjButtonActionPerformed
 
