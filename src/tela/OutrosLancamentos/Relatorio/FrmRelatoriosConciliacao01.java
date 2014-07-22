@@ -37,7 +37,7 @@ import tela.util.relatoriosJasper;
  *
  * @author Wolverine
  */
-public class FrmRelatoriosConciliacao extends javax.swing.JFrame implements ItelaMovimentoBanco{
+public class FrmRelatoriosConciliacao01 extends javax.swing.JFrame implements ItelaMovimentoBanco{
     
     private String datePattern;
     private String maskPattern;
@@ -48,7 +48,7 @@ public class FrmRelatoriosConciliacao extends javax.swing.JFrame implements Itel
     /**
      * Creates new form FrmRelatoriosVendas
      */
-    public FrmRelatoriosConciliacao(UsuarioLogadoBean usuarioLogadoBean) {
+    public FrmRelatoriosConciliacao01(UsuarioLogadoBean usuarioLogadoBean) {
         datePattern = "dd/MM/yyyy";
         maskPattern = "##/##/##";
         placeHolder = '_';

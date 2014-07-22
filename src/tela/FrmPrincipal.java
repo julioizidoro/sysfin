@@ -19,7 +19,7 @@ import tela.ContasPagar.Relatorio.FrmRelatoriosPagamentos;
 import tela.ContasReceber.FrmConsultarContasReceber;
 import tela.ContasReceber.FrmRelatorioReceber;
 import tela.OutrosLancamentos.FrmConsultaOutrosLancamentos;
-import tela.OutrosLancamentos.Relatorio.FrmRelatoriosConciliacao;
+import tela.OutrosLancamentos.Relatorio.FrmRelatoriosConciliacao01;
 import tela.PlanoContas.FrmConsultaPlanoContas;
 import tela.Produtos.FrmConsultaProduto;
 import tela.Usuario.FrmConsultarUsuario;
@@ -474,7 +474,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_imprimirjButton3ActionPerformed
 
     private void excluirPlanoContasjButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirPlanoContasjButton4ActionPerformed
-        new FrmRelatoriosConciliacao(usuarioLogadoBean);
+        new FrmRelatoriosConciliacao01(usuarioLogadoBean);
     }//GEN-LAST:event_excluirPlanoContasjButton4ActionPerformed
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked

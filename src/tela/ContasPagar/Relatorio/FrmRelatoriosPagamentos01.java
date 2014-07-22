@@ -36,7 +36,7 @@ import tela.util.relatoriosJasper;
  *
  * @author Wolverine
  */
-public class FrmRelatoriosPagamentos extends javax.swing.JFrame implements IContasPagar{
+public class FrmRelatoriosPagamentos01 extends javax.swing.JFrame implements IContasPagar{
     
     private String datePattern;
     private String maskPattern;
@@ -46,7 +46,7 @@ public class FrmRelatoriosPagamentos extends javax.swing.JFrame implements ICont
     /**
      * Creates new form FrmRelatoriosVendas
      */
-    public FrmRelatoriosPagamentos(UsuarioLogadoBean usuarioLogadoBean) {
+    public FrmRelatoriosPagamentos01(UsuarioLogadoBean usuarioLogadoBean) {
         datePattern = "dd/MM/yyyy";
         maskPattern = "##/##/##";
         placeHolder = '_';
@@ -108,19 +108,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
 
     unidadejTextField.setEditable(false);
 
-    dataIniciojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
-        public void focusGained(java.awt.event.FocusEvent evt) {
-            dataIniciojDateChooserFocusGained(evt);
-        }
-    });
-
     jLabel3.setText("Data Início");
-
-    dataFinaljDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
-        public void focusGained(java.awt.event.FocusEvent evt) {
-            dataFinaljDateChooserFocusGained(evt);
-        }
-    });
 
     jLabel4.setText("Data Final");
 
@@ -247,14 +235,6 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void dataIniciojDateChooserFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dataIniciojDateChooserFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dataIniciojDateChooserFocusGained
-
-    private void dataFinaljDateChooserFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dataFinaljDateChooserFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dataFinaljDateChooserFocusGained
 
     private void SalvarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarjButtonActionPerformed
         validarRelatorio();
