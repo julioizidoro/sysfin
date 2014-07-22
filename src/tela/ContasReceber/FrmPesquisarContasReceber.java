@@ -359,19 +359,19 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
             if ((dataIniciojDateChooser.getDate() != null) && (dataFinaljDateChooser.getDate() != null)) {
                 if (!linha) {
                     sql = sql + "  v.dataPagamento<='" + Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate())
-                            + "' and v.dataPagamento<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate()) + "'";
+                            + "' and v.dataPagamento<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate()) + "' and v.valorPago>0 ";;
                     linha = true;
                 }
             }
         } else {
             if (vencimentojComboBox.getSelectedItem().toString().equalsIgnoreCase("Vencidas")) {
                 if (!linha) {
-                    sql = sql + "  v.dataVencimento<'" + Formatacao.ConvercaoDataSql(new Date()) + "'";
+                    sql = sql + "  v.dataVencimento<'" + Formatacao.ConvercaoDataSql(new Date()) + "' and v.valorPago=0 ";
                     linha = true;
                 }
             } else if (vencimentojComboBox.getSelectedItem().toString().equalsIgnoreCase("Vencer")) {
                 if (!linha) {
-                    sql = sql + "  v.dataVencimento='" + Formatacao.ConvercaoDataSql(new Date()) + "'";
+                    sql = sql + "  v.dataVencimento='" + Formatacao.ConvercaoDataSql(new Date()) + "' and v.valorPago=0 ";
                     linha = true;
                 }
             } else if (vencimentojComboBox.getSelectedItem().toString().equalsIgnoreCase("Recebidas")) {
