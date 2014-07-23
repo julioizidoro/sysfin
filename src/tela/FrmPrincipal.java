@@ -15,6 +15,7 @@ import model.Cliente;
 import tela.Banco.FrmConsultaBanco;
 import tela.Cliente.FrmConsultaCliente;
 import tela.ContasPagar.FrmConsultarContasPagar;
+import tela.ContasPagar.Relatorio.FrmRelatoriosContasVencer;
 import tela.ContasPagar.Relatorio.FrmRelatoriosPagamentos01;
 import tela.ContasReceber.FrmConsultarContasReceber;
 import tela.ContasReceber.FrmRelatorioReceber;
@@ -75,6 +76,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         consultaBancojButton1 = new javax.swing.JButton();
         excluirPlanoContasjButton3 = new javax.swing.JButton();
         excluirPlanoContasjButton4 = new javax.swing.JButton();
+        excluirPlanoContasjButton5 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -281,8 +283,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         excluirPlanoContasjButton3.setForeground(new java.awt.Color(35, 135, 112));
         excluirPlanoContasjButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/menus/cadplanocontas.png"))); // NOI18N
-        excluirPlanoContasjButton3.setText("Contas Receber");
-        excluirPlanoContasjButton3.setToolTipText("Cadastro de Contas");
+        excluirPlanoContasjButton3.setText("Contas a Pagar");
+        excluirPlanoContasjButton3.setToolTipText("Relatório de Contas a Pagar");
         excluirPlanoContasjButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         excluirPlanoContasjButton3.setMaximumSize(new java.awt.Dimension(80, 90));
         excluirPlanoContasjButton3.setMinimumSize(new java.awt.Dimension(80, 90));
@@ -293,7 +295,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         jPanel3.add(excluirPlanoContasjButton3);
-        excluirPlanoContasjButton3.setBounds(20, 210, 240, 60);
+        excluirPlanoContasjButton3.setBounds(20, 260, 240, 60);
 
         excluirPlanoContasjButton4.setForeground(new java.awt.Color(35, 135, 112));
         excluirPlanoContasjButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/menus/cadplanocontas.png"))); // NOI18N
@@ -310,6 +312,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         jPanel3.add(excluirPlanoContasjButton4);
         excluirPlanoContasjButton4.setBounds(20, 140, 240, 60);
+
+        excluirPlanoContasjButton5.setForeground(new java.awt.Color(35, 135, 112));
+        excluirPlanoContasjButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/menus/cadplanocontas.png"))); // NOI18N
+        excluirPlanoContasjButton5.setText("Contas Receber");
+        excluirPlanoContasjButton5.setToolTipText("Cadastro de Contas");
+        excluirPlanoContasjButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        excluirPlanoContasjButton5.setMaximumSize(new java.awt.Dimension(80, 90));
+        excluirPlanoContasjButton5.setMinimumSize(new java.awt.Dimension(80, 90));
+        excluirPlanoContasjButton5.setPreferredSize(new java.awt.Dimension(80, 90));
+        excluirPlanoContasjButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluirPlanoContasjButton5ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(excluirPlanoContasjButton5);
+        excluirPlanoContasjButton5.setBounds(20, 200, 240, 60);
 
         jTabbedPane1.addTab("Relatórios", jPanel3);
 
@@ -464,7 +482,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_consultaBancojButton1ActionPerformed
 
     private void excluirPlanoContasjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirPlanoContasjButton3ActionPerformed
-        new FrmRelatorioReceber(usuarioLogadoBean);
+        new FrmRelatoriosContasVencer(usuarioLogadoBean);
     }//GEN-LAST:event_excluirPlanoContasjButton3ActionPerformed
 
     private void imprimirjButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimirjButton3ActionPerformed
@@ -481,6 +499,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
+    private void excluirPlanoContasjButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirPlanoContasjButton5ActionPerformed
+        new FrmRelatorioReceber(usuarioLogadoBean);
+    }//GEN-LAST:event_excluirPlanoContasjButton5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -496,6 +518,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton excluirPlanoContasjButton2;
     private javax.swing.JButton excluirPlanoContasjButton3;
     private javax.swing.JButton excluirPlanoContasjButton4;
+    private javax.swing.JButton excluirPlanoContasjButton5;
     private javax.swing.JButton imprimirjButton;
     private javax.swing.JButton imprimirjButton2;
     private javax.swing.JButton imprimirjButton3;

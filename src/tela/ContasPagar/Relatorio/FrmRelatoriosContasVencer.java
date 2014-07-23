@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -25,7 +24,6 @@ import javax.swing.JOptionPane;
 import model.Cliente;
 import singleton.ConexaoSingletonTM;
 import tela.Cliente.FrmConsultaCliente;
-import tela.ContasPagar.FrmCadastarContasPagar;
 import tela.ContasPagar.IContasPagar;
 import tela.FrmSalvarAquivo;
 import tela.util.Formatacao;
@@ -55,11 +53,6 @@ public class FrmRelatoriosContasVencer extends javax.swing.JFrame implements ICo
         URL url = this.getClass().getResource("/imagens/logoRelatorio/iconetela.png");
         Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
         this.setIconImage(imagemTitulo);
-        try {
-            competenciajFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/####")));
-        } catch (ParseException ex) {
-            Logger.getLogger(FrmCadastarContasPagar.class.getName()).log(Level.SEVERE, null, ex);
-        }
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -83,8 +76,6 @@ public class FrmRelatoriosContasVencer extends javax.swing.JFrame implements ICo
     dataFinaljDateChooser = new com.toedter.calendar.JDateChooser(null, null, datePattern, new JTextFieldDateEditor(datePattern,
         maskPattern, placeHolder));
 jLabel4 = new javax.swing.JLabel();
-jLabel11 = new javax.swing.JLabel();
-competenciajFormattedTextField = new javax.swing.JFormattedTextField();
 jPanel3 = new javax.swing.JPanel();
 SalvarjButton = new javax.swing.JButton();
 jButton4 = new javax.swing.JButton();
@@ -112,16 +103,6 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
 
     jLabel4.setText("Data Final");
 
-    jLabel11.setText("Competência");
-
-    competenciajFormattedTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##/####"))));
-    competenciajFormattedTextField.setText("  /    ");
-    competenciajFormattedTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-        public void keyTyped(java.awt.event.KeyEvent evt) {
-            competenciajFormattedTextFieldKeyTyped(evt);
-        }
-    });
-
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
@@ -142,38 +123,28 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
                                 .addComponent(jLabel4)))
                         .addComponent(unidadejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(selecionarjButton)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(competenciajFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(selecionarjButton)))
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     jPanel1Layout.setVerticalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel1Layout.createSequentialGroup()
             .addContainerGap()
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(jLabel11)
+            .addComponent(jLabel1)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(selecionarjButton)
+                .addComponent(unidadejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addComponent(jLabel4)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(competenciajFormattedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(jLabel1)
+                    .addComponent(dataFinaljDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addComponent(jLabel3)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(selecionarjButton)
-                        .addComponent(unidadejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(dataFinaljDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(dataIniciojDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(dataIniciojDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
@@ -218,19 +189,19 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
             .addContainerGap()
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addContainerGap())
-        .addGroup(layout.createSequentialGroup()
-            .addGap(30, 30, 30)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(30, 30, 30))
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
             .addContainerGap()
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap())
     );
 
     pack();
@@ -248,15 +219,6 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
         new FrmConsultaCliente(usuarioLogadoBean, this);
     }//GEN-LAST:event_selecionarjButtonActionPerformed
 
-    private void competenciajFormattedTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_competenciajFormattedTextFieldKeyTyped
-        String caracteres = "0987654321/";
-        if (evt.getKeyChar() != '\b') {
-            if (!caracteres.contains(evt.getKeyChar() + "")) {
-                evt.consume();
-            }
-        }
-    }//GEN-LAST:event_competenciajFormattedTextFieldKeyTyped
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new FrmSalvarAquivo(this);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -268,13 +230,11 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton SalvarjButton;
-    private javax.swing.JFormattedTextField competenciajFormattedTextField;
     private com.toedter.calendar.JDateChooser dataFinaljDateChooser;
     private com.toedter.calendar.JDateChooser dataIniciojDateChooser;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
@@ -311,16 +271,14 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     }
     
     public void gerarRelatorioPagamento(){
-        String url = ("tela/ContasPagar/Relatorio/reportPagamentos01.jasper");
+        String url = ("tela/ContasPagar/Relatorio/reportPagamentoVencidas.jasper");
         Map parameters = new HashMap();
         try {
             Image logo = new ImageIcon(getClass().getResource("/imagens/logoRelatorio/logo.jpg")).getImage();
             parameters.put("logo", logo);
             String periodo = null;
-            if ((dataIniciojDateChooser.getDate()!=null) && (dataFinaljDateChooser.getDate()!=null)){
-                periodo = "Período : " + Formatacao.ConvercaoDataPadrao(dataIniciojDateChooser.getDate()) 
+            periodo = "Período : " + Formatacao.ConvercaoDataPadrao(dataIniciojDateChooser.getDate()) 
                         + "    " + Formatacao.ConvercaoDataPadrao(dataFinaljDateChooser.getDate());
-            }else periodo = "Competência : " + competenciajFormattedTextField.getText();
             parameters.put("periodo", periodo);
             parameters.put("sql",gerarSql());
         } catch (Exception ex) {
@@ -336,24 +294,16 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     }
     
     public String gerarSql(){
-        String sql = "Select distinct movimentobanco.dataCompensacao, movimentobanco.descricao, ";
-        sql = sql + "movimentobanco.valorEntrada, movimentobanco.valorSaida, planocontas.descricao, banco.nome, cliente.nomeFantasia, ";
-        sql = sql + "planocontas.descricao as planoContas, movimentobanco.planoContas_idplanoContas as idPlanoContas, movimentobanco.compentencia ";
-        sql = sql + "from movimentobanco join cliente on movimentobanco.cliente_idcliente = cliente.idcliente ";
-        sql = sql + "join banco on movimentobanco.banco_idbanco = banco.idbanco ";
-        sql = sql + "join planocontas on movimentobanco.planoContas_idplanoContas = planocontas.idplanoContas ";
-        sql = sql +"where ";
+        String sql = "Select distinct contasPagar.dataVencimento, contasPagar.descricao, contasPagar.valor, contasPagar.dataAgendamento,cliente.nomeFantasia";
+        sql = sql + " From ";
+        sql = sql + " contasPagar join cliente on contasPagar.cliente_idcliente = cliente.idcliente ";
+        sql = sql +" where ";
         if ((dataIniciojDateChooser.getDate()!=null) && (dataFinaljDateChooser.getDate()!=null)){
-            sql = sql + "movimentobanco.dataCompensacao>='" +  Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate()) +
-                    "' and movimentobanco.dataCompensacao<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate()) + "' and ";
-       }else {
-            sql = sql + "movimentobanco.compentencia='" + competenciajFormattedTextField.getText() + "' and ";
+            sql = sql + "contasPagar.dataVencimento>='" +  Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate()) +
+                    "' and contasPagar.dataVencimento<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate()) + "' and ";
         }
-	sql = sql + "cliente.idcliente=" + cliente.getIdcliente();
-        sql = sql + " and movimentobanco.planoContas_idplanoContas<>" + cliente.getContaRecebimento();
-        sql = sql + " and movimentobanco.planoContas_idplanoContas<>" + cliente.getContaReceita();
-        sql = sql + " Group by movimentobanco.planoContas_idplanoContas, movimentobanco.dataCompensacao, movimentobanco.descricao, movimentobanco.valorEntrada, movimentobanco.valorSaida, planocontas.descricao, banco.nome, cliente.nomeFantasia, planocontas.descricao,  movimentobanco.compentencia ";
-        sql = sql + " order by movimentobanco.planoContas_idplanoContas, movimentobanco.dataCompensacao, movimentobanco.descricao, movimentobanco.valorEntrada, movimentobanco.valorSaida, planocontas.descricao, banco.nome, cliente.nomeFantasia, planocontas.descricao,  movimentobanco.compentencia";
+	sql = sql + " contasPagar.cliente_idcliente=" + cliente.getIdcliente() + " and contasPagar.contaPaga='N'";
+        sql = sql + " order by contasPagar.dataVencimento";
         return sql;
     }
 
@@ -377,17 +327,16 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
         String senha = props.getProperty("senha");
         String usuario = props.getProperty("usuario");
         String porta = props.getProperty("porta");
-        String sql = "Select * from viewrelatoriopagamento where ";
-        if ((dataIniciojDateChooser.getDate() != null) && (dataFinaljDateChooser.getDate() != null)) {
-            sql = sql + "dataCompensacao>='" + Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate())
-                    + "' and dataCompensacao<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate()) + "' and ";
-        } else {
-            sql = sql + "compentencia='" + competenciajFormattedTextField.getText() + "' and ";
+         String sql = "Select distinct contasPagar.dataVencimento, contasPagar.descricao, contasPagar.valor, contasPagar.dataAgendamento,cliente.nomeFantasia";
+        sql = sql + " From ";
+        sql = sql + " contasPagar join cliente on contasPagar.cliente_idcliente = cliente.idcliente ";
+        sql = sql +" where ";
+        if ((dataIniciojDateChooser.getDate()!=null) && (dataFinaljDateChooser.getDate()!=null)){
+            sql = sql + "contasPagar.dataVencimento>='" +  Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate()) +
+                    "' and contasPagar.dataVencimento<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate()) + "' and ";
         }
-	sql = sql + "idcliente=" + cliente.getIdcliente();
-        sql = sql + " and numeroConta<>" + cliente.getContaRecebimento();
-        sql = sql + " and numeroConta<>" + cliente.getContaReceita();
-        sql = sql + " order by planoContas, dataCompensacao";
+	sql = sql + " contasPagar.cliente_idcliente=" + cliente.getIdcliente() + " and contasPagar.contaPaga='N'";
+        sql = sql + " order by contasPagar.dataVencimento";
         ContasPagarController contasPagarController = new ContasPagarController();
         contasPagarController.ExportarExcel(nomeArquivo, local, porta, senha, banco, usuario, caminho, sql);
     }

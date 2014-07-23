@@ -283,6 +283,11 @@ public class FrmLancarContas extends javax.swing.JFrame {
             conta.setBanco(banco.getIdbanco());
             conta.setUsuarioAgendou(0);
             conta.setUsuarioBaixou(0);
+            conta.setAutorizarPagamento("N");
+            conta.setMarcar("N");
+            conta.setNumeroDocumento(" ");
+            conta.setFornecedor(" ");
+            conta.setUsuarioAutorizou(0);
             Planocontas plano = (Planocontas) planoContasComissaojComboBox.getSelectedItem();
             conta.setPlanocontas(plano.getIdplanoContas());
             conta.setTipoDocumento(tipoDocumentoComissaojComboBox.getSelectedItem().toString());

@@ -14,11 +14,7 @@
 	</parameter>
 	<parameter name="dataInicial" class="java.util.Date"/>
 	<queryString>
-		<![CDATA[Select distinct contasPagar.dataVencimento, contasPagar.descricao, contasPagar.valor, contasPagar.dataAgendamento,
-cliente.nomeFantasia
-from
-	contasPagar join cliente on contasPagar.cliente_idcliente = cliente.idcliente
-order by contasPagar.dataVencimento]]>
+		<![CDATA[$P!{sql}]]>
 	</queryString>
 	<field name="dataVencimento" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -124,7 +120,7 @@ order by contasPagar.dataVencimento]]>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="486" y="2" width="61" height="13" uuid="4fec70f3-9cf8-4974-8b7e-a71fb8814f3d"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{dataAgendamento}]]></textFieldExpression>
