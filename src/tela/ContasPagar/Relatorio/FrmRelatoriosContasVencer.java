@@ -36,7 +36,7 @@ import tela.util.relatoriosJasper;
  *
  * @author Wolverine
  */
-public class FrmRelatoriosPagamentos011 extends javax.swing.JFrame implements IContasPagar{
+public class FrmRelatoriosContasVencer extends javax.swing.JFrame implements IContasPagar{
     
     private String datePattern;
     private String maskPattern;
@@ -46,7 +46,7 @@ public class FrmRelatoriosPagamentos011 extends javax.swing.JFrame implements IC
     /**
      * Creates new form FrmRelatoriosVendas
      */
-    public FrmRelatoriosPagamentos011(UsuarioLogadoBean usuarioLogadoBean) {
+    public FrmRelatoriosContasVencer(UsuarioLogadoBean usuarioLogadoBean) {
         datePattern = "dd/MM/yyyy";
         maskPattern = "##/##/##";
         placeHolder = '_';
