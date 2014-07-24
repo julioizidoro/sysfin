@@ -5,6 +5,7 @@
     <class>IntegracaoSysTM.Orcamentoprodutosorcamento</class>
     <class>IntegracaoSysTM.SParcelamentopagamento</class>
     <class>IntegracaoSysTM.Viewvendasintegracao</class>
+    <class>model.Arquivocontaspagar</class>
     <class>model.Banco</class>
     <class>model.Cliente</class>
     <class>model.Contaspagar</class>
@@ -22,8 +23,6 @@
     <class>modelView.Viewrelatoriopagamento</class>
     <class>modelView.Viewrelatoriovendas</class>
     <class>modelView.Viewvendas</class>
-    <class>model.Arquivocontaspagar</class>
-    <class>model.Contaspagarcopia</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8082/sysfin?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="simples"/>

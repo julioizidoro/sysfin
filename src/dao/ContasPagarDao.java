@@ -138,7 +138,7 @@ public class ContasPagarDao {
         manager = ConexaoSingleton.getConexao();
         //abrindo uma transação
         manager.getTransaction().begin();
-        Query q = manager.createQuery("Select c Arquivocontaspagar from  c where c.contasPagar=" + idContasPagar);
+        Query q = manager.createQuery("Select c from  Arquivocontaspagar  c where c.contasPagar=" + idContasPagar);
         //fechando uma transação
         if (q.getResultList().size()>0){
             return (Arquivocontaspagar) q.getResultList().get(0);

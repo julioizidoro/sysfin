@@ -25,8 +25,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "arquivocontaspagar")
-@NamedQueries({
-    @NamedQuery(name = "Arquivocontaspagar.findAll", query = "SELECT a FROM Arquivocontaspagar a")})
 public class Arquivocontaspagar implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,19 +32,17 @@ public class Arquivocontaspagar implements Serializable {
     @Basic(optional = false)
     @Column(name = "idarquivoContasPagar")
     private Integer idarquivoContasPagar;
-    @Size(max = 100)
     @Column(name = "nomeArquivo01")
     private String nomeArquivo01;
     @Lob
     @Column(name = "arquivo01")
     private byte[] arquivo01;
-    @Size(max = 100)
     @Column(name = "nomeArquivo02")
     private String nomeArquivo02;
     @Lob
     @Column(name = "arquivo02")
     private byte[] arquivo02;
-    @Column(name = "contasPagarCopia_idcontasPagar")
+    @Column(name = "contasPagar_idcontasPagar")
     private Integer contasPagar;
 
     public Arquivocontaspagar() {
