@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
 import javax.swing.JOptionPane;
+import model.Arquivocontaspagar;
 import model.Contaspagar;
 import tela.FrmSalvarAquivo;
 
@@ -19,22 +20,22 @@ import tela.FrmSalvarAquivo;
  */
 public class FrmMostrar extends javax.swing.JFrame {
     
-    private Contaspagar conta;
+    private Arquivocontaspagar arquivoConta;
 
     /**
      * Creates new form FrmMostrar
      */
-    public FrmMostrar(Contaspagar conta) {
-        this.conta = conta;
+    public FrmMostrar(Arquivocontaspagar arquivoConta) {
+        this.arquivoConta = arquivoConta;
         initComponents();
-        if (conta.getArquivo()!=null){
-            arquivo01jTextField.setText(conta.getNomeArquivo());
+        if (arquivoConta.getArquivo01()!=null){
+            arquivo01jTextField.setText(arquivoConta.getNomeArquivo01());
         }else {
             arquivo01jTextField.setText("Não possui arquivo");
             salvar01jButton.setEnabled(false);
         }
-        if (conta.getArquivo02()!=null){
-            arquivo02jTextField.setText(conta.getNomeArquivo02());
+        if (arquivoConta.getArquivo02()!=null){
+            arquivo02jTextField.setText(arquivoConta.getNomeArquivo02());
         }else {
             arquivo02jTextField.setText("Não possui arquivo");
             salvar02jButton.setEnabled(false);
@@ -186,7 +187,7 @@ public class FrmMostrar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvar01jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvar01jButtonActionPerformed
-        new FrmSalvarAquivo(conta, 1);
+        new FrmSalvarAquivo(arquivoConta, 1);
     }//GEN-LAST:event_salvar01jButtonActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -194,7 +195,7 @@ public class FrmMostrar extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void salvar02jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvar02jButtonActionPerformed
-        new FrmSalvarAquivo(conta, 2);
+        new FrmSalvarAquivo(arquivoConta, 2);
     }//GEN-LAST:event_salvar02jButtonActionPerformed
 
     /**

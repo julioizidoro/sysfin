@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import model.Arquivocontaspagar;
 import model.Contaspagar;
 import modelView.Viewcontaspagar;
 
@@ -50,5 +51,15 @@ public class ContasPagarFacade {
     public Contaspagar consultarVenda(String sql) throws SQLException{
         contasPagarDao = new ContasPagarDao();
         return contasPagarDao.consultarVenda(sql);
+    }
+    
+    public void salvarArquivo(Arquivocontaspagar arquivo) throws SQLException{
+        contasPagarDao = new ContasPagarDao();
+        contasPagarDao.salvarArquivo(arquivo);
+    }
+    
+    public Arquivocontaspagar consultarArquivo(int idContasPagar) throws SQLException{
+        contasPagarDao = new ContasPagarDao();
+        return contasPagarDao.consultarArquivo(idContasPagar);
     }
 }

@@ -54,12 +54,6 @@ public class Contaspagar implements Serializable {
     @Column(name = "dataEnvio")
     @Temporal(TemporalType.DATE)
     private Date dataEnvio;
-    @Lob
-    @Column(name = "arquivo")
-    private byte[] arquivo;
-    @Lob
-    @Column(name = "arquivo02")
-    private byte[] arquivo02;
     @Column(name = "movimentoBanco")
     private Integer movimentoBanco;
     @Column(name = "usuarioCadastrou")
@@ -78,10 +72,6 @@ public class Contaspagar implements Serializable {
     private int cliente;
     @Column(name = "formaPagamento")
     private String formaPagamento;
-    @Column(name = "nomeArquivo")
-    private String nomeArquivo;
-    @Column(name = "nomeArquivo02")
-    private String nomeArquivo02;
     @Column(name = "vendaComissao")
     private int vendaComissao;
     
@@ -121,11 +111,6 @@ public class Contaspagar implements Serializable {
     public Integer getIdcontasPagar() {
         return idcontasPagar;
     }
-
-    public String getNomeArquivo() {
-        return nomeArquivo;
-    }
-
    
     public int getVendaComissao() {
         return vendaComissao;
@@ -143,17 +128,6 @@ public class Contaspagar implements Serializable {
         this.vendaComissao = vendaComissao;
     }
 
-    public void setNomeArquivo(String nomeArquivo) {
-        this.nomeArquivo = nomeArquivo;
-    }
-
-    public byte[] getArquivo02() {
-        return arquivo02;
-    }
-
-    public void setArquivo02(byte[] arquivo02) {
-        this.arquivo02 = arquivo02;
-    }
 
     public String getFormaPagamento() {
         return formaPagamento;
@@ -163,13 +137,6 @@ public class Contaspagar implements Serializable {
         this.formaPagamento = formaPagamento;
     }
 
-    public String getNomeArquivo02() {
-        return nomeArquivo02;
-    }
-
-    public void setNomeArquivo02(String nomeArquivo02) {
-        this.nomeArquivo02 = nomeArquivo02;
-    }
 
     public String getFornecedor() {
         return fornecedor;
@@ -240,6 +207,10 @@ public class Contaspagar implements Serializable {
     public void setContaPaga(String contaPaga) {
         this.contaPaga = contaPaga;
     }
+    
+    public String getContaPaga() {
+        return this.contaPaga;
+    }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
@@ -275,14 +246,6 @@ public class Contaspagar implements Serializable {
 
     public void setDataCompensacao(Date dataCompensacao) {
         this.dataCompensacao = dataCompensacao;
-    }
-
-    public byte[] getArquivo() {
-        return arquivo;
-    }
-
-    public void setArquivo(byte[] arquivo) {
-        this.arquivo = arquivo;
     }
 
     public Integer getMovimentoBanco() {

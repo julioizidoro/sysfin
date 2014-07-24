@@ -7,6 +7,7 @@
 package controller;
 
 
+import dao.ContasPagarDao;
 import facade.ContasPagarFacade;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Arquivocontaspagar;
 import model.Contaspagar;
 import modelView.Viewcontaspagar;
 
@@ -87,6 +89,27 @@ public class ContasPagarController {
         } catch (SQLException ex) {
             Logger.getLogger(ContasPagarController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro consultar contas a pagar"  + ex);
+            return null;
+        }
+    }
+    
+    public void salvarArquivo(Arquivocontaspagar arquivo){
+        contasPagarFacade = new ContasPagarFacade();
+        try {
+            contasPagarFacade.salvarArquivo(arquivo);
+        } catch (SQLException ex) {
+            Logger.getLogger(ContasPagarController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro Salvar Arquivo " + ex);
+        }
+    }
+    
+    public Arquivocontaspagar consultarArquivo(int idContasPagar) {
+        contasPagarFacade = new ContasPagarFacade();
+        try {
+            return contasPagarFacade.consultarArquivo(idContasPagar);
+        } catch (SQLException ex) {
+            Logger.getLogger(ContasPagarController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro Consultar Arquivo " + ex);
             return null;
         }
     }

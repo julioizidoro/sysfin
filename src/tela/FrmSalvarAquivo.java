@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Arquivocontaspagar;
 import model.Contaspagar;
 import tela.ContasPagar.IContasPagar;
 import tela.ContasReceber.IContasReceber;
@@ -31,7 +32,7 @@ import tela.Vendas.IVendas;
  */
 public class FrmSalvarAquivo extends javax.swing.JFrame {
     
-    private  Contaspagar conta;
+    private  Arquivocontaspagar arquivoConta;
     private File file;
     private IContasPagar telaContasPagar;
     private ItelaMovimentoBanco telaBanco;
@@ -40,8 +41,8 @@ public class FrmSalvarAquivo extends javax.swing.JFrame {
     private int numero;
   
     /** Creates new form FrmLocalizarArquivo */
-    public FrmSalvarAquivo(Contaspagar conta, int numero) {
-        this.conta = conta;
+    public FrmSalvarAquivo(Arquivocontaspagar arquivoConta, int numero) {
+        this.arquivoConta = arquivoConta;
         this.numero=numero;
         initComponents();
         URL url = this.getClass().getResource("/imagens/logoRelatorio/iconetela.png");
@@ -50,9 +51,9 @@ public class FrmSalvarAquivo extends javax.swing.JFrame {
         String localIni = System.getProperty("user.dir");
         File novo = null;
         if (numero==1){
-            novo = new File(localIni + "\\" + conta.getNomeArquivo());
+            novo = new File(localIni + "\\" + arquivoConta.getNomeArquivo01());
         }else if (numero==2){
-            novo = new File(localIni + "\\" + conta.getNomeArquivo02());
+            novo = new File(localIni + "\\" + arquivoConta.getNomeArquivo02());
         }
         carregarjFileChooser.setFileFilter(null);
         carregarjFileChooser.setSelectedFile(novo);
@@ -150,14 +151,14 @@ public class FrmSalvarAquivo extends javax.swing.JFrame {
     private void carregarjFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregarjFileChooserActionPerformed
         file = carregarjFileChooser.getSelectedFile();
         if (file != null) {
-            if (conta != null) {
+            if (arquivoConta != null) {
                 FileOutputStream in = null;
                 try {
                     in = new FileOutputStream(file);
                     if (numero==1){
-                        in.write(conta.getArquivo());
+                        in.write(arquivoConta.getArquivo01());
                     }else if (numero==2){
-                        in.write(conta.getArquivo02());
+                        in.write(arquivoConta.getArquivo02());
                     }
                     in.close();
                 } catch (Exception ex) {

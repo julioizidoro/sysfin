@@ -101,16 +101,23 @@ public class ContasPagarTableModel extends AbstractTableModel{
     }
     
     public Icon carregarImagemAutorizada(Viewcontaspagar conta) {
-        if (conta.getAutorizarPagamento().equalsIgnoreCase("N")) {
+        if (conta.getAutorizarPagamento() == null) {
             URL urlVermelha = this.getClass().getResource("/imagens/botoespequenos/cancel.png");
             Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVermelha);
             ImageIcon imagem = new ImageIcon(imagemTitulo);
             return imagem;
         } else {
-            URL urlVerde = this.getClass().getResource("/imagens/botoespequenos/confirmar.png");
-            Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVerde);
-            ImageIcon imagem = new ImageIcon(imagemTitulo);
-            return imagem;
+            if (conta.getAutorizarPagamento().equalsIgnoreCase("N")) {
+                URL urlVermelha = this.getClass().getResource("/imagens/botoespequenos/cancel.png");
+                Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVermelha);
+                ImageIcon imagem = new ImageIcon(imagemTitulo);
+                return imagem;
+            } else {
+                URL urlVerde = this.getClass().getResource("/imagens/botoespequenos/confirmar.png");
+                Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVerde);
+                ImageIcon imagem = new ImageIcon(imagemTitulo);
+                return imagem;
+            }
         }
     }
 }

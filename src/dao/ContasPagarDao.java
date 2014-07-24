@@ -13,9 +13,12 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
+import model.Arquivocontaspagar;
 import model.Contaspagar;
 import modelView.Viewcontaspagar;
 
@@ -117,6 +120,30 @@ public class ContasPagarDao {
         if (q.getResultList().size()>0){
             return (Contaspagar) q.getResultList().get(0);
         }
+        return null;
+    }
+    
+   
+    
+    public void salvarArquivo(Arquivocontaspagar arquivo) throws SQLException{
+        manager = ConexaoSingleton.getConexao();
+        //abrindo uma transação
+        manager.getTransaction().begin();
+        manager.merge(arquivo);
+        //fechando uma transação
+        manager.getTransaction().commit();
+    }
+    
+    public Arquivocontaspagar consultarArquivo(int idContasPagar) throws SQLException{
+        manager = ConexaoSingleton.getConexao();
+        //abrindo uma transação
+        manager.getTransaction().begin();
+        Query q = manager.createQuery("Select c Arquivocontaspagar from  c where c.contasPagar=" + idContasPagar);
+        //fechando uma transação
+        if (q.getResultList().size()>0){
+            return (Arquivocontaspagar) q.getResultList().get(0);
+        }
+        manager.getTransaction().commit();
         return null;
     }
     

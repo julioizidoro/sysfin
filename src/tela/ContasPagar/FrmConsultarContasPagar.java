@@ -23,6 +23,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
+import model.Arquivocontaspagar;
 import model.Cliente;
 import model.Contaspagar;
 import modelView.Viewcontaspagar;
@@ -567,7 +568,7 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
     }//GEN-LAST:event_pesquisarjButtonActionPerformed
 
     private void selecionarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarjButtonActionPerformed
-        new FrmConsultaCliente(usuarioLogadoBean, this);
+       new FrmConsultaCliente(usuarioLogadoBean, this); 
     }//GEN-LAST:event_selecionarjButtonActionPerformed
 
     private void usuariosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosjButtonActionPerformed
@@ -593,10 +594,10 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         int linha = contasPagarjTable.getSelectedRow();
         if (linha>=0){
             ContasPagarController contasPagarController = new ContasPagarController();
-            Contaspagar conta = contasPagarController.consultar(listaContas.get(linha).getIdcontasPagar());
-            if (conta!=null){
-                if (conta.getArquivo()!=null){
-                    new FrmMostrar(conta);
+            Arquivocontaspagar arquivo = contasPagarController.consultarArquivo(listaContas.get(linha).getIdcontasPagar());
+            if (arquivo!=null){
+                if (arquivo.getArquivo01()!=null){
+                    new FrmMostrar(arquivo);
                 }else JOptionPane.showMessageDialog(rootPane, " Conta não possui arquivo");
             }
         }
@@ -722,6 +723,7 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
             sql = sql + " and v.clienteIdcliente=" + cliente.getIdcliente();
         }
         sql = sql + " order by v.dataVencimento";
+         
         carregarModel();
     }
 
@@ -847,6 +849,6 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         vencendojTextField.setText(Formatacao.foramtarFloatString(vencendo));
         vencerjTextField.setText(Formatacao.foramtarFloatString(vencer));
         totaljTextField.setText(Formatacao.foramtarFloatString(vencida+vencer+vencendo));
-    }
+    } 
 
 }
