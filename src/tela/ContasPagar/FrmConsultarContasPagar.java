@@ -23,7 +23,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import model.Arquivocontaspagar;
 import model.Cliente;
 import model.Contaspagar;
 import modelView.Viewcontaspagar;
@@ -513,14 +512,11 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
 
     private void excluirAPagarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirAPagarjButtonActionPerformed
         int linha = contasPagarjTable.getSelectedRow();
-        if (linha >= 0) {
-            boolean resultado = JOptionPane.showConfirmDialog(null, "Confirma exclusão?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0;
-            if (resultado) {
-                ContasPagarController contasPagarController = new ContasPagarController();
-                contasPagarController.excluir(listaContas.get(linha).getIdcontasPagar());
-                JOptionPane.showMessageDialog(rootPane, " Contas excluida com sucesso");
-                criarConsultaContasPagarInicial();
-            }
+        if (linha>=0){
+            ContasPagarController contasPagarController = new ContasPagarController();
+            contasPagarController.excluir(listaContas.get(linha).getIdcontasPagar());
+            JOptionPane.showMessageDialog(rootPane, " Contas excluida com sucesso");
+             criarConsultaContasPagarInicial();
         }
     }//GEN-LAST:event_excluirAPagarjButtonActionPerformed
 
@@ -531,13 +527,11 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
     private void liberarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_liberarjButtonActionPerformed
         List<Contaspagar> listaContasSelecionadas = new ArrayList<Contaspagar>();
         ContasPagarController contasPagarController = new ContasPagarController();
-        for (int i = 0; i < listaContas.size(); i++) {
-            if (listaContas.get(i).getMarcar() != null) {
-                if (listaContas.get(i).getMarcar().equalsIgnoreCase("S")) {
-                    Contaspagar conta = contasPagarController.consultar(listaContas.get(i).getIdcontasPagar());
-                    if (conta != null) {
-                        listaContasSelecionadas.add(conta);
-                    }
+        for(int i=0;i<listaContas.size();i++){
+            if (listaContas.get(i).getMarcar().equalsIgnoreCase("S")){
+                Contaspagar conta = contasPagarController.consultar(listaContas.get(i).getIdcontasPagar());
+                if (conta!=null){
+                    listaContasSelecionadas.add(conta);
                 }
             }
         }
@@ -547,10 +541,10 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
     private void pesquisarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarjButtonActionPerformed
         sql = "Select v from Viewcontaspagar v where  ";
         if (liberadasjCheckBox.isSelected()){
-            sql = sql + " v.contaPaga='S' and ";
-        }else sql = sql + " v.contaPaga='N' and ";
+            sql = sql + "v.contaPaga='S' and ";
+        }else sql = sql + "v.contaPaga='N' and ";
         if (autorizadasjCheckBox.isSelected()){
-            sql = sql + " v.autorizarPagamento='S' and ";
+            sql = sql + " and v.autorizarPagamento='S' ";
         }
         if (cliente!=null){
             sql = sql + " v.clienteIdcliente=" + cliente.getIdcliente() + " and ";
@@ -568,7 +562,7 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
     }//GEN-LAST:event_pesquisarjButtonActionPerformed
 
     private void selecionarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionarjButtonActionPerformed
-       new FrmConsultaCliente(usuarioLogadoBean, this); 
+        new FrmConsultaCliente(usuarioLogadoBean, this);
     }//GEN-LAST:event_selecionarjButtonActionPerformed
 
     private void usuariosjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosjButtonActionPerformed
@@ -594,26 +588,30 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         int linha = contasPagarjTable.getSelectedRow();
         if (linha>=0){
             ContasPagarController contasPagarController = new ContasPagarController();
-            Arquivocontaspagar arquivo = contasPagarController.consultarArquivo(listaContas.get(linha).getIdcontasPagar());
-            if (arquivo!=null){
-                if (arquivo.getArquivo01()!=null){
-                    new FrmMostrar(arquivo);
+            Contaspagar conta = contasPagarController.consultar(listaContas.get(linha).getIdcontasPagar());
+            if (conta!=null){
+                if (conta.getArquivo()!=null){
+                    JOptionPane.showMessageDialog(rootPane, "TEste01");
+                    new NewJFrame();
                 }else JOptionPane.showMessageDialog(rootPane, " Conta não possui arquivo");
             }
         }
     }//GEN-LAST:event_arquivojButtonActionPerformed
 
     private void contasPagarjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contasPagarjTableMouseClicked
-        if (evt.getClickCount() == 2) {
+        if (evt.getClickCount()==2){
             int coluna = contasPagarjTable.getSelectedColumn();
             int linha = contasPagarjTable.getSelectedRow();
-            if (linha >= 0) {
-                if (coluna != 5) {
-                    if (listaContas.get(linha).getDataLiberacao() == null) {
+            if (linha>=0){
+                if (coluna!=5){
+                    if (listaContas.get(linha).getDataLiberacao()==null){
                         marcarDesmarcarConta(linha);
                     }
-                } else if (coluna == 5) {
-                    marcarDesmarcarAutorizaPagamento(linha);
+                }else if (coluna==5){
+                    if (listaContas.get(linha).getDataAgendamento()!=null){
+                        marcarDesmarcarAutorizaPagamento(linha);
+                    }else JOptionPane.showMessageDialog(rootPane, "Conta ainda não agendada para pagamento");
+                    
                 }
             }
         }
@@ -723,7 +721,6 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
             sql = sql + " and v.clienteIdcliente=" + cliente.getIdcliente();
         }
         sql = sql + " order by v.dataVencimento";
-         
         carregarModel();
     }
 
@@ -758,41 +755,31 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         }
     }
     
-    public void marcarDesmarcarAutorizaPagamento(int linha) {
+    public void marcarDesmarcarAutorizaPagamento(int linha){
         ContasPagarController contasPagarController = new ContasPagarController();
-        if (listaContas.get(linha).getDataAgendamento() == null) {
-
-            if (listaContas.get(linha).getAutorizarPagamento().equalsIgnoreCase("N")) {
-                Contaspagar conta = contasPagarController.consultar(listaContas.get(linha).getIdcontasPagar());
-                if (conta != null) {
-                    conta.setAutorizarPagamento("S");
-                    conta.setUsuarioAutorizou(usuarioLogadoBean.getUsuario().getIdusuario());
-                    contasPagarController.salvar(conta);
-                    listaContas.get(linha).setAutorizarPagamento("S");
-                }
-            } else {
-                Contaspagar conta = contasPagarController.consultar(listaContas.get(linha).getIdcontasPagar());
-                if (conta != null) {
-                    if (conta.getUsuarioAutorizou() == usuarioLogadoBean.getUsuario().getIdusuario()) {
-                        conta.setAutorizarPagamento("N");
-                        conta.setUsuarioAutorizou(0);
-                        contasPagarController.salvar(conta);
-                        listaContas.get(linha).setAutorizarPagamento("N");
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Usuário atual não foi quem autorizou esta conta");
-                    }
-                }
+        if (listaContas.get(linha).getAutorizarPagamento().equalsIgnoreCase("N")){
+            Contaspagar conta = contasPagarController.consultar(listaContas.get(linha).getIdcontasPagar());
+            if (conta!=null){
+                conta.setAutorizarPagamento("S");
+                conta.setUsuarioAutorizou(usuarioLogadoBean.getUsuario().getIdusuario());
+                contasPagarController.salvar(conta);
+                listaContas.get(linha).setAutorizarPagamento("S");
             }
-            carregarModel();
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Conta já possui agendamento");
+        }else {
+            Contaspagar conta = contasPagarController.consultar(listaContas.get(linha).getIdcontasPagar());
+            if (conta!=null){
+                if (conta.getUsuarioAutorizou()==usuarioLogadoBean.getUsuario().getIdusuario()){
+                    conta.setAutorizarPagamento("N");
+                    conta.setUsuarioAutorizou(0);
+                    contasPagarController.salvar(conta);
+                    listaContas.get(linha).setAutorizarPagamento("N");
+                }else JOptionPane.showMessageDialog(rootPane, "Usuário atual não foi quem autorizou esta conta");
+            }
         }
+        carregarModel();
     }
     
     public void marcarDesmarcarConta(int linha){
-        if (listaContas.get(linha).getMarcar()==null){
-            listaContas.get(linha).setMarcar("N");
-        }
         if (listaContas.get(linha).getMarcar().equalsIgnoreCase("N")){
             listaContas.get(linha).setMarcar("S");
         }else listaContas.get(linha).setMarcar("N");
@@ -818,7 +805,6 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         DefaultTableCellRenderer rendererValor = new DefaultTableCellRenderer();
         rendererValor.setHorizontalAlignment(SwingConstants.RIGHT);
         contasPagarjTable.getColumnModel().getColumn(0).setPreferredWidth(10);
-        contasPagarjTable.getColumnModel().getColumn(1).setCellRenderer(rendererCor);
         contasPagarjTable.getColumnModel().getColumn(1).setPreferredWidth(80);
         contasPagarjTable.getColumnModel().getColumn(2).setPreferredWidth(180);
         contasPagarjTable.getColumnModel().getColumn(3).setPreferredWidth(230);
@@ -849,6 +835,6 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         vencendojTextField.setText(Formatacao.foramtarFloatString(vencendo));
         vencerjTextField.setText(Formatacao.foramtarFloatString(vencer));
         totaljTextField.setText(Formatacao.foramtarFloatString(vencida+vencer+vencendo));
-    } 
+    }
 
 }

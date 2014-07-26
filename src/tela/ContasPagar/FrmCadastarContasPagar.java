@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.Arquivocontaspagar;
 import model.Banco;
 import model.Cliente;
 import model.Contaspagar;
@@ -46,7 +45,6 @@ public class FrmCadastarContasPagar extends javax.swing.JFrame implements IConta
     private Contaspagar conta;
     private Cliente cliente;
     private IContasPagar telaContas;
-    private Arquivocontaspagar arquivoConta;
     
 
     /**
@@ -587,12 +585,6 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
         ClienteController clienteController = new ClienteController();
         if (conta!=null){
             this.conta = conta;
-            ContasPagarController contasPagarController = new ContasPagarController();
-            this.arquivoConta = contasPagarController.consultarArquivo(conta.getIdcontasPagar());
-            if (arquivoConta!=null){
-                arquivo01jTextField.setText(arquivoConta.getNomeArquivo01());
-                arquivo02jTextField.setText(arquivoConta.getNomeArquivo02());
-            }
             cliente = clienteController.consultar(conta.getCliente());
             if (cliente!=null){
                 carregarComboBox();
@@ -604,6 +596,8 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
             fornecedorjTextField.setText(conta.getFornecedor());
             numeroDocumentojTextField.setText(conta.getNumeroDocumento());
             tipoDocumentojComboBox.setSelectedItem(conta.getTipoDocumento());
+            arquivo01jTextField.setText(conta.getNomeArquivo());
+            arquivo02jTextField.setText(conta.getNomeArquivo02());
             Planocontas plano = planoContasController.consultar(conta.getPlanocontas());
             planoContasjComboBox.setSelectedItem(plano);
             descricaojTextArea.setText(conta.getDescricao());
@@ -615,10 +609,6 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
             formaPagamentojComboBox.setSelectedItem(conta.getFormaPagamento());
             if (conta.getDataLiberacao()!=null){
                 confirmajButton.setEnabled(false);
-            }
-            if (conta.getAutorizarPagamento().equalsIgnoreCase("N")){
-                dataAgendamentojDateChooser.setEnabled(false);
-                dataCompensacaojDateChooser.setEnabled(false);
             }
         }else {
             this.conta = new Contaspagar();
@@ -645,14 +635,11 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
     @Override
     public void setArquivo(File arquivo, int numeroArquivo) {
         if (arquivo != null) {
-            if (this.arquivoConta==null){
-                arquivoConta = new Arquivocontaspagar();
-            }
             if (numeroArquivo == 1) {
                 arquivo01jTextField.setText(arquivo.getAbsolutePath() + " " + arquivo.getName());
                 try {
-                    this.arquivoConta.setNomeArquivo01(arquivo.getName());
-                    this.arquivoConta.setArquivo01(gerarArquivoBase(arquivo));
+                    this.conta.setNomeArquivo(arquivo.getName());
+                    this.conta.setArquivo(gerarArquivoBase(arquivo));
                 } catch (IOException ex) {
                     Logger.getLogger(FrmCadastarContasPagar.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(rootPane, "Erro Carregar Arquivo " + ex);
@@ -660,8 +647,8 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
             } else if (numeroArquivo == 2) {
                 arquivo02jTextField.setText(arquivo.getAbsolutePath() + " " + arquivo.getName());
                 try {
-                    this.arquivoConta.setNomeArquivo02(arquivo.getName());
-                    this.arquivoConta.setArquivo02(gerarArquivoBase(arquivo));
+                    this.conta.setNomeArquivo02(arquivo.getName());
+                    this.conta.setArquivo02(gerarArquivoBase(arquivo));
                 } catch (IOException ex) {
                     Logger.getLogger(FrmCadastarContasPagar.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(rootPane, "Erro Carregar Arquivo " + ex);
@@ -717,17 +704,12 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
         conta.setCompetencia(competenciajFormattedTextField.getText());
         conta.setFormaPagamento(formaPagamentojComboBox.getSelectedItem().toString());
         conta.setMarcar("N");
-        conta.setAutorizarPagamento("N");
         conta.setCliente(cliente.getIdcliente());
         conta.setFornecedor(fornecedorjTextField.getText());
         conta.setNumeroDocumento(numeroDocumentojTextField.getText());
         conta.setTipoDocumento(tipoDocumentojComboBox.getSelectedItem().toString());
         ContasPagarController contasPagarController = new ContasPagarController();
         conta = contasPagarController.salvar(conta);
-        if (arquivoConta!=null){
-            arquivoConta.setContasPagar(conta.getIdcontasPagar());
-            contasPagarController.salvarArquivo(arquivoConta);
-        }
         telaContas.setModel();
         this.dispose();
     }

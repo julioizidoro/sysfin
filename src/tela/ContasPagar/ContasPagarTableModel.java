@@ -73,51 +73,37 @@ public class ContasPagarTableModel extends AbstractTableModel{
     
     public Icon carregarImagem(Viewcontaspagar conta) {
         Date data = new Date();
-        if (conta.getDataLiberacao() != null) {
-            URL urlVerde = this.getClass().getResource("/imagens/bolas/bolaVerde.png");
-            Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVerde);
+        if (!conta.getDataVencimento().after(data)) {
+            URL urlVermelha = this.getClass().getResource("/imagens/bolas/bolaVermelha.png");
+            Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVermelha);
             ImageIcon imagem = new ImageIcon(imagemTitulo);
             return imagem;
         } else {
-            if (!conta.getDataVencimento().after(data)) {
-                URL urlVermelha = this.getClass().getResource("/imagens/bolas/bolaVermelha.png");
-                Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVermelha);
+            if (conta.getDataAgendamento() == null) {
+                URL urlAmarela = this.getClass().getResource("/imagens/bolas/bolaAmarela.png");
+                Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlAmarela);
                 ImageIcon imagem = new ImageIcon(imagemTitulo);
                 return imagem;
             } else {
-                if (conta.getDataAgendamento() == null) {
-                    URL urlAmarela = this.getClass().getResource("/imagens/bolas/bolaAmarela.png");
-                    Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlAmarela);
-                    ImageIcon imagem = new ImageIcon(imagemTitulo);
-                    return imagem;
-                } else {
-                    URL urlVerde = this.getClass().getResource("/imagens/bolas/bolaVerde.png");
-                    Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVerde);
-                    ImageIcon imagem = new ImageIcon(imagemTitulo);
-                    return imagem;
-                }
+                URL urlVerde = this.getClass().getResource("/imagens/bolas/bolaVerde.png");
+                Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVerde);
+                ImageIcon imagem = new ImageIcon(imagemTitulo);
+                return imagem;
             }
         }
-    }
+    }    
     
     public Icon carregarImagemAutorizada(Viewcontaspagar conta) {
-        if (conta.getAutorizarPagamento() == null) {
+        if (conta.getAutorizarPagamento().equalsIgnoreCase("N")) {
             URL urlVermelha = this.getClass().getResource("/imagens/botoespequenos/cancel.png");
             Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVermelha);
             ImageIcon imagem = new ImageIcon(imagemTitulo);
             return imagem;
         } else {
-            if (conta.getAutorizarPagamento().equalsIgnoreCase("N")) {
-                URL urlVermelha = this.getClass().getResource("/imagens/botoespequenos/cancel.png");
-                Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVermelha);
-                ImageIcon imagem = new ImageIcon(imagemTitulo);
-                return imagem;
-            } else {
-                URL urlVerde = this.getClass().getResource("/imagens/botoespequenos/confirmar.png");
-                Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVerde);
-                ImageIcon imagem = new ImageIcon(imagemTitulo);
-                return imagem;
-            }
+            URL urlVerde = this.getClass().getResource("/imagens/botoespequenos/confirmar.png");
+            Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVerde);
+            ImageIcon imagem = new ImageIcon(imagemTitulo);
+            return imagem;
         }
     }
 }

@@ -12,7 +12,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.net.URL;
-import java.util.Date;
 import model.Cliente;
 import model.Formapagamento;
 import tela.Cliente.FrmConsultaCliente;
@@ -77,7 +76,6 @@ jLabel2 = new javax.swing.JLabel();
 nomeClientejTextField = new javax.swing.JTextField();
 numeroVendajTextField = new javax.swing.JTextField();
 jLabel5 = new javax.swing.JLabel();
-vencimentojComboBox = new javax.swing.JComboBox();
 jPanel5 = new javax.swing.JPanel();
 confirmajButton = new javax.swing.JButton();
 jButton5 = new javax.swing.JButton();
@@ -126,8 +124,6 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
 
     jLabel5.setText("Nº Venda");
 
-    vencimentojComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todas", "Vencidas", "Vencer", "Recebidas" }));
-
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
@@ -143,24 +139,22 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
                     .addGap(18, 18, 18)
                     .addComponent(selecionarjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(dataIniciojDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel3))
-                            .addGap(18, 18, 18)
+                            .addGap(74, 74, 74)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(dataFinaljDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(nomeClientejTextField, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addGap(34, 34, 34)
+                                .addComponent(dataFinaljDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(nomeClientejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(numeroVendajTextField)
-                        .addComponent(vencimentojComboBox, 0, 135, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addComponent(numeroVendajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5))))
             .addContainerGap())
     );
     jPanel1Layout.setVerticalGroup(
@@ -189,8 +183,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addComponent(jLabel3)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dataIniciojDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(vencimentojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dataIniciojDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap(19, Short.MAX_VALUE))
     );
 
@@ -247,7 +240,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
             .addGroup(layout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE)))
+                .addContainerGap(58, Short.MAX_VALUE)))
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,7 +309,6 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JTextField numeroVendajTextField;
     private javax.swing.JButton selecionarjButton;
     private javax.swing.JTextField unidadejTextField;
-    private javax.swing.JComboBox vencimentojComboBox;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -355,38 +347,18 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     private String gerarSql(){
         boolean linha = false;
         String sql = "Select v from Viewcontasreceber v where ";
-        if (vencimentojComboBox.getSelectedItem().toString().equalsIgnoreCase("Todas")) {
-            if ((dataIniciojDateChooser.getDate() != null) && (dataFinaljDateChooser.getDate() != null)) {
-                if (!linha) {
-                    sql = sql + "  v.dataVencimento<='" + Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate())
-                            + "' and v.dataVencimento<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate());
-                    linha = true;
-                }
-            }
-        } else {
-            if (vencimentojComboBox.getSelectedItem().toString().equalsIgnoreCase("Vencidas")) {
-                if (!linha) {
-                    sql = sql + "  v.dataVencimento<'" + Formatacao.ConvercaoDataSql(new Date()) + "' and v.valorPago=0 ";
-                    linha = true;
-                }
-            } else if (vencimentojComboBox.getSelectedItem().toString().equalsIgnoreCase("Vencer")) {
-                if (!linha) {
-                    sql = sql + "  v.dataVencimento>='" + Formatacao.ConvercaoDataSql(new Date()) + "' and v.valorPago=0 ";
-                    linha = true;
-                }
-            } else if (vencimentojComboBox.getSelectedItem().toString().equalsIgnoreCase("Recebidas")) {
-                if (!linha) {
-                    sql = sql + "  v.dataPagamento>='" + Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate())
-                            + "' and v.dataPagamento<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate()) + "' and valorPago>0"  ;
-                    linha = true;
-                }
+        if ((dataIniciojDateChooser.getDate() != null) && (dataFinaljDateChooser.getDate() != null)) {
+            if (!linha) {
+                sql = sql + "  v.dataPagamento<='" + Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate())
+                        + "' and v.dataPagamento<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate()) + "'";
+                linha = true;
             }
         }
-        if (cliente != null) {
-            if (!linha) {
+        if (cliente!=null){
+            if (!linha){
                 sql = sql + " v.clienteIdcliente=" + cliente.getIdcliente();
                 linha = true;
-            } else {
+            }else {
                 sql = sql + " and v.clienteIdcliente=" + cliente.getIdcliente();
             }
         }

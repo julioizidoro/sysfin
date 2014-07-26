@@ -539,7 +539,7 @@ dataVencimentojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
         Banco banco = (Banco) contajComboBox.getSelectedItem();
         conta.setBanco(banco.getIdbanco());
         Movimentobanco mb = new Movimentobanco();
-        mb.setBanco(conta.getBanco());
+        mb.setBanco(banco.getIdbanco());
         mb.setCliente(cliente.getIdcliente());
         mb.setDataVencimento(conta.getDataVencimento());
         mb.setDataRegistro(new Date());
@@ -569,5 +569,3 @@ dataVencimentojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
         this.dispose();
     }
 }
-
-

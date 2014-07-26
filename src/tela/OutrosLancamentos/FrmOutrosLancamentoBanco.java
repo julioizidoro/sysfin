@@ -46,7 +46,6 @@ public class FrmOutrosLancamentoBanco extends javax.swing.JFrame implements Itel
     private Movimentobanco movimento;
     private UsuarioLogadoBean usuarioLogadoBean;
     private Cliente cliente;
-    private Movimentobanco repetir;
     
     
 
@@ -149,7 +148,6 @@ dataRegistrojDateChooser = new com.toedter.calendar.JDateChooser(null, null, dat
     jPanel3 = new javax.swing.JPanel();
     SalvarjButton = new javax.swing.JButton();
     jButton4 = new javax.swing.JButton();
-    jButton5 = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setTitle("Outros Lançamentos");
@@ -250,7 +248,7 @@ dataRegistrojDateChooser = new com.toedter.calendar.JDateChooser(null, null, dat
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(0, 19, Short.MAX_VALUE)
+                            .addGap(0, 0, Short.MAX_VALUE)
                             .addComponent(jLabel3)
                             .addGap(71, 71, 71))
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -272,12 +270,14 @@ dataRegistrojDateChooser = new com.toedter.calendar.JDateChooser(null, null, dat
                             .addComponent(jLabel4)
                             .addGap(131, 131, 131))
                         .addComponent(contajComboBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addGap(143, 143, 143))
-                        .addComponent(planoContasjComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(2, 2, 2)
+                            .addComponent(planoContasjComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
             .addContainerGap())
     );
     jPanel1Layout.setVerticalGroup(
@@ -342,41 +342,30 @@ dataRegistrojDateChooser = new com.toedter.calendar.JDateChooser(null, null, dat
             SalvarjButtonActionPerformed(evt);
         }
     });
-    jPanel3.add(SalvarjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+    jPanel3.add(SalvarjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
 
-    jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/botoespequenos/enviar.png"))); // NOI18N
-    jButton4.setText("Repetir");
-    jButton4.setToolTipText("Repetir ultimo lançamento");
+    jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/botoespequenos/cancel.png"))); // NOI18N
+    jButton4.setText("Cancela");
+    jButton4.setToolTipText("Cancela");
     jButton4.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton4ActionPerformed(evt);
         }
     });
-    jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
-
-    jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/botoespequenos/cancel.png"))); // NOI18N
-    jButton5.setText("Cancela");
-    jButton5.setToolTipText("Cancela");
-    jButton5.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton5ActionPerformed(evt);
-        }
-    });
-    jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, -1, -1));
+    jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(48, 48, 48)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(26, Short.MAX_VALUE))
+            .addContainerGap()
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addContainerGap())
+        .addGroup(layout.createSequentialGroup()
+            .addGap(74, 74, 74)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(66, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,9 +385,7 @@ dataRegistrojDateChooser = new com.toedter.calendar.JDateChooser(null, null, dat
     }//GEN-LAST:event_descricaojTextFieldFocusLost
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if (this.repetir==null){
-            JOptionPane.showMessageDialog(rootPane,"Não possui lançamento para repetir");
-        }else repetirLancamento();
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void SalvarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarjButtonActionPerformed
@@ -450,10 +437,6 @@ dataRegistrojDateChooser = new com.toedter.calendar.JDateChooser(null, null, dat
         // TODO add your handling code here:
     }//GEN-LAST:event_dataRegistrojDateChooserFocusGained
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     /**
     * @param args the command line arguments
     */
@@ -467,7 +450,6 @@ dataRegistrojDateChooser = new com.toedter.calendar.JDateChooser(null, null, dat
     private com.toedter.calendar.JDateChooser dataVencimentojDateChooser;
     private javax.swing.JTextField descricaojTextField;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -538,17 +520,8 @@ dataRegistrojDateChooser = new com.toedter.calendar.JDateChooser(null, null, dat
             movimento.setValorSaida(0.0f);
         }
         MovimentoBancoController movimentoBancoController = new MovimentoBancoController();
-        repetir = new Movimentobanco();
-        repetir = movimentoBancoController.salvar(movimento);
-        movimento = new Movimentobanco();
-        carregarPlanoContas();
-        dataRegistrojDateChooser.setDate(null);
-        dataVencimentojDateChooser.setDate(null);
-        dataCompnesacaojDateChooser.setDate(null);
-        competenciajFormattedTextField.setText(null);
-        descricaojTextField.setText("");
-        valorEntradajTextField.setText("");
-        valorSaidajTextField.setText("");
+        movimentoBancoController.salvar(movimento);
+        this.dispose();
     }
 
     @Override
@@ -564,23 +537,5 @@ dataRegistrojDateChooser = new com.toedter.calendar.JDateChooser(null, null, dat
     @Override
     public void setNumeroColuna(int numero) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    private void repetirLancamento(){
-        carregarPlanoContas();
-        PlanoContasController planoContasController = new PlanoContasController();
-        Planocontas plano = planoContasController.consultar(repetir.getPlanocontas());
-        planoContasjComboBox.setSelectedItem(plano);
-        BancoController bancoController = new BancoController();
-        Banco banco = bancoController.consultar(repetir.getBanco());
-        contajComboBox.setSelectedItem(banco);
-        tipojComboBox.setSelectedItem(repetir.getTipoDocumento());
-        dataRegistrojDateChooser.setDate(repetir.getDataRegistro());
-        dataVencimentojDateChooser.setDate(repetir.getDataVencimento());
-        dataCompnesacaojDateChooser.setDate(repetir.getDataCompensacao());
-        descricaojTextField.setText(repetir.getDescricao());
-        valorEntradajTextField.setText(Formatacao.foramtarFloatString(repetir.getValorEntrada()));
-        valorSaidajTextField.setText(Formatacao.foramtarFloatString(repetir.getValorSaida()));
-        competenciajFormattedTextField.setText(repetir.getCompentencia());
     }
 }
