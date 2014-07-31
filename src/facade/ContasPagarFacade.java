@@ -62,4 +62,9 @@ public class ContasPagarFacade {
         contasPagarDao = new ContasPagarDao();
         return contasPagarDao.consultarArquivo(idContasPagar);
     }
+    
+    public void excluirArquivo(int idArquivo) throws SQLException{
+        contasPagarDao = new ContasPagarDao();
+        contasPagarDao.excluirArquivo(idArquivo);
+    }
 }

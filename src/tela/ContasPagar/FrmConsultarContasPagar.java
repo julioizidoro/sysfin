@@ -517,6 +517,10 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
             boolean resultado = JOptionPane.showConfirmDialog(null, "Confirma exclusão?", "Excluir", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0;
             if (resultado) {
                 ContasPagarController contasPagarController = new ContasPagarController();
+                Arquivocontaspagar arquivo = contasPagarController.consultarArquivo(listaContas.get(linha).getIdcontasPagar());
+                if (arquivo!=null){
+                    contasPagarController.excluirArquivo(arquivo.getIdarquivoContasPagar());
+                }
                 contasPagarController.excluir(listaContas.get(linha).getIdcontasPagar());
                 JOptionPane.showMessageDialog(rootPane, " Contas excluida com sucesso");
                 criarConsultaContasPagarInicial();

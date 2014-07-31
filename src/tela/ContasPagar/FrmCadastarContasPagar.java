@@ -629,8 +629,8 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
             this.conta.setUsuarioBaixou(0);
             this.conta.setUsuarioCadastrou(0);
             this.conta.setContaPaga("N");
-            conta.setMarcar("N");
-            conta.setAutorizarPagamento("N");
+            this.conta.setMarcar("N");
+            this.conta.setAutorizarPagamento("N");
             dataEnviojDateChooser.setDate(new Date());
         }
         if (usuarioLogadoBean.getUsuario().getCliente()>0){

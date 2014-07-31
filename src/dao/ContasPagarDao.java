@@ -13,8 +13,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
@@ -145,6 +143,18 @@ public class ContasPagarDao {
         }
         manager.getTransaction().commit();
         return null;
+    }
+    
+    public void excluirArquivo(int idArquivo) throws SQLException{
+        manager = ConexaoSingleton.getConexao();
+        //abrindo uma transação
+        manager.getTransaction().begin();
+        Arquivocontaspagar arquivo = manager.find(Arquivocontaspagar.class, idArquivo);
+        //fechando uma transação
+        if (arquivo!=null){
+            manager.remove(arquivo);
+        }
+        manager.getTransaction().commit();
     }
     
 }

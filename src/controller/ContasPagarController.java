@@ -114,4 +114,13 @@ public class ContasPagarController {
         }
     }
     
+    public void excluirArquivo(int idArquivo) {
+        contasPagarFacade = new ContasPagarFacade();
+        try {
+            contasPagarFacade.excluirArquivo(idArquivo);
+        } catch (SQLException ex) {
+            Logger.getLogger(ContasPagarController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro Excluir Arquivo " + ex);
+        }
+    }
 }
