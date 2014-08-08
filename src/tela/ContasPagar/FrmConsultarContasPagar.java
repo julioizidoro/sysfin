@@ -73,9 +73,9 @@ public class FrmConsultarContasPagar extends javax.swing.JFrame implements ICont
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        contasPagarjTable = new javax.swing.JTable();
         vencidajTextField = new javax.swing.JTextField();
         vencendojTextField = new javax.swing.JTextField();
         vencerjTextField = new javax.swing.JTextField();
@@ -84,6 +84,8 @@ public class FrmConsultarContasPagar extends javax.swing.JFrame implements ICont
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        contasPagarjTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         unidadejTextField = new javax.swing.JTextField();
@@ -107,10 +109,47 @@ usuariosjButton = new javax.swing.JButton();
 arquivojButton = new javax.swing.JButton();
 voltarTelajButton = new javax.swing.JButton();
 
+jScrollPane3.setViewportView(jEditorPane1);
+
 setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 setTitle("Consultar Contas a Pagar");
 
 jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+vencidajTextField.setEditable(false);
+vencidajTextField.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+vencidajTextField.setForeground(new java.awt.Color(204, 0, 0));
+vencidajTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+vencidajTextField.setText("0,00");
+
+vencendojTextField.setEditable(false);
+vencendojTextField.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+vencendojTextField.setForeground(new java.awt.Color(0, 153, 0));
+vencendojTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+vencendojTextField.setText("0,00");
+
+vencerjTextField.setEditable(false);
+vencerjTextField.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+vencerjTextField.setForeground(new java.awt.Color(51, 0, 153));
+vencerjTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+vencerjTextField.setText("0,00");
+
+totaljTextField.setEditable(false);
+totaljTextField.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+totaljTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+totaljTextField.setText("0,00");
+
+jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+jLabel2.setText("Total de Contas Vencidas");
+
+jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+jLabel5.setText("Total de Contas Vencendo");
+
+jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+jLabel6.setText("Total de Contas a Vencer");
+
+jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+jLabel7.setText("Total de Contas a Pagar");
 
 contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
     new Object [][] {
@@ -131,6 +170,7 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
             return canEdit [columnIndex];
         }
     });
+    contasPagarjTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
     contasPagarjTable.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
             contasPagarjTableMouseClicked(evt);
@@ -145,41 +185,6 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         contasPagarjTable.getColumnModel().getColumn(4).setResizable(false);
     }
 
-    vencidajTextField.setEditable(false);
-    vencidajTextField.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-    vencidajTextField.setForeground(new java.awt.Color(204, 0, 0));
-    vencidajTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-    vencidajTextField.setText("0,00");
-
-    vencendojTextField.setEditable(false);
-    vencendojTextField.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-    vencendojTextField.setForeground(new java.awt.Color(0, 153, 0));
-    vencendojTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-    vencendojTextField.setText("0,00");
-
-    vencerjTextField.setEditable(false);
-    vencerjTextField.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-    vencerjTextField.setForeground(new java.awt.Color(51, 0, 153));
-    vencerjTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-    vencerjTextField.setText("0,00");
-
-    totaljTextField.setEditable(false);
-    totaljTextField.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-    totaljTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-    totaljTextField.setText("0,00");
-
-    jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-    jLabel2.setText("Total de Contas Vencidas");
-
-    jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-    jLabel5.setText("Total de Contas Vencendo");
-
-    jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-    jLabel6.setText("Total de Contas a Vencer");
-
-    jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-    jLabel7.setText("Total de Contas a Pagar");
-
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
@@ -187,33 +192,30 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         .addGroup(jPanel1Layout.createSequentialGroup()
             .addContainerGap()
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+                .addComponent(vencidajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(vencendojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(vencerjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel6))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(vencidajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(vencendojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(vencerjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addComponent(totaljTextField))))
+                    .addComponent(jLabel7)
+                    .addGap(0, 69, Short.MAX_VALUE))
+                .addComponent(totaljTextField))
             .addContainerGap())
+        .addComponent(jScrollPane1)
     );
     jPanel1Layout.setVerticalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(jPanel1Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel2)
                 .addComponent(jLabel5)
@@ -225,7 +227,7 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
                 .addComponent(vencendojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(vencerjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(totaljTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap(23, Short.MAX_VALUE))
     );
 
     jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -311,7 +313,7 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
                     .addGap(10, 10, 10)
                     .addComponent(autorizadasjCheckBox))
                 .addComponent(pesquisarjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap(15, Short.MAX_VALUE))
     );
     jPanel2Layout.setVerticalGroup(
         jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -476,12 +478,12 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         .addGroup(layout.createSequentialGroup()
             .addContainerGap()
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(102, Short.MAX_VALUE))
+            .addContainerGap(104, Short.MAX_VALUE))
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(485, Short.MAX_VALUE)
+                .addContainerGap(618, Short.MAX_VALUE)
                 .addComponent(BarradeTarefasjToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap()))
     );
@@ -607,6 +609,10 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         }
     }//GEN-LAST:event_arquivojButtonActionPerformed
 
+    private void autorizadasjCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_autorizadasjCheckBoxItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_autorizadasjCheckBoxItemStateChanged
+
     private void contasPagarjTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contasPagarjTableMouseClicked
         if (evt.getClickCount() == 2) {
             int coluna = contasPagarjTable.getSelectedColumn();
@@ -622,10 +628,6 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
             }
         }
     }//GEN-LAST:event_contasPagarjTableMouseClicked
-
-    private void autorizadasjCheckBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_autorizadasjCheckBoxItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_autorizadasjCheckBoxItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -643,6 +645,7 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
     private com.toedter.calendar.JDateChooser dataIniciojDateChooser;
     private javax.swing.JButton editarAPagarjButton;
     private javax.swing.JButton excluirAPagarjButton;
+    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -653,6 +656,7 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JCheckBox liberadasjCheckBox;
     private javax.swing.JButton liberarjButton;
     private javax.swing.JButton pesquisarjButton;
@@ -682,13 +686,14 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         DefaultTableCellRenderer rendererValor = new DefaultTableCellRenderer();
         rendererValor.setHorizontalAlignment(SwingConstants.RIGHT);
-        contasPagarjTable.getColumnModel().getColumn(0).setPreferredWidth(10);
-        contasPagarjTable.getColumnModel().getColumn(1).setPreferredWidth(80);
-        contasPagarjTable.getColumnModel().getColumn(2).setPreferredWidth(180);
-        contasPagarjTable.getColumnModel().getColumn(3).setPreferredWidth(230);
+        contasPagarjTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+        contasPagarjTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+        contasPagarjTable.getColumnModel().getColumn(2).setPreferredWidth(130);
+        contasPagarjTable.getColumnModel().getColumn(3).setPreferredWidth(300);
         contasPagarjTable.getColumnModel().getColumn(4).setCellRenderer(rendererValor);
-        contasPagarjTable.getColumnModel().getColumn(4).setPreferredWidth(80);
-        contasPagarjTable.getColumnModel().getColumn(5).setPreferredWidth(50);
+        contasPagarjTable.getColumnModel().getColumn(4).setPreferredWidth(100);
+        contasPagarjTable.getColumnModel().getColumn(5).setPreferredWidth(80);
+        contasPagarjTable.getColumnModel().getColumn(6).setPreferredWidth(200);
         contasPagarjTable.repaint();
         calcularTotal();
     }
@@ -764,31 +769,31 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
     
     public void marcarDesmarcarAutorizaPagamento(int linha) {
         ContasPagarController contasPagarController = new ContasPagarController();
-        if (listaContas.get(linha).getDataAgendamento() == null) {
-            if (listaContas.get(linha).getAutorizarPagamento().equalsIgnoreCase("N")) {
-                Contaspagar conta = contasPagarController.consultar(listaContas.get(linha).getIdcontasPagar());
-                if (conta != null) {
-                    conta.setAutorizarPagamento("S");
-                    conta.setUsuarioAutorizou(usuarioLogadoBean.getUsuario().getIdusuario());
-                    contasPagarController.salvar(conta);
-                    listaContas.get(linha).setAutorizarPagamento("S");
-                }
-            } else {
-                Contaspagar conta = contasPagarController.consultar(listaContas.get(linha).getIdcontasPagar());
-                if (conta != null) {
+        Contaspagar conta = contasPagarController.consultar(listaContas.get(linha).getIdcontasPagar());
+        if (listaContas.get(linha).getAutorizarPagamento().equalsIgnoreCase("N")) {
+            if (conta != null) {
+                conta.setAutorizarPagamento("S");
+                conta.setUsuarioAutorizou(usuarioLogadoBean.getUsuario().getIdusuario());
+                contasPagarController.salvar(conta);
+                listaContas.get(linha).setAutorizarPagamento("S");
+                carregarModel();
+            }
+        } else {
+            if (conta != null) {
+                if (conta.getDataAgendamento() == null) {
                     if (conta.getUsuarioAutorizou() == usuarioLogadoBean.getUsuario().getIdusuario()) {
                         conta.setAutorizarPagamento("N");
                         conta.setUsuarioAutorizou(0);
                         contasPagarController.salvar(conta);
                         listaContas.get(linha).setAutorizarPagamento("N");
+                        carregarModel();
                     } else {
                         JOptionPane.showMessageDialog(rootPane, "Usuário atual não foi quem autorizou esta conta");
                     }
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Conta jã possui data de agendamento");
                 }
             }
-            carregarModel();
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Conta já possui agendamento");
         }
     }
     
@@ -824,14 +829,14 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         DefaultTableCellRenderer rendererValor = new DefaultTableCellRenderer();
         rendererValor.setHorizontalAlignment(SwingConstants.RIGHT);
-        contasPagarjTable.getColumnModel().getColumn(0).setPreferredWidth(10);
-        contasPagarjTable.getColumnModel().getColumn(1).setCellRenderer(rendererCor);
-        contasPagarjTable.getColumnModel().getColumn(1).setPreferredWidth(80);
-        contasPagarjTable.getColumnModel().getColumn(2).setPreferredWidth(180);
-        contasPagarjTable.getColumnModel().getColumn(3).setPreferredWidth(230);
+       contasPagarjTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+        contasPagarjTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+        contasPagarjTable.getColumnModel().getColumn(2).setPreferredWidth(130);
+        contasPagarjTable.getColumnModel().getColumn(3).setPreferredWidth(300);
         contasPagarjTable.getColumnModel().getColumn(4).setCellRenderer(rendererValor);
-        contasPagarjTable.getColumnModel().getColumn(4).setPreferredWidth(80);
-        contasPagarjTable.getColumnModel().getColumn(5).setPreferredWidth(50);
+        contasPagarjTable.getColumnModel().getColumn(4).setPreferredWidth(100);
+        contasPagarjTable.getColumnModel().getColumn(5).setPreferredWidth(80);
+        contasPagarjTable.getColumnModel().getColumn(6).setPreferredWidth(200);
         contasPagarjTable.repaint();
         calcularTotal();
     }

@@ -31,7 +31,29 @@ public class ConexaoSingleton {
    
 
     public static EntityManager getConexao()throws SQLException{
-         String localIni = System.getProperty("user.dir");
+        try{
+            if(manager == null){
+                Map mapa = gerarMAP();
+                emf = Persistence.createEntityManagerFactory("SysTMPU", mapa);
+                manager = emf.createEntityManager();
+                return manager; 
+            }else {
+                return manager;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+           JOptionPane.showMessageDialog(null, "Erro " + e.getMessage());
+        }
+        return null;
+    }
+    
+    public static void desconectar()throws SQLException{
+        emf = null;
+        manager = null;
+    }
+
+    public static Map gerarMAP() {
+       String localIni = System.getProperty("user.dir");
         localIni = localIni + "/sysfin.properties";
         File file = new File(localIni);
         Properties props = new Properties();
@@ -58,22 +80,6 @@ public class ConexaoSingleton {
         mapa.put("hibernate.cache.provider_class","org.hibernate.cache.NoCacheProvider");
         mapa.put("hibernate.show_sql","true");
         mapa.put("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
-
-        try{
-            if(emf == null)
-                emf = Persistence.createEntityManagerFactory("SysFinPU", mapa);
-                manager = emf.createEntityManager();
-                return manager; 
-        }catch (Exception e){
-            e.printStackTrace();
-           JOptionPane.showMessageDialog(null, "Erro " + e.getMessage());
-
-        }
-        return null;
-    }
-    
-    public static void desconectar()throws SQLException{
-        emf = null;
-        manager = null;
+        return mapa;
     }
 }

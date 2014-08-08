@@ -24,7 +24,7 @@ import tela.util.Formatacao;
 public class ConsultaVendasTableModel extends AbstractTableModel{
     
     private List<Viewvendas> listaVendas;
-    private String[] colunas ={"No. da Venda", "Situação", "Data Venda", "Unidade", "Cliente", "Valor Bruto"};
+    private String[] colunas ={"No. da Venda", "Situação", "Data Venda", "Unidade", "Cliente", "Valor Total"};
 
     public ConsultaVendasTableModel(List<Viewvendas> listaVendas) {
         this.listaVendas = listaVendas;
@@ -52,7 +52,7 @@ public class ConsultaVendasTableModel extends AbstractTableModel{
             return listaVendas.get(rowIndex).getNomeFantasia();
         }else if (columnIndex==4){
             return listaVendas.get(rowIndex).getNomeCliente();
-        }else return Formatacao.foramtarFloatString(listaVendas.get(rowIndex).getValorBruto());
+        }else return Formatacao.foramtarFloatString(listaVendas.get(rowIndex).getValorBruto() - listaVendas.get(rowIndex).getValorDesconto());
     }
     
     @Override

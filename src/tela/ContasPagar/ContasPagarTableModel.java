@@ -23,7 +23,7 @@ import tela.util.Formatacao;
 public class ContasPagarTableModel extends AbstractTableModel{
     
     private List<Viewcontaspagar> listaContasPagar;
-    private String[] colunas ={"Status", "Data Vencimento", "Unidade", "Descrição", "Valor da Conta", "Autorizada"};
+    private String[] colunas ={"Status", "Data Vencimento", "Unidade", "Descrição", "Valor da Conta", "Autorizada", "Fornecedor"};
 
     public ContasPagarTableModel(List<Viewcontaspagar> listaContasPagar) {
         this.listaContasPagar = listaContasPagar;
@@ -48,7 +48,9 @@ public class ContasPagarTableModel extends AbstractTableModel{
             return listaContasPagar.get(rowIndex).getDescricao();
         }else  if (columnIndex==4){
             return Formatacao.foramtarFloatString(listaContasPagar.get(rowIndex).getValor());
-        }else return carregarImagemAutorizada(listaContasPagar.get(rowIndex));
+        } else if (columnIndex==5){
+            return carregarImagemAutorizada(listaContasPagar.get(rowIndex));
+        }else return listaContasPagar.get(rowIndex).getFornecedor();
     }
     
     @Override
@@ -68,7 +70,9 @@ public class ContasPagarTableModel extends AbstractTableModel{
              return String.class;
          }else if (columnIndex==4){
              return String.class;
-         }else return Image.class;
+         }else if (columnIndex==5){
+             return Image.class;
+         }else return String.class;
     }
     
     public Icon carregarImagem(Viewcontaspagar conta) {

@@ -72,6 +72,8 @@ public class Viewcontaspagar implements Serializable {
     private String marcar;
     @Column(name = "autorizarPagamento")
     private String autorizarPagamento;
+    @Column(name = "fornecedor")
+    private String fornecedor;
     
 
     public Viewcontaspagar() {
@@ -227,6 +229,14 @@ public class Viewcontaspagar implements Serializable {
 
     public void setClienteIdcliente(int clienteIdcliente) {
         this.clienteIdcliente = clienteIdcliente;
+    }
+
+    public String getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(String fornecedor) {
+        this.fornecedor = fornecedor;
     }
     
 }

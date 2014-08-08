@@ -74,6 +74,10 @@ public class Contaspagar implements Serializable {
     private String formaPagamento;
     @Column(name = "vendaComissao")
     private int vendaComissao;
+    @Column(name = "autorizarPagto")
+    private Boolean autorizarPagto;
+    
+    
     
     @Column(name = "fornecedor")
     private String fornecedor;
@@ -302,6 +306,14 @@ public class Contaspagar implements Serializable {
 
     public void setCliente(int cliente) {
         this.cliente = cliente;
+    }
+
+    public Boolean isAutorizarPagto() {
+        return autorizarPagto;
+    }
+
+    public void setAutorizarPagto(Boolean autorizarPagto) {
+        this.autorizarPagto = autorizarPagto;
     }
 
     
