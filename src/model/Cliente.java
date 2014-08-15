@@ -25,12 +25,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "cliente")
 public class Cliente implements Serializable {
-    @Column(name = "contaReceita")
-    private Integer contaReceita;
-    @Column(name = "contaRecebimento")
-    private Integer contaRecebimento;
-    @Column(name = "codigosystm")
-    private Integer codigosystm;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,6 +59,13 @@ public class Cliente implements Serializable {
     private String administrador;
     @Column(name = "email")
     private String email;
+    @Column(name = "contaReceita")
+    private Integer contaReceita;
+    @Column(name = "contaRecebimento")
+    private Integer contaRecebimento;
+    @Column(name = "codigosystm")
+    private Integer codigosystm;
+    
     
     
     

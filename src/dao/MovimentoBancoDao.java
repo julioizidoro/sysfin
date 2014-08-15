@@ -17,7 +17,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import model.Movimentobanco;
-import singleton.ConexaoSingleton;
+import singleton.ConectionFactory;
 
 /**
  *
@@ -25,33 +25,34 @@ import singleton.ConexaoSingleton;
  */
 public class MovimentoBancoDao {
     
-    private EntityManager manager;
-    
     public Movimentobanco salvar(Movimentobanco movimento) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         movimento = manager.merge(movimento);
-        //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
         return movimento;
     }
     
     public List<Movimentobanco> listaMovimento(String sql) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery(sql);
-        return q.getResultList();
+        List<Movimentobanco> lista = q.getResultList();
+        manager.close();
+        return lista;
     }
     
     
     public void excluir(int idMovimento) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         Movimentobanco movimento = manager.find(Movimentobanco.class, idMovimento);
         manager.remove(movimento);
-        //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
     }
     
     public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, String sql) throws IOException {

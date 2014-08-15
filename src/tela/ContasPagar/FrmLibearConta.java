@@ -313,12 +313,14 @@ public class FrmLibearConta extends javax.swing.JFrame {
             conta.setDataLiberacao(dataLiberacaojDateChooser.getDate());
             conta.setContaPaga("S");
             conta.setUsuarioBaixou(usuarioLogadoBean.getUsuario().getIdusuario());
+            String data = Formatacao.ConvercaoDataPadrao(new Date()) + "_" + Formatacao.foramtarHoraString();
+            conta.setDataHoraLiberou(data);
             Movimentobanco movimentoBanco = new Movimentobanco();
-            movimentoBanco.setBanco(conta.getBanco());
-            movimentoBanco.setCliente(conta.getCliente());
+            movimentoBanco.setBanco(conta.getBanco().getIdbanco());
+            movimentoBanco.setCliente(conta.getCliente().getIdcliente());
             movimentoBanco.setDataVencimento(conta.getDataVencimento());
             movimentoBanco.setDataRegistro(new Date());
-            movimentoBanco.setPlanocontas(conta.getPlanocontas());
+            movimentoBanco.setPlanocontas(conta.getPlanocontas().getIdplanoContas());
             movimentoBanco.setUsuario(usuarioLogadoBean.getUsuario().getIdusuario());
             movimentoBanco.setValorEntrada(0.0f);
             movimentoBanco.setValorSaida(conta.getValor());
