@@ -18,7 +18,7 @@ import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import model.Contasreceber;
 import modelView.Viewcontasreceber;
-import singleton.ConexaoSingleton;
+import singleton.ConectionFactory;
 
 /**
  *
@@ -26,51 +26,54 @@ import singleton.ConexaoSingleton;
  */
 public class ContasReceberDao {
     
-    private EntityManager manager;
     
     public Contasreceber salvar(Contasreceber conta) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         conta = manager.merge(conta);
-        //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
         return conta;
     }
     
     public List<Viewcontasreceber> listar(String sql) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery(sql);
-        return q.getResultList();
+        List<Viewcontasreceber> lista = q.getResultList();
+        manager.close();
+        return lista;
     }
     
     public Contasreceber consultar(int idConta) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
-        manager.getTransaction().begin();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Contasreceber conta = manager.find(Contasreceber.class, idConta);
-        //fechando uma transação
-        manager.getTransaction().commit();
+        manager.close();
         return conta;
     }
     
     public void excluir(int idConta) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         Contasreceber conta = manager.find(Contasreceber.class, idConta);
         manager.remove(conta);
-        //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
     }
     
     public Contasreceber consultarVendaFornecedor(int idVenda) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery("Select c from Contasreceber c where c.vendaComissao=" + idVenda);
+        Contasreceber conta = null;
         if (q.getResultList().size()>0){
-            return  (Contasreceber) q.getResultList().get(0);
+            conta =  (Contasreceber) q.getResultList().get(0);
         }
-        return null;
+        manager.close();
+        return conta;
     }
     
     public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, String sql) throws IOException {

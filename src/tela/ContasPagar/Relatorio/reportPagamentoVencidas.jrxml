@@ -31,6 +31,9 @@
 	<field name="nomeFantasia" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="fornecedor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<variable name="pTotalSaida" class="java.lang.Float" resetType="Page" calculation="Sum">
 		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
 	</variable>
@@ -80,7 +83,7 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="23">
+		<band height="24">
 			<staticText>
 				<reportElement x="7" y="4" width="87" height="15" uuid="64d7f30a-4fdb-49d6-82f0-f2d203399bcd"/>
 				<text><![CDATA[Data Vencimento]]></text>
@@ -106,7 +109,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="17" splitType="Stretch">
+		<band height="33" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="6" y="2" width="89" height="13" uuid="70db5651-a531-4147-b2f1-7201baf66f18"/>
 				<textFieldExpression><![CDATA[$F{dataVencimento}]]></textFieldExpression>
@@ -125,6 +128,14 @@
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{dataAgendamento}]]></textFieldExpression>
 			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="75" y="19" width="274" height="13" uuid="e1b2c94e-3342-4f5a-99dc-5a485e484f5c"/>
+				<textFieldExpression><![CDATA[$F{fornecedor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="17" width="64" height="15" uuid="f74cdaab-a444-4e88-add9-e8f91e608764"/>
+				<text><![CDATA[Fornecedor :]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<pageFooter>

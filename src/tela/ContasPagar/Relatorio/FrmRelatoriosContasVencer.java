@@ -294,7 +294,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     }
     
     public String gerarSql(){
-        String sql = "Select distinct contasPagar.dataVencimento, contasPagar.descricao, contasPagar.valor, contasPagar.dataAgendamento,cliente.nomeFantasia";
+        String sql = "Select distinct contasPagar.dataVencimento, contasPagar.descricao, contasPagar.valor, contasPagar.dataAgendamento,cliente.nomeFantasia, contasPagar.fornecedor";
         sql = sql + " From ";
         sql = sql + " contasPagar join cliente on contasPagar.cliente_idcliente = cliente.idcliente ";
         sql = sql +" where ";
@@ -327,7 +327,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
         String senha = props.getProperty("senha");
         String usuario = props.getProperty("usuario");
         String porta = props.getProperty("porta");
-         String sql = "Select distinct contasPagar.dataVencimento, contasPagar.descricao, contasPagar.valor, contasPagar.dataAgendamento,cliente.nomeFantasia";
+         String sql = "Select distinct contasPagar.dataVencimento, contasPagar.descricao, contasPagar.valor, contasPagar.dataAgendamento,cliente.nomeFantasia, contasPagar.fornecedor";
         sql = sql + " From ";
         sql = sql + " contasPagar join cliente on contasPagar.cliente_idcliente = cliente.idcliente ";
         sql = sql +" where ";
