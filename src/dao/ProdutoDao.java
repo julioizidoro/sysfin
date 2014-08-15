@@ -11,7 +11,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Produto;
-import singleton.ConexaoSingleton;
+import singleton.ConectionFactory;
 
 
 /**
@@ -20,31 +20,31 @@ import singleton.ConexaoSingleton;
  */
 public class ProdutoDao {
     
-    private EntityManager manager;
     
     public List<Produto> listar(int idCliente) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery("Select p from Produto p where p.cliente=" + idCliente);
-        return q.getResultList();
+        List<Produto> lista = q.getResultList();
+        manager.close();
+        return lista;
     }
     
     public Produto consultar(int idProduto) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
-        manager.getTransaction().begin();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Produto produto = manager.find(Produto.class, idProduto);
-        //fechando uma transação
-        manager.getTransaction().commit();
+        manager.close();
         return produto;
     }
     
     public Produto salvar(Produto produto) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         manager.merge(produto);
-        //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
         return produto;
     }
     

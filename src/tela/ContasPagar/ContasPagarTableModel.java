@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
+import model.Contaspagar;
 import modelView.Viewcontaspagar;
 import tela.util.Formatacao;
 
@@ -22,10 +23,10 @@ import tela.util.Formatacao;
  */
 public class ContasPagarTableModel extends AbstractTableModel{
     
-    private List<Viewcontaspagar> listaContasPagar;
+    private List<Contaspagar> listaContasPagar;
     private String[] colunas ={"Status", "Data Vencimento", "Unidade", "Descrição", "Valor da Conta", "Autorizada", "Fornecedor"};
 
-    public ContasPagarTableModel(List<Viewcontaspagar> listaContasPagar) {
+    public ContasPagarTableModel(List<Contaspagar> listaContasPagar) {
         this.listaContasPagar = listaContasPagar;
     }
 
@@ -43,7 +44,7 @@ public class ContasPagarTableModel extends AbstractTableModel{
         }else  if (columnIndex==1){
             return listaContasPagar.get(rowIndex).getDataVencimento();
         }else if (columnIndex==2){
-            return listaContasPagar.get(rowIndex).getNomeFantasia();
+            return listaContasPagar.get(rowIndex).getCliente().getNomeFantasia();
         }else if (columnIndex==3){
             return listaContasPagar.get(rowIndex).getDescricao();
         }else  if (columnIndex==4){
@@ -75,7 +76,7 @@ public class ContasPagarTableModel extends AbstractTableModel{
          }else return String.class;
     }
     
-    public Icon carregarImagem(Viewcontaspagar conta) {
+    public Icon carregarImagem(Contaspagar conta) {
         Date data = new Date();
         if (conta.getDataLiberacao() != null) {
             URL urlVerde = this.getClass().getResource("/imagens/bolas/bolaVerde.png");
@@ -104,7 +105,7 @@ public class ContasPagarTableModel extends AbstractTableModel{
         }
     }
     
-    public Icon carregarImagemAutorizada(Viewcontaspagar conta) {
+    public Icon carregarImagemAutorizada(Contaspagar conta) {
         if (conta.getAutorizarPagamento() == null) {
             URL urlVermelha = this.getClass().getResource("/imagens/botoespequenos/cancel.png");
             Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(urlVermelha);

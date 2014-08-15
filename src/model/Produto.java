@@ -7,12 +7,17 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -33,7 +38,8 @@ public class Produto implements Serializable {
     @Column(name = "cliente_idcliente")
     private int cliente;
     @Column(name = "codigosystm")
-    private int codigosystm;
+    private Integer codigosystm;
+    
     
     
 
@@ -60,13 +66,6 @@ public class Produto implements Serializable {
         this.descricao = descricao;
     }
 
-    public int getCodigosystm() {
-        return codigosystm;
-    }
-
-    public void setCodigosystm(int codigosystm) {
-        this.codigosystm = codigosystm;
-    }
 
     public int getCliente() {
         return cliente;
@@ -102,5 +101,13 @@ public class Produto implements Serializable {
     public String toString() {
         return getDescricao();
     }
-    
+
+    public Integer getCodigosystm() {
+        return codigosystm;
+    }
+
+    public void setCodigosystm(Integer codigosystm) {
+        this.codigosystm = codigosystm;
+    }
+
 }
