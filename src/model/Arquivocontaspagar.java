@@ -14,8 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -32,19 +30,21 @@ public class Arquivocontaspagar implements Serializable {
     @Basic(optional = false)
     @Column(name = "idarquivoContasPagar")
     private Integer idarquivoContasPagar;
+    @Size(max = 100)
     @Column(name = "nomeArquivo01")
     private String nomeArquivo01;
     @Lob
     @Column(name = "arquivo01")
     private byte[] arquivo01;
+    @Size(max = 100)
     @Column(name = "nomeArquivo02")
     private String nomeArquivo02;
     @Lob
     @Column(name = "arquivo02")
     private byte[] arquivo02;
-    @Column(name = "contasPagar_idcontasPagar")
-    private Integer contasPagar;
-
+    @Column(name = "contaspagar_idcontaspagar")
+    private int contasPagar;
+    
     public Arquivocontaspagar() {
     }
 
@@ -92,14 +92,14 @@ public class Arquivocontaspagar implements Serializable {
         this.arquivo02 = arquivo02;
     }
 
-    public Integer getContasPagar() {
+    public int getContaspagar() {
         return contasPagar;
     }
 
-    public void setContasPagar(Integer contasPagar) {
+    public void setContaspagar(int contasPagar) {
         this.contasPagar = contasPagar;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;

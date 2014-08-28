@@ -54,20 +54,20 @@ public class Contasreceber implements Serializable {
     private Float valorPago;
     @Column(name = "tipodocumento")
     private String tipodocumento;
-    @Column(name = "venda")
-    private int venda;
     @Column(name = "cliente_idcliente")
     private int cliente;
     @Column(name = "usuario_idusuario")
     private int usuario;
     @Column(name = "banco_idbanco")
     private int banco;
-    @Column(name = "movimentoBanco")
-    private int movimentoBanco;
     @Column(name = "planoContas_idplanoContas")
-    private int planocontas;
+    private int planocontas;    @Column(name = "movimentoBanco")
+    private Integer movimentoBanco;
+    @Column(name = "venda")
+    private Integer venda;
     @Column(name = "vendaComissao")
-    private int vendaComissao;
+    private Integer vendaComissao;
+
     
 
     public Contasreceber() {
@@ -89,13 +89,6 @@ public class Contasreceber implements Serializable {
         return tipodocumento;
     }
 
-    public int getVendaComissao() {
-        return vendaComissao;
-    }
-
-    public void setVendaComissao(int vendaComissao) {
-        this.vendaComissao = vendaComissao;
-    }
 
     public void setTipodocumento(String tipodocumento) {
         this.tipodocumento = tipodocumento;
@@ -149,13 +142,6 @@ public class Contasreceber implements Serializable {
         this.banco = banco;
     }
 
-    public int getMovimentoBanco() {
-        return movimentoBanco;
-    }
-
-    public void setMovimentoBanco(int movimentoBanco) {
-        this.movimentoBanco = movimentoBanco;
-    }
 
     public Float getValorParcela() {
         return valorParcela;
@@ -197,13 +183,6 @@ public class Contasreceber implements Serializable {
         this.desagio = desagio;
     }
 
-    public int getVenda() {
-        return venda;
-    }
-
-    public void setVenda(int venda) {
-        this.venda = venda;
-    }
 
    
 
@@ -249,5 +228,29 @@ public class Contasreceber implements Serializable {
     public String toString() {
         return "model.Contasreceber[ idcontasReceber=" + idcontasReceber + " ]";
     }
-    
+
+    public Integer getMovimentoBanco() {
+        return movimentoBanco;
+    }
+
+    public void setMovimentoBanco(Integer movimentoBanco) {
+        this.movimentoBanco = movimentoBanco;
+    }
+
+    public Integer getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Integer venda) {
+        this.venda = venda;
+    }
+
+    public Integer getVendaComissao() {
+        return vendaComissao;
+    }
+
+    public void setVendaComissao(Integer vendaComissao) {
+        this.vendaComissao = vendaComissao;
+    }
+
 }

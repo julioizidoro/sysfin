@@ -11,7 +11,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Cliente;
-import singleton.ConexaoSingleton;
+import singleton.ConectionFactory;
+
 
 /**
  *
@@ -19,31 +20,38 @@ import singleton.ConexaoSingleton;
  */
 public class ClienteDao {
     
-    private EntityManager manager;
+    
     
     public Cliente salvar(Cliente cliente) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         cliente = manager.merge(cliente);
         //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
         return cliente;
     }
     
     public Cliente consultar(int idCliente) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery("select c from Cliente c where c.idcliente=" + idCliente);
+        Cliente cliente = null;
         if (q.getResultList().size()>0){
-            return (Cliente) q.getResultList().get(0);
+            cliente = (Cliente) q.getResultList().get(0);
         }
-        return null;
+        manager.close();
+        return cliente;
     }
     
     public List<Cliente> listar(String nome) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery("select c from Cliente c where c.nomeFantasia like '%" +nome + "%' order by c.razaoSocial");
-        return q.getResultList();
+        List<Cliente> lista = q.getResultList();
+        manager.close();
+        return lista;
     }
     
 }

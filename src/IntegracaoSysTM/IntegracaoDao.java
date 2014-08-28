@@ -17,7 +17,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Cliente;
 import model.Produto;
-import singleton.ConexaoSingleton;
+import singleton.ConectionFactory;
 import singleton.ConexaoSingletonTM;
 
 /**
@@ -48,21 +48,27 @@ public class IntegracaoDao {
     
     
     public Produto consultarProduto(int idCliente, int codigosystm) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery("Select p from Produto p where p.cliente=" + idCliente + " and p.codigosystm=" + codigosystm);
+        Produto produto = null;
         if (q.getResultList().size()>0){
-            return (Produto) q.getResultList().get(0);
+            produto = (Produto) q.getResultList().get(0);
         }
+        manager.close();
         return null;
     }
     
     public Cliente consultarClietne(int codigosystm) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery("select c from Cliente c where c.codigosystm=" + codigosystm);
+        Cliente cliente = null;
         if (q.getResultList().size()>0){
-            return (Cliente) q.getResultList().get(0);
+            cliente = (Cliente) q.getResultList().get(0);
         }
-        return null;
+        manager.close();
+        return cliente;
     }
     
     public Orcamentoprodutosorcamento consultarOrcamentoProdutoOrcamento(int idOrcamento, int idProdutoOrcamento) throws SQLException{

@@ -19,8 +19,8 @@ import javax.swing.JOptionPane;
 import model.Arquivocontaspagar;
 import model.Contaspagar;
 import modelView.Viewcontaspagar;
+import singleton.ConectionFactory;
 
-import singleton.ConexaoSingleton;
 
 /**
  *
@@ -28,42 +28,55 @@ import singleton.ConexaoSingleton;
  */
 public class ContasPagarDao {
     
-    private EntityManager manager;
-    
     public Contaspagar salvar(Contaspagar conta) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         //abrindo uma transação
         manager.getTransaction().begin();
         conta = manager.merge(conta);
         //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
         return conta;
     }
     
     public List<Viewcontaspagar> listar(String sql) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery(sql);
-        return q.getResultList();
+        List<Viewcontaspagar> listaContas = q.getResultList();
+        manager.close();
+        return listaContas;
     }
+
+    public List<Contaspagar> listarContas(String sql) throws SQLException{
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
+        Query q = manager.createQuery(sql);
+        List<Contaspagar> listaContas = q.getResultList();
+        manager.close();
+        return listaContas;
+    }
+
     
     public Contaspagar consultar(int idConta) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         Contaspagar conta = manager.find(Contaspagar.class, idConta);
-        //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
         return conta;
     }
     
     public void excluir(int idConta) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         Contaspagar conta = manager.find(Contaspagar.class, idConta);
         manager.remove(conta);
-        //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
     }
     
     public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, String sql) throws IOException {
@@ -113,48 +126,52 @@ public class ContasPagarDao {
     }
     
     public Contaspagar consultarVenda(String sql) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery(sql);
+        Contaspagar conta = null;
         if (q.getResultList().size()>0){
-            return (Contaspagar) q.getResultList().get(0);
+            conta = (Contaspagar) q.getResultList().get(0);
         }
-        return null;
+        manager.close();
+        return conta;
     }
     
    
     
     public void salvarArquivo(Arquivocontaspagar arquivo) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         //abrindo uma transação
         manager.getTransaction().begin();
         manager.merge(arquivo);
         //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
     }
     
     public Arquivocontaspagar consultarArquivo(int idContasPagar) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
-        manager.getTransaction().begin();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery("Select c from  Arquivocontaspagar  c where c.contasPagar=" + idContasPagar);
-        //fechando uma transação
+        Arquivocontaspagar arquivo = null;
         if (q.getResultList().size()>0){
-            return (Arquivocontaspagar) q.getResultList().get(0);
+            arquivo =  (Arquivocontaspagar) q.getResultList().get(0);
         }
-        manager.getTransaction().commit();
-        return null;
+        manager.close();
+        return arquivo;
     }
     
     public void excluirArquivo(int idArquivo) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         Arquivocontaspagar arquivo = manager.find(Arquivocontaspagar.class, idArquivo);
-        //fechando uma transação
         if (arquivo!=null){
             manager.remove(arquivo);
         }
         manager.getTransaction().commit();
+        manager.close();
     }
     
 }

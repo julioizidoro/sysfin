@@ -123,5 +123,5 @@ public class Dadosmunicipais implements Serializable {
     public String toString() {
         return "model.Dadosmunicipais[ iddadosmunicipais=" + iddadosmunicipais + " ]";
     }
-    
+
 }

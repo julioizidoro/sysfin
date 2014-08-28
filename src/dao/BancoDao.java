@@ -11,7 +11,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Banco;
-import singleton.ConexaoSingleton;
+import singleton.ConectionFactory;
 
 /**
  *
@@ -19,44 +19,43 @@ import singleton.ConexaoSingleton;
  */
 public class BancoDao {
     
-    private EntityManager manager;
-    
     public Banco salvar(Banco banco) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         banco = manager.merge(banco);
-        //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
         return banco;
     }
     
     public List<Banco> listar(int idCliente) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery("Select b from Banco b where b.cliente=" + idCliente);
-        return q.getResultList();
+        List<Banco> lista = q.getResultList();
+        manager.close();
+        return lista;
     }
     
     public Banco consultar(int idBanco) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
-        manager.getTransaction().begin();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Banco banco = manager.find(Banco.class, idBanco);
-        //fechando uma transação
-        manager.getTransaction().commit();
+        manager.close();
         return banco;
     }
     
     public Banco consultar(int idCliente, String nome) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery("Select b from Banco b where b.cliente=" + idCliente +
                 " and b.nome='" + nome + "'");
+        Banco banco = null;
         if (q.getResultList().size()>0){
-            return (Banco) q.getResultList().get(0);
+            banco= (Banco) q.getResultList().get(0);
         }
-        return null;
+        manager.close();
+        return banco;
     }
-    
-   
-    
 }

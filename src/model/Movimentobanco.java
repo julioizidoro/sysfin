@@ -199,5 +199,5 @@ public class Movimentobanco implements Serializable {
     public String toString() {
         return "model.Movimentobanco[ idmovimentoBanco=" + idmovimentoBanco + " ]";
     }
-    
+
 }

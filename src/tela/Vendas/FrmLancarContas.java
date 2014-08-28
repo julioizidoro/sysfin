@@ -274,13 +274,13 @@ public class FrmLancarContas extends javax.swing.JFrame {
         Banco banco = bancoController.consultar(venda.getCliente(), " Nenhum");
         if (venda.getLiquidoReceber() > 0) {
             Contaspagar conta = new Contaspagar();
-            conta.setCliente(venda.getCliente());
+            conta.setCliente(null);
             conta.setContaPaga("N");
             conta.setDataVencimento(dataComissaojDateChooser.getDate());
             conta.setDataEnvio(new Date());
             conta.setDescricao("PAGAMENTO FORNECEDOR " + venda.getNomeFornecedor());
             conta.setMovimentoBanco(0);
-            conta.setBanco(banco.getIdbanco());
+            conta.setBanco(banco);
             conta.setUsuarioAgendou(0);
             conta.setUsuarioBaixou(0);
             conta.setAutorizarPagamento("N");
@@ -289,7 +289,7 @@ public class FrmLancarContas extends javax.swing.JFrame {
             conta.setFornecedor(" ");
             conta.setUsuarioAutorizou(0);
             Planocontas plano = (Planocontas) planoContasComissaojComboBox.getSelectedItem();
-            conta.setPlanocontas(plano.getIdplanoContas());
+            conta.setPlanocontas(plano);
             conta.setTipoDocumento(tipoDocumentoComissaojComboBox.getSelectedItem().toString());
             conta.setUsuarioCadastrou(usuarioLogadoBean.getUsuario().getIdusuario());
             String novoValor = Formatacao.retirarNegativo(valorComissaojTextField.getText());
@@ -381,7 +381,7 @@ public class FrmLancarContas extends javax.swing.JFrame {
             if (contaComissao!=null){
                 registrarContaComissaojButton.setEnabled(false);
                 dataComissaojDateChooser.setDate(contaComissao.getDataVencimento());
-                Planocontas plano = planoContasController.consultar(contaComissao.getPlanocontas());
+                Planocontas plano = planoContasController.consultar(1);
                 valorComissaojTextField.setText(Formatacao.foramtarFloatString(contaComissao.getValor()));
                 registrarContaComissaojButton.setEnabled(false);
                 if (plano!=null){

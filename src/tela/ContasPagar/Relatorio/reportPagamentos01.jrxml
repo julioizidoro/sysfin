@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatório de Pagamentos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="feecb075-5a7f-42f6-832b-1a654a7aa009">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="6"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -53,7 +53,7 @@
 	<group name="PlanoContas" isReprintHeaderOnEachPage="true">
 		<groupExpression><![CDATA[$F{idPlanoContas}]]></groupExpression>
 		<groupHeader>
-			<band height="37">
+			<band height="41">
 				<textField pattern="">
 					<reportElement mode="Transparent" x="12" y="3" width="535" height="16" uuid="f3d3440c-e411-477b-957d-d4a5cc3f8c1a"/>
 					<textElement>
@@ -85,7 +85,7 @@
 					<reportElement x="1" y="3" width="554" height="1" uuid="0259c984-82ea-4f89-88d4-dace79723aa8"/>
 				</line>
 				<line>
-					<reportElement x="1" y="36" width="554" height="1" uuid="a2660627-9a9e-4d29-906d-eb2b90bf545f"/>
+					<reportElement x="1" y="37" width="554" height="1" uuid="a2660627-9a9e-4d29-906d-eb2b90bf545f"/>
 				</line>
 			</band>
 		</groupHeader>

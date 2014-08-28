@@ -283,5 +283,5 @@ public class Vendas implements Serializable {
     public String toString() {
         return "model.Vendas[ idvendas=" + idvendas + " ]";
     }
-    
+
 }

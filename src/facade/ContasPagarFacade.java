@@ -33,6 +33,11 @@ public class ContasPagarFacade {
         return contasPagarDao.listar(sql);
     }
     
+    public List<Contaspagar> listarContas(String sql) throws SQLException{
+        contasPagarDao = new ContasPagarDao();
+        return contasPagarDao.listarContas(sql);
+    }
+    
     public Contaspagar consultar(int idConta) throws SQLException{
         contasPagarDao = new ContasPagarDao();
         return contasPagarDao.consultar(idConta);

@@ -11,7 +11,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Usuario;
-import singleton.ConexaoSingleton;
+import singleton.ConectionFactory;
 
 /**
  *
@@ -21,38 +21,44 @@ public class UsuarioDao {
     
     private EntityManager manager;
     
+    
     public Usuario salvar(Usuario usuario) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         //abrindo uma transação
         manager.getTransaction().begin();
         usuario = manager.merge(usuario);
         //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
         return usuario;
     }
     
     public Usuario consultar(String login, String senha) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        Query q = manager.createQuery("select u from Usuario u where u.login='" + login + "' and u.senha='" + senha + "'  order by u.nome");
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();Query q = manager.createQuery("select u from Usuario u where u.login='" + login + "' and u.senha='" + senha + "'  order by u.nome");
+        Usuario usuario = null;
         if (q.getResultList().size()>0){
-            return (Usuario) q.getResultList().get(0);
+            usuario = (Usuario) q.getResultList().get(0);
         }
-        return null;
+        manager.close();
+        return usuario;
     }
     
     public List<Usuario> listar(String nome) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery("select u from Usuario u where u.nome like'" + nome + "%'  order by u.nome");
+        List<Usuario> lista = q.getResultList();
+        manager.close();
         return  q.getResultList();
     }
     
     public Usuario consultar(int idUsuario) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
-        manager.getTransaction().begin();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Usuario usuario = manager.find(Usuario.class, idUsuario);
-        //fechando uma transação
-        manager.getTransaction().commit();
+        manager.close();
         return usuario;
     }
     

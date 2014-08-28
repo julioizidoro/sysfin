@@ -294,7 +294,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     }
     
     public String gerarSql(){
-        String sql = "Select distinct contasPagar.dataVencimento, contasPagar.descricao, contasPagar.valor, contasPagar.dataAgendamento,cliente.nomeFantasia, contasPagar.fornecedor";
+        String sql = "Select distinct contasPagar.dataVencimento, contasPagar.descricao, contasPagar.valor, contasPagar.dataAgendamento,cliente.nomeFantasia, contasPagar.fornecedor, contasPagar.numeroDocumento";
         sql = sql + " From ";
         sql = sql + " contasPagar join cliente on contasPagar.cliente_idcliente = cliente.idcliente ";
         sql = sql +" where ";

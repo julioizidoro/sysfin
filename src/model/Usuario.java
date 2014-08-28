@@ -7,6 +7,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,8 +23,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
-    @Column(name = "email")
-    private String email;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +37,9 @@ public class Usuario implements Serializable {
     private String senha;
     @Column(name = "cliente")
     private Integer cliente;
+    @Column(name = "email")
+    private String email;
+    
     
 
     public Usuario() {
@@ -121,4 +123,5 @@ public class Usuario implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     } 
+
 }

@@ -18,7 +18,7 @@ import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import model.Vendas;
 import modelView.Viewvendas;
-import singleton.ConexaoSingleton;
+import singleton.ConectionFactory;
 
 /**
  *
@@ -26,44 +26,42 @@ import singleton.ConexaoSingleton;
  */
 public class VendasDao {
     
-    private EntityManager manager;
-    
     public Vendas salvar(Vendas venda) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         venda = manager.merge(venda);
-        //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
         return venda;
     }
     
     public List<Viewvendas> listar(String sql) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery(sql);
-        return q.getResultList();
+        List<Viewvendas> lista = q.getResultList();
+        manager.close();
+        return lista;
     }
     
     public Vendas consultar(int idVenda) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
-        manager.getTransaction().begin();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Vendas venda = manager.find(Vendas.class, idVenda);
-        //fechando uma transação
-        manager.getTransaction().commit();
+        manager.close();
         return venda;
     }
     
     public void Excluir(int idVendas) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
-        manager.getTransaction().begin();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();manager.getTransaction().begin();
         Vendas venda = manager.find(Vendas.class, idVendas);
         if (venda!=null){
             manager.remove(venda);
         }
         manager.getTransaction().commit();
-        //fechando uma transação
+        manager.close();
     }
     
     public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, String sql) throws IOException {

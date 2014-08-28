@@ -8,7 +8,6 @@ package tela.ContasPagar;
 
 import com.toedter.calendar.JTextFieldDateEditor;
 import controller.BancoController;
-import controller.ClienteController;
 import controller.ContasPagarController;
 import controller.PlanoContasController;
 import java.awt.Image;
@@ -62,7 +61,6 @@ public class FrmCadastarContasPagar extends javax.swing.JFrame implements IConta
         URL url = this.getClass().getResource("/imagens/logoRelatorio/iconetela.png");
         Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
         this.setIconImage(imagemTitulo);
-        inicializarCliente();
         inicilizarContasPagar(conta);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -327,7 +325,8 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
                     .addGap(0, 0, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(unidadejTextField)))
+                    .addComponent(unidadejTextField)
+                    .addGap(125, 125, 125)))
             .addContainerGap())
     );
     jPanel1Layout.setVerticalGroup(
@@ -454,11 +453,11 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
         .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createSequentialGroup()
                     .addGap(114, 114, 114)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -584,9 +583,6 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
         } catch (ParseException ex) {
             Logger.getLogger(FrmCadastarContasPagar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        PlanoContasController planoContasController = new PlanoContasController();
-        BancoController bancoController = new BancoController();
-        ClienteController clienteController = new ClienteController();
         if (conta!=null){
             this.conta = conta;
             ContasPagarController contasPagarController = new ContasPagarController();
@@ -595,7 +591,8 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
                 arquivo01jTextField.setText(arquivoConta.getNomeArquivo01());
                 arquivo02jTextField.setText(arquivoConta.getNomeArquivo02());
             }
-            cliente = clienteController.consultar(conta.getCliente());
+            //cliente = clienteController.consultar(conta.getCliente());
+            cliente = conta.getCliente();
             if (cliente!=null){
                 carregarComboBox();
             }
@@ -606,13 +603,11 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
             fornecedorjTextField.setText(conta.getFornecedor());
             numeroDocumentojTextField.setText(conta.getNumeroDocumento());
             tipoDocumentojComboBox.setSelectedItem(conta.getTipoDocumento());
-            Planocontas plano = planoContasController.consultar(conta.getPlanocontas());
-            planoContasjComboBox.setSelectedItem(plano);
+            planoContasjComboBox.setSelectedItem(conta.getPlanocontas());
             descricaojTextArea.setText(conta.getDescricao());
             competenciajFormattedTextField.setText(conta.getCompetencia());
             valorjTextField.setText(Formatacao.foramtarFloatString(conta.getValor()));
-            Banco banco = bancoController.consultar(conta.getBanco());
-            contajComboBox.setSelectedItem(banco);
+            contajComboBox.setSelectedItem(conta.getBanco());
             dataEnviojDateChooser.setDate(conta.getDataEnvio());
             formaPagamentojComboBox.setSelectedItem(conta.getFormaPagamento());
             if (conta.getDataLiberacao()!=null){
@@ -623,6 +618,8 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
                 dataCompensacaojDateChooser.setEnabled(false);
             }
         }else {
+            inicializarCliente();
+            carregarComboBox();
             this.conta = new Contaspagar();
             this.conta.setMovimentoBanco(0);
             this.conta.setUsuarioAgendou(0);
@@ -632,12 +629,6 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
             this.conta.setMarcar("N");
             this.conta.setAutorizarPagamento("N");
             dataEnviojDateChooser.setDate(new Date());
-        }
-        if (usuarioLogadoBean.getUsuario().getCliente()>0){
-            selecionarjButton.setEnabled(false);
-            cliente = clienteController.consultar(usuarioLogadoBean.getUsuario().getCliente());
-            unidadejTextField.setText(cliente.getNomeFantasia());
-            carregarComboBox();
         }
     }
 
@@ -689,15 +680,14 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
     public void salvarConta(){
         if (conta.getIdcontasPagar()==null){
             conta.setUsuarioCadastrou(usuarioLogadoBean.getUsuario().getIdusuario());
+            String data = Formatacao.ConvercaoDataPadrao(new Date()) + "_" + Formatacao.foramtarHoraString();
+            conta.setDataHoraCadastrou(data);
         }
         if (dataAgendamentojDateChooser.getDate()!=null){
             if (conta.getUsuarioAgendou()==0){
                 conta.setUsuarioAgendou(usuarioLogadoBean.getUsuario().getIdusuario());
-            }
-        }
-        if (dataCompensacaojDateChooser.getDate()!=null){
-            if (conta.getUsuarioBaixou()==0){
-                conta.setUsuarioBaixou(usuarioLogadoBean.getUsuario().getIdusuario());
+                String data = Formatacao.ConvercaoDataPadrao(new Date()) + "_" + Formatacao.foramtarHoraString();
+                conta.setDataHoraAgendou(data);
             }
         }
         if (dataAgendamentojDateChooser.getDate()!=null){
@@ -713,37 +703,39 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
             conta.setDataVencimento(dataVencimentojDateChooser.getDate());
         }
         Planocontas plano = (Planocontas) planoContasjComboBox.getSelectedItem();
-        conta.setPlanocontas(plano.getIdplanoContas());
+        conta.setPlanocontas(plano);
         Banco banco = (Banco) contajComboBox.getSelectedItem();
-        conta.setBanco(banco.getIdbanco());
+        conta.setBanco(banco);
         conta.setDescricao(descricaojTextArea.getText());
         conta.setValor(Formatacao.ConvercaoMonetariaFloat(valorjTextField.getText()));
         conta.setCompetencia(competenciajFormattedTextField.getText());
         conta.setFormaPagamento(formaPagamentojComboBox.getSelectedItem().toString());
-        conta.setCliente(cliente.getIdcliente());
+        conta.setCliente(cliente);
         conta.setFornecedor(fornecedorjTextField.getText());
         conta.setNumeroDocumento(numeroDocumentojTextField.getText());
         conta.setTipoDocumento(tipoDocumentojComboBox.getSelectedItem().toString());
         ContasPagarController contasPagarController = new ContasPagarController();
         conta = contasPagarController.salvar(conta);
         if (arquivoConta!=null){
-            arquivoConta.setContasPagar(conta.getIdcontasPagar());
+            arquivoConta.setContaspagar(conta.getIdcontasPagar());
             contasPagarController.salvarArquivo(arquivoConta);
         }
         telaContas.setModel();
         this.dispose();
     }
     
-    public void carregarComboBox(){
-        PlanoContasController planoContasController = new PlanoContasController();
-        BancoController bancoController = new BancoController();
-        List<Banco> listaBanco = bancoController.listar(cliente.getIdcliente());
-        List<Planocontas> listaPlano = planoContasController.listar();
-        if (listaBanco!=null){
-            contajComboBox = Formatacao.preencherComobox(listaBanco, contajComboBox);
-        }
-        if (listaPlano!=null){
-            planoContasjComboBox = Formatacao.preencherComobox(listaPlano, planoContasjComboBox);
+    public void carregarComboBox() {
+        if (cliente != null) {
+            PlanoContasController planoContasController = new PlanoContasController();
+            BancoController bancoController = new BancoController();
+            List<Banco> listaBanco = bancoController.listar(cliente.getIdcliente());
+            List<Planocontas> listaPlano = planoContasController.listar();
+            if (listaBanco != null) {
+                contajComboBox = Formatacao.preencherComobox(listaBanco, contajComboBox);
+            }
+            if (listaPlano != null) {
+                planoContasjComboBox = Formatacao.preencherComobox(listaPlano, planoContasjComboBox);
+            }
         }
     }
 
@@ -761,11 +753,13 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public void inicializarCliente(){
-        this.cliente = Formatacao.consultarCliente(usuarioLogadoBean);
-        if (cliente!=null){
-            unidadejTextField.setText(cliente.getNomeFantasia());
-            selecionarjButton.setEnabled(false);
+    public void inicializarCliente() {
+        if (usuarioLogadoBean.getUsuario().getCliente() > 0) {
+            this.cliente = Formatacao.consultarCliente(usuarioLogadoBean);
+            if (cliente != null) {
+                unidadejTextField.setText(cliente.getNomeFantasia());
+                selecionarjButton.setEnabled(false);
+            }
         }
     }
     

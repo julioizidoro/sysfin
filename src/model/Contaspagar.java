@@ -7,14 +7,20 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -64,61 +70,54 @@ public class Contaspagar implements Serializable {
     private Integer usuarioBaixou;
     @Column(name = "contaPaga")
     private String contaPaga;
-    @Column(name = "planoContas_idplanoContas")
-    private int planocontas;
-    @Column(name = "banco_idbanco")
-    private int banco;
-    @Column(name = "cliente_idcliente")
-    private int cliente;
     @Column(name = "formaPagamento")
     private String formaPagamento;
-    @Column(name = "vendaComissao")
-    private int vendaComissao;
-    @Column(name = "autorizarPagto")
-    private Boolean autorizarPagto;
-    
-    
-    
     @Column(name = "fornecedor")
     private String fornecedor;
-    
     @Column(name = "numeroDocumento")
     private String numeroDocumento;
-    
     @Column(name = "marcar")
     private String marcar;
-    
     @Column(name = "tipoDocumento")
     private String tipoDocumento;
     @Column(name = "autorizarPagamento")
     private String autorizarPagamento;
     @Column(name = "usuarioAutorizou")
-    private int usuarioAutorizou;
-    
-    
-    public Contaspagar() {
-        setVendaComissao(0);
-    }
+    private Integer usuarioAutorizou;
+    @Column(name = "vendaComissao")
+    private Integer vendaComissao;
+    @Column (name = "dataHoraCadastrou")
+    private String dataHoraCadastrou;
+    @Column (name = "dataHoraAgendou")
+    private String dataHoraAgendou; 
+    @Column (name = "dataHoraLiberou")
+    private String dataHoraLiberou; 
+    @Column (name = "dataHoraAutorizou")
+    private String dataHoraAutorizou;
+    @JoinColumn(name = "planoContas_idplanoContas")
+    @ManyToOne(optional = false, cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private Planocontas planocontas;
+    @JoinColumn(name = "cliente_idcliente")
+    @ManyToOne(optional = false, cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private Cliente cliente;
+    @JoinColumn(name = "banco_idbanco")
+    @ManyToOne(optional = false, cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private Banco banco;
 
+    
+
+    public Contaspagar() {
+    }
+    
     public Contaspagar(Integer idcontasPagar) {
         this.idcontasPagar = idcontasPagar;
     }
 
-    public int getUsuarioAutorizou() {
-        return usuarioAutorizou;
-    }
-
-    public void setUsuarioAutorizou(int usuarioAutorizou) {
-        this.usuarioAutorizou = usuarioAutorizou;
-    }
 
     public Integer getIdcontasPagar() {
         return idcontasPagar;
     }
    
-    public int getVendaComissao() {
-        return vendaComissao;
-    }
 
     public String getAutorizarPagamento() {
         return autorizarPagamento;
@@ -126,10 +125,6 @@ public class Contaspagar implements Serializable {
 
     public void setAutorizarPagamento(String autorizarPagamento) {
         this.autorizarPagamento = autorizarPagamento;
-    }
-
-    public void setVendaComissao(int vendaComissao) {
-        this.vendaComissao = vendaComissao;
     }
 
 
@@ -284,39 +279,63 @@ public class Contaspagar implements Serializable {
         this.usuarioBaixou = usuarioBaixou;
     }
 
-    public int getPlanocontas() {
+    public Planocontas getPlanocontas() {
         return planocontas;
     }
 
-    public void setPlanocontas(int planocontas) {
+    public void setPlanocontas(Planocontas planocontas) {
         this.planocontas = planocontas;
     }
 
-    public int getBanco() {
+    public Banco getBanco() {
         return banco;
     }
 
-    public void setBanco(int banco) {
+    public void setBanco(Banco banco) {
         this.banco = banco;
     }
 
-    public int getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(int cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
-    public Boolean isAutorizarPagto() {
-        return autorizarPagto;
+    public String getDataHoraCadastrou() {
+        return dataHoraCadastrou;
     }
 
-    public void setAutorizarPagto(Boolean autorizarPagto) {
-        this.autorizarPagto = autorizarPagto;
+    public void setDataHoraCadastrou(String dataHoraCadastrou) {
+        this.dataHoraCadastrou = dataHoraCadastrou;
     }
 
-    
+    public String getDataHoraAgendou() {
+        return dataHoraAgendou;
+    }
+
+    public void setDataHoraAgendou(String dataHoraAgendou) {
+        this.dataHoraAgendou = dataHoraAgendou;
+    }
+
+    public String getDataHoraLiberou() {
+        return dataHoraLiberou;
+    }
+
+    public void setDataHoraLiberou(String dataHoraLiberou) {
+        this.dataHoraLiberou = dataHoraLiberou;
+    }
+
+    public String getDataHoraAutorizou() {
+        return dataHoraAutorizou;
+    }
+
+    public void setDataHoraAutorizou(String dataHoraAutorizou) {
+        this.dataHoraAutorizou = dataHoraAutorizou;
+    }
+
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -341,5 +360,22 @@ public class Contaspagar implements Serializable {
     public String toString() {
         return "model.Contaspagar[ idcontasPagar=" + idcontasPagar + " ]";
     }
+
+    public Integer getUsuarioAutorizou() {
+        return usuarioAutorizou;
+    }
+
+    public void setUsuarioAutorizou(Integer usuarioAutorizou) {
+        this.usuarioAutorizou = usuarioAutorizou;
+    }
+
+    public Integer getVendaComissao() {
+        return vendaComissao;
+    }
+
+    public void setVendaComissao(Integer vendaComissao) {
+        this.vendaComissao = vendaComissao;
+    }
+
     
 }

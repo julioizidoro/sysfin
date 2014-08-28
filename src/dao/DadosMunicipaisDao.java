@@ -9,9 +9,8 @@ package dao;
 import java.sql.SQLException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import model.Cliente;
 import model.Dadosmunicipais;
-import singleton.ConexaoSingleton;
+import singleton.ConectionFactory;
 
 /**
  *
@@ -19,25 +18,26 @@ import singleton.ConexaoSingleton;
  */
 public class DadosMunicipaisDao {
     
-    private EntityManager manager;
     
     public Dadosmunicipais salvar(Dadosmunicipais dados) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         dados = manager.merge(dados);
-        //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
         return dados;
     }
     
     public Dadosmunicipais consultar(int idCliente) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery("select d from Dadosmunicipais d where d.cliente=" + idCliente);
+        Dadosmunicipais dadosmunicipais = null;
         if (q.getResultList().size()>0){
-            return (Dadosmunicipais) q.getResultList().get(0);
+            dadosmunicipais = (Dadosmunicipais) q.getResultList().get(0);
         }
-        return null;
+        manager.close();
+        return dadosmunicipais;
     }
-    
 }

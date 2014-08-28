@@ -50,6 +50,17 @@ public class ContasPagarController {
         }
     }
     
+    public List<Contaspagar> listarContas(String sql) {
+        contasPagarFacade = new ContasPagarFacade();
+        try {
+            return contasPagarFacade.listarContas(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(ContasPagarController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro listar contas pagar "  + ex);
+            return null;
+        }
+    }
+    
     public Contaspagar consultar(int idConta) {
         contasPagarFacade = new ContasPagarFacade();
         try {

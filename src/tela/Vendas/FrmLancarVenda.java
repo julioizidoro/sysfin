@@ -1029,14 +1029,16 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
         venda.setUsuario(usuarioLogadoBean.getUsuario().getIdusuario());
         Produto produto = (Produto) produtojComboBox.getSelectedItem();
         venda.setProduto(produto.getIdproduto());
-        if (listaForma!=null){
-            if (listaForma.size()>0){
-                venda.setSituacao("amarelo");
-            }else {
-                venda.setSituacao("vermelho");
+        if (this.venda.getIdvendas() == null) {
+            if (listaForma != null) {
+                if (listaForma.size() > 0) {
+                    venda.setSituacao("amarelo");
+                } else {
+                    venda.setSituacao("vermelho");
+                }
+            } else {
+                venda.setSituacao("vermenlho");
             }
-        }else {
-            venda.setSituacao("vermenlho");
         }
         VendasController vendasController = new VendasController();
         venda= vendasController.salvar(venda);

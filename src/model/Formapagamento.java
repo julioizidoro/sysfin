@@ -67,13 +67,15 @@ public class Formapagamento implements Serializable {
     @Lob
     @Column(name = "observacao")
     private String observacao;
-    @Lob
-    @Column(name = "comprovante")
-    private byte[] comprovante;
     @Column(name = "vendas_idvendas")
     private int vendas;
     @Column(name = "parcelaGerada")
     private String parcelaGerada;
+    @Lob
+    @Column(name = "comprovante")
+    private byte[] comprovante;
+    
+    
 
     public Formapagamento() {
     }
@@ -242,6 +244,8 @@ public class Formapagamento implements Serializable {
         this.comprovante = comprovante;
     }
 
+
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -266,5 +270,5 @@ public class Formapagamento implements Serializable {
     public String toString() {
         return "model.Formapagamento[ idformaPagamento=" + idformaPagamento + " ]";
     }
-    
+
 }

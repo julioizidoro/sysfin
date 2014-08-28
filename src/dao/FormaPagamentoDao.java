@@ -12,7 +12,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Formapagamento;
-import singleton.ConexaoSingleton;
+import singleton.ConectionFactory;
 
 /**
  *
@@ -20,32 +20,33 @@ import singleton.ConexaoSingleton;
  */
 public class FormaPagamentoDao {
     
-    private EntityManager manager;
-    
     public Formapagamento salvar(Formapagamento formaPagamento) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         formaPagamento = manager.merge(formaPagamento);
-        //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
         return formaPagamento;
     }
     
     public void Excluir(int idFormaPagamento) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
-        //abrindo uma transação
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         Formapagamento formaPagamento = manager.find(Formapagamento.class, idFormaPagamento);
         manager.remove(formaPagamento);
-        //fechando uma transação
         manager.getTransaction().commit();
+        manager.close();
     }
     
     public List<Formapagamento> listar(int idVenda) throws SQLException{
-        manager = ConexaoSingleton.getConexao();
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
         Query q = manager.createQuery("select f from Formapagamento f where f.vendas=" + idVenda) ;
-        return q.getResultList();
+        List<Formapagamento> lista = q.getResultList();
+        manager.close();
+        return lista;
     }
     
 }
