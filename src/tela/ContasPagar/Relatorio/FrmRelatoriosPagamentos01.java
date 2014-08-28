@@ -7,6 +7,7 @@
 package tela.ContasPagar.Relatorio;
 
 import com.toedter.calendar.JTextFieldDateEditor;
+import controller.ClienteController;
 import controller.ContasPagarController;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -60,6 +61,7 @@ public class FrmRelatoriosPagamentos01 extends javax.swing.JFrame implements ICo
         } catch (ParseException ex) {
             Logger.getLogger(FrmCadastarContasPagar.class.getName()).log(Level.SEVERE, null, ex);
         }
+        verificarUsuario();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -392,11 +394,14 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
         contasPagarController.ExportarExcel(nomeArquivo, local, porta, senha, banco, usuario, caminho, sql);
     }
     
-    public void inicializarCliente(){
-        this.cliente = Formatacao.consultarCliente(usuarioLogadoBean);
-        if (cliente!=null){
-            unidadejTextField.setText(cliente.getNomeFantasia());
-            selecionarjButton.setEnabled(false);
+    public void verificarUsuario(){
+        if (usuarioLogadoBean.getUsuario().getCliente()>0){
+            ClienteController clienteController = new ClienteController();
+            Cliente cliente = clienteController.consultar(usuarioLogadoBean.getUsuario().getCliente());
+            if (cliente!=null){
+                selecionarjButton.setEnabled(false);
+                setCliente(cliente);
+            }
         }
     }
 }

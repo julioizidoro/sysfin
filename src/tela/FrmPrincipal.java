@@ -348,7 +348,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoRelatorio/logotela.png"))); // NOI18N
 
         jLabel3.setForeground(new java.awt.Color(35, 135, 112));
-        jLabel3.setText("Versão 1.24");
+        jLabel3.setText("Versão 1.26");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

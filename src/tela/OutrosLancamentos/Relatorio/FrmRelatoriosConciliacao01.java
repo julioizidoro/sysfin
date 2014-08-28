@@ -8,6 +8,7 @@ package tela.OutrosLancamentos.Relatorio;
 
 import com.toedter.calendar.JTextFieldDateEditor;
 import controller.BancoController;
+import controller.ClienteController;
 import controller.MovimentoBancoController;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -59,6 +60,7 @@ public class FrmRelatoriosConciliacao01 extends javax.swing.JFrame implements It
         Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
         this.setIconImage(imagemTitulo);
         this.setLocationRelativeTo(null);
+        verificarUsuario();
         this.setVisible(true);
     }
 
@@ -395,5 +397,16 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     @Override
     public void setNumeroColuna(int numero) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void verificarUsuario(){
+        if (usuarioLogadoBean.getUsuario().getCliente()>0){
+            ClienteController clienteController = new ClienteController();
+            Cliente cliente = clienteController.consultar(usuarioLogadoBean.getUsuario().getCliente());
+            if (cliente!=null){
+                selecionarjButton.setEnabled(false);
+                setCliente(cliente);
+            }
+        }
     }
 }

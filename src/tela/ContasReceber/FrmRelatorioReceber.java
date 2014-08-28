@@ -7,6 +7,7 @@
 package tela.ContasReceber;
 
 import com.toedter.calendar.JTextFieldDateEditor;
+import controller.ClienteController;
 import controller.ContasReceberController;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -56,6 +57,7 @@ public class FrmRelatorioReceber extends javax.swing.JFrame implements IContasRe
         Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
         this.setIconImage(imagemTitulo);
         this.setLocationRelativeTo(null);
+        verificarUsuario();
         this.setVisible(true);
     }
 
@@ -488,5 +490,16 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     @Override
     public void pesquisar(String sql) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void verificarUsuario(){
+        if (usuarioLogadoBean.getUsuario().getCliente()>0){
+            ClienteController clienteController = new ClienteController();
+            Cliente cliente = clienteController.consultar(usuarioLogadoBean.getUsuario().getCliente());
+            if (cliente!=null){
+                jButton1.setEnabled(false);
+                setCliente(cliente);
+            }
+        }
     }
 }
