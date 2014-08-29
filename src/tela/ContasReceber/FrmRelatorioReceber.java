@@ -497,7 +497,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
             ClienteController clienteController = new ClienteController();
             Cliente cliente = clienteController.consultar(usuarioLogadoBean.getUsuario().getCliente());
             if (cliente!=null){
-                jButton1.setEnabled(false);
+                selecionarjButton.setEnabled(false);
                 setCliente(cliente);
             }
         }
