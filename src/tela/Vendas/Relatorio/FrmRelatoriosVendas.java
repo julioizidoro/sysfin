@@ -354,7 +354,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
     }
 
     @Override
-    public void pesquisar(String sql) {
+    public void pesquisar(String sql, String oder) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -367,6 +367,11 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
                 setCliente(cliente);
             }
         }
+    }
+
+    @Override
+    public void setNumeroColuna(int numero) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

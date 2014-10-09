@@ -25,6 +25,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "cliente")
 public class Cliente implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<Produto> produtoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+    private List<Vendas> vendasList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -246,6 +250,22 @@ public class Cliente implements Serializable {
 
     public void setCodigosystm(Integer codigosystm) {
         this.codigosystm = codigosystm;
+    }
+
+    public List<Produto> getProdutoList() {
+        return produtoList;
+    }
+
+    public void setProdutoList(List<Produto> produtoList) {
+        this.produtoList = produtoList;
+    }
+
+    public List<Vendas> getVendasList() {
+        return vendasList;
+    }
+
+    public void setVendasList(List<Vendas> vendasList) {
+        this.vendasList = vendasList;
     }
 
 }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package modelView;
 
 import java.io.Serializable;
@@ -15,27 +14,38 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
- * @author Wolverine
+ * @author Julio
  */
 @Entity
 @Table(name = "viewvendas")
 public class Viewvendas implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "idvendas")
     @Id
     private int idvendas;
     @Column(name = "dataVenda")
     @Temporal(TemporalType.DATE)
     private Date dataVenda;
+    @Size(max = 100)
     @Column(name = "nomeCliente")
     private String nomeCliente;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "valorBruto")
     private Float valorBruto;
+    @Size(max = 100)
+    @Column(name = "razaoSocial")
+    private String razaoSocial;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "cliente_idcliente")
+    private int clienteIdcliente;
     @Column(name = "valorLiquido")
     private Float valorLiquido;
     @Column(name = "valorDesconto")
@@ -44,17 +54,19 @@ public class Viewvendas implements Serializable {
     private Float valorPagoFornecedor;
     @Column(name = "valorRecebido")
     private Float valorRecebido;
-    @Column(name = "razaoSocial")
-    private String razaoSocial;
-    @Basic(optional = false)
-    @Column(name = "cliente_idcliente")
-    private int clienteIdcliente;
+    @Size(max = 15)
     @Column(name = "situacao")
     private String situacao;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "planoContas")
     private int planoContas;
+    @Size(max = 100)
     @Column(name = "nomeFantasia")
     private String nomeFantasia;
+    @Size(max = 100)
+    @Column(name = "descricao")
+    private String descricao;
 
     public Viewvendas() {
     }
@@ -83,49 +95,8 @@ public class Viewvendas implements Serializable {
         this.nomeCliente = nomeCliente;
     }
 
-    public String getNomeFantasia() {
-        return nomeFantasia;
-    }
-
-    public void setNomeFantasia(String nomeFantasia) {
-        this.nomeFantasia = nomeFantasia;
-    }
-
     public Float getValorBruto() {
         return valorBruto;
-    }
-
-    public String getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
-    }
-
-    public int getPlanoContas() {
-        return planoContas;
-    }
-
-    public void setPlanoContas(int planoContas) {
-        this.planoContas = planoContas;
-    }
-
-
-    public Float getValorPagoFornecedor() {
-        return valorPagoFornecedor;
-    }
-
-    public void setValorPagoFornecedor(Float valorPagoFornecedor) {
-        this.valorPagoFornecedor = valorPagoFornecedor;
-    }
-
-    public Float getValorRecebido() {
-        return valorRecebido;
-    }
-
-    public void setValorRecebido(Float valorRecebido) {
-        this.valorRecebido = valorRecebido;
     }
 
     public void setValorBruto(Float valorBruto) {
@@ -144,6 +115,10 @@ public class Viewvendas implements Serializable {
         return clienteIdcliente;
     }
 
+    public void setClienteIdcliente(int clienteIdcliente) {
+        this.clienteIdcliente = clienteIdcliente;
+    }
+
     public Float getValorLiquido() {
         return valorLiquido;
     }
@@ -160,8 +135,52 @@ public class Viewvendas implements Serializable {
         this.valorDesconto = valorDesconto;
     }
 
-    public void setClienteIdcliente(int clienteIdcliente) {
-        this.clienteIdcliente = clienteIdcliente;
+    public Float getValorPagoFornecedor() {
+        return valorPagoFornecedor;
+    }
+
+    public void setValorPagoFornecedor(Float valorPagoFornecedor) {
+        this.valorPagoFornecedor = valorPagoFornecedor;
+    }
+
+    public Float getValorRecebido() {
+        return valorRecebido;
+    }
+
+    public void setValorRecebido(Float valorRecebido) {
+        this.valorRecebido = valorRecebido;
+    }
+
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
+    }
+
+    public int getPlanoContas() {
+        return planoContas;
+    }
+
+    public void setPlanoContas(int planoContas) {
+        this.planoContas = planoContas;
+    }
+
+    public String getNomeFantasia() {
+        return nomeFantasia;
+    }
+
+    public void setNomeFantasia(String nomeFantasia) {
+        this.nomeFantasia = nomeFantasia;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
     
 }

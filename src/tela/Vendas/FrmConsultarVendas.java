@@ -18,9 +18,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 import model.Cliente;
 import model.Formapagamento;
@@ -30,6 +32,7 @@ import modelView.Viewvendas;
 import tela.ContasPagar.JTableRenderer;
 import tela.util.Formatacao;
 import tela.util.UsuarioLogadoBean;
+import tela.util.clickColunas;
 
 /**
  *
@@ -43,7 +46,9 @@ public class FrmConsultarVendas extends javax.swing.JFrame implements IVendas{
     private UsuarioLogadoBean usuarioLogadoBean;
     private Cliente cliente;
     private String sql;
-
+    private int numero;
+    private String order;
+    
     /**
      * Creates new form FrmConsultarVendas
      */
@@ -58,6 +63,8 @@ public class FrmConsultarVendas extends javax.swing.JFrame implements IVendas{
         tabelaVendasrjTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); 
         criarConsultaContasPagarInicial();
         this.setVisible(true);
+        JTableHeader header = tabelaVendasrjTable.getTableHeader();
+        header.addMouseListener(new clickColunas(this));
     }
 
     /**
@@ -88,19 +95,21 @@ public class FrmConsultarVendas extends javax.swing.JFrame implements IVendas{
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+
         tabelaVendasrjTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Status", "Data Vencimento", "Cliente", "Descrição", "Valor Conta"
+                "Nº  Venda", "Situação", "Data Venda", "Unidade", "Cliente", "Valor Total", "Produto"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -108,6 +117,22 @@ public class FrmConsultarVendas extends javax.swing.JFrame implements IVendas{
             }
         });
         jScrollPane1.setViewportView(tabelaVendasrjTable);
+        if (tabelaVendasrjTable.getColumnModel().getColumnCount() > 0) {
+            tabelaVendasrjTable.getColumnModel().getColumn(0).setResizable(false);
+            tabelaVendasrjTable.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tabelaVendasrjTable.getColumnModel().getColumn(1).setResizable(false);
+            tabelaVendasrjTable.getColumnModel().getColumn(1).setPreferredWidth(30);
+            tabelaVendasrjTable.getColumnModel().getColumn(2).setResizable(false);
+            tabelaVendasrjTable.getColumnModel().getColumn(2).setPreferredWidth(30);
+            tabelaVendasrjTable.getColumnModel().getColumn(3).setResizable(false);
+            tabelaVendasrjTable.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tabelaVendasrjTable.getColumnModel().getColumn(4).setResizable(false);
+            tabelaVendasrjTable.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tabelaVendasrjTable.getColumnModel().getColumn(5).setResizable(false);
+            tabelaVendasrjTable.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tabelaVendasrjTable.getColumnModel().getColumn(6).setResizable(false);
+            tabelaVendasrjTable.getColumnModel().getColumn(6).setPreferredWidth(200);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -392,7 +417,8 @@ public class FrmConsultarVendas extends javax.swing.JFrame implements IVendas{
     private javax.swing.JButton voltarTelajButton;
     // End of variables declaration//GEN-END:variables
 
-    public void carregarModel(){
+    public void carregarModel(String sql, String order){
+        sql = sql + order;
         VendasController vendasController = new VendasController();
         listaVendas = vendasController.listar(sql);
         if (listaVendas==null){
@@ -405,13 +431,17 @@ public class FrmConsultarVendas extends javax.swing.JFrame implements IVendas{
         ColumnModel.getColumn(1).setCellRenderer(renderer);
         DefaultTableCellRenderer rendererValor = new DefaultTableCellRenderer();
         rendererValor.setHorizontalAlignment(SwingConstants.RIGHT);
-        tabelaVendasrjTable.getColumnModel().getColumn(0).setPreferredWidth(30);
-        tabelaVendasrjTable.getColumnModel().getColumn(1).setPreferredWidth(30);
-        tabelaVendasrjTable.getColumnModel().getColumn(2).setPreferredWidth(30);
+        DefaultTableCellRenderer rendererCentro = new DefaultTableCellRenderer();
+        rendererValor.setHorizontalAlignment(SwingConstants.CENTER);
+        tabelaVendasrjTable.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tabelaVendasrjTable.getColumnModel().getColumn(1).setPreferredWidth(80);
+        tabelaVendasrjTable.getColumnModel().getColumn(2).setPreferredWidth(80);
         tabelaVendasrjTable.getColumnModel().getColumn(3).setPreferredWidth(150);
-        tabelaVendasrjTable.getColumnModel().getColumn(4).setPreferredWidth(150);
+        tabelaVendasrjTable.getColumnModel().getColumn(4).setPreferredWidth(250);
         tabelaVendasrjTable.getColumnModel().getColumn(5).setCellRenderer(rendererValor);
-        tabelaVendasrjTable.getColumnModel().getColumn(5).setPreferredWidth(50);
+        tabelaVendasrjTable.getColumnModel().getColumn(5).setPreferredWidth(80);
+        tabelaVendasrjTable.getColumnModel().getColumn(6).setPreferredWidth(300);
+        tabelaVendasrjTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);  
         tabelaVendasrjTable.repaint();
     }
     
@@ -445,17 +475,19 @@ public class FrmConsultarVendas extends javax.swing.JFrame implements IVendas{
         if (usuarioLogadoBean.getUsuario().getCliente()>0){
             sql = " Select v from Viewvendas v where v.dataVenda>='" + dataInicial + 
                 "' and v.dataVenda<='" + dataFinal + "' and situacao<>'verde' and clienteIdcliente=" + 
-                    usuarioLogadoBean.getUsuario().getCliente() +  " order by v.dataVenda";
+                    usuarioLogadoBean.getUsuario().getCliente();
+            order = " order by v.dataVenda";
         }else {
             sql = " Select v from Viewvendas v where v.dataVenda>='" + dataInicial + 
-                "' and v.dataVenda<='" + dataFinal + "' and situacao<>'verde'  order by v.dataVenda";
+                "' and v.dataVenda<='" + dataFinal + "' and situacao<>'verde'";
+            order = " order by v.dataVenda";
         }
-        carregarModel();
+        carregarModel(sql, order);
     }
 
     @Override
     public void setModel() {
-        carregarModel();
+        carregarModel(sql, order);
     }
 
     @Override
@@ -483,9 +515,31 @@ public class FrmConsultarVendas extends javax.swing.JFrame implements IVendas{
     }
     
     @Override
-    public void pesquisar(String sql) {
+    public void pesquisar(String sql, String order) {
         this.sql = sql;
-        carregarModel();
+        this.order = order;
+        carregarModel(this.sql, this.order);
+    }
+
+    @Override
+    public void setNumeroColuna(int numero) {
+         this.numero = numero;
+        String order = "";
+        if (numero==0){
+            order = " order by Idvendas";
+        }else if (numero==1){
+            order =" order by situacao";
+        }else if (numero==2){
+            order = " order by DataVenda";
+        }else if (numero==3){
+            order = " order by NomeFantasia";
+        }else if (numero==4){
+            order = " order by NomeCliente";
+        }else if (numero==6){
+            order = " order by Descricao";
+        }
+        
+        carregarModel(sql, order);
     }
 
 }

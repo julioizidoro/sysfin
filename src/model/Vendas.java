@@ -9,11 +9,13 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,6 +27,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "vendas")
 public class Vendas implements Serializable {
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "vendas")
+    private Emissaonota emissaonota;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,6 +78,10 @@ public class Vendas implements Serializable {
     private Float liquidoReceber;
     @Column(name = "situacao")
     private String situacao;
+    @Column(name = "consultor")
+    private String consultor;
+    
+    
     
     
     
@@ -121,6 +129,14 @@ public class Vendas implements Serializable {
 
     public void setSituacao(String situacao) {
         this.situacao = situacao;
+    }
+
+    public String getConsultor() {
+        return consultor;
+    }
+
+    public void setConsultor(String consultor) {
+        this.consultor = consultor;
     }
 
 
@@ -258,6 +274,14 @@ public class Vendas implements Serializable {
         this.produto = produto;
     }
 
+    public Emissaonota getEmissaonota() {
+        return emissaonota;
+    }
+
+    public void setEmissaonota(Emissaonota emissaonota) {
+        this.emissaonota = emissaonota;
+    }
+
 
     @Override
     public int hashCode() {
@@ -283,5 +307,6 @@ public class Vendas implements Serializable {
     public String toString() {
         return "model.Vendas[ idvendas=" + idvendas + " ]";
     }
+
 
 }

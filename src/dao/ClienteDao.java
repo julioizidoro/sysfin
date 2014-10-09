@@ -27,7 +27,6 @@ public class ClienteDao {
         EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
         cliente = manager.merge(cliente);
-        //fechando uma transação
         manager.getTransaction().commit();
         manager.close();
         return cliente;

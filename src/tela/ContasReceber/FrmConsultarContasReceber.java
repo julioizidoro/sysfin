@@ -532,10 +532,10 @@ contasReceberjTable.setModel(new javax.swing.table.DefaultTableModel(
         if (usuarioLogadoBean.getUsuario().getCliente()>0){
             sql = " Select v from Viewcontasreceber v where v.dataVencimento<='" + dataFinal + 
                 "' and v.valorPago=0 and v.clienteIdcliente=" + usuarioLogadoBean.getUsuario().getCliente() + 
-                    " order by v.dataVencimento";
+                    " order by v.dataVencimento, v.nomeCliente";
         }else {
             sql = " Select v from Viewcontasreceber v where v.dataVencimento<='" + dataFinal + 
-                "' and v.valorPago=0 order by v.dataVencimento";
+                "' and v.valorPago=0 order by v.dataVencimento, v.nomeCliente";
         }
         carregarModel();
     }

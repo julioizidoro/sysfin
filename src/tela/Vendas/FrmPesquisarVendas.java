@@ -285,7 +285,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     }//GEN-LAST:event_dataIniciojDateChooserFocusGained
 
     private void confirmajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmajButtonActionPerformed
-        this.telaVendas.pesquisar(gerarSql());
+        this.telaVendas.pesquisar(gerarSql(), " order by v.dataVenda");
         this.dispose();
     }//GEN-LAST:event_confirmajButtonActionPerformed
 
@@ -356,7 +356,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     }
 
     @Override
-    public void pesquisar(String sql) {
+    public void pesquisar(String sql, String order) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -404,5 +404,10 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
         }
         sql = sql + " order by v.dataVenda";
         return sql;
+    }
+
+    @Override
+    public void setNumeroColuna(int numero) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

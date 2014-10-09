@@ -730,7 +730,12 @@ public class FrmLancarFormaPagamento extends javax.swing.JFrame implements IVend
     }
     
     @Override
-    public void pesquisar(String sql) {
+    public void pesquisar(String sql, String order) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setNumeroColuna(int numero) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

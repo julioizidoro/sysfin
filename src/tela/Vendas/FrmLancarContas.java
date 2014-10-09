@@ -8,6 +8,7 @@ package tela.Vendas;
 
 import com.toedter.calendar.JTextFieldDateEditor;
 import controller.BancoController;
+import controller.ClienteController;
 import controller.ContasPagarController;
 import controller.ContasReceberController;
 import controller.PlanoContasController;
@@ -21,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Banco;
+import model.Cliente;
 import model.Contaspagar;
 import model.Contasreceber;
 import model.Planocontas;
@@ -274,7 +276,9 @@ public class FrmLancarContas extends javax.swing.JFrame {
         Banco banco = bancoController.consultar(venda.getCliente(), " Nenhum");
         if (venda.getLiquidoReceber() > 0) {
             Contaspagar conta = new Contaspagar();
-            conta.setCliente(null);
+            ClienteController clienteController = new ClienteController();
+            Cliente cliente = clienteController.consultar(venda.getIdvendas());
+            conta.setCliente(cliente);
             conta.setContaPaga("N");
             conta.setDataVencimento(dataComissaojDateChooser.getDate());
             conta.setDataEnvio(new Date());

@@ -348,7 +348,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     }
 
     @Override
-    public void pesquisar(String sql) {
+    public void pesquisar(String sql, String order) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -408,5 +408,10 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
         }
         sql = sql + " order by v.dataPagamento";
         return sql;
+    }
+
+    @Override
+    public void setNumeroColuna(int numero) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

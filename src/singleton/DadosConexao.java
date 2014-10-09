@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,11 +44,11 @@ public class DadosConexao {
             String usuario = props.getProperty("usuario");
             String porta = props.getProperty("porta");
             mapa = new HashMap();
-            mapa.put("hibernate.connection.url", "jdbc:mysql://" + local + ":" + porta + "/"
+            mapa.put("javax.persistence.jdbc.url", "jdbc:mysql://" + local + ":" + porta + "/"
                     + banco);
-            mapa.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-            mapa.put("hibernate.connection.password", senha);
-            mapa.put("hibernate.connection.username", usuario);
+            mapa.put("javax.persistence.jdbc.driver", "com.mysql.jdbc.Driver");
+            mapa.put("javax.persistence.jdbc.password", senha);
+            mapa.put("javax.persistence.jdbc.user", usuario);
             mapa.put("hibernate.cache.provider_class", "org.hibernate.cache.NoCacheProvider");
             mapa.put("hibernate.show_sql", "true");
             mapa.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");

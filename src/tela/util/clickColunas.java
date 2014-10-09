@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 import tela.OutrosLancamentos.ItelaMovimentoBanco;
+import tela.Vendas.IVendas;
 
 /**
  *
@@ -20,11 +21,16 @@ import tela.OutrosLancamentos.ItelaMovimentoBanco;
 public class clickColunas extends MouseAdapter{
     
     private ItelaMovimentoBanco telaOutros;
+    private IVendas telaVendas;
     
    
 
     public clickColunas(ItelaMovimentoBanco tela) {
         this.telaOutros = tela;
+    }
+    
+    public clickColunas(IVendas tela) {
+        this.telaVendas = tela;
     }
     
     public void mouseClicked(MouseEvent evt) {
@@ -40,6 +46,9 @@ public class clickColunas extends MouseAdapter{
         }
         if (telaOutros!=null){
             telaOutros.setNumeroColuna(mColIndex);
+        }
+        if (telaVendas!=null){
+            telaVendas.setNumeroColuna(mColIndex);
         }
   }
 }

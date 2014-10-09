@@ -21,5 +21,6 @@ public interface IVendas {
     void setArquivo(File arquivo);
     void setFormaPagamento(Formapagamento formaPagamento);
     void exportarExcel(String caminho, String nomeArquivo);
-    void pesquisar(String sql);
+    void pesquisar(String sql, String order);
+    void setNumeroColuna(int numero);
 }

@@ -16,6 +16,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
+import model.Emissaonota;
 import model.Vendas;
 import modelView.Viewvendas;
 import singleton.ConectionFactory;
@@ -108,6 +109,16 @@ public class VendasDao {
             ex.printStackTrace();
         }
         return null;
+    }
+    
+    public Emissaonota salvar(Emissaonota emissaonota){
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
+        manager.getTransaction().begin();
+        emissaonota = manager.merge(emissaonota);
+        manager.getTransaction().commit();
+        manager.close();
+        return emissaonota;
     }
     
 }
