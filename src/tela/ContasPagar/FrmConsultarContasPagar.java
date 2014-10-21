@@ -863,4 +863,9 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         totaljTextField.setText(Formatacao.foramtarFloatString(vencida+vencer+vencendo));
     } 
 
+    @Override
+    public void imprimirFluxo(String tipo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

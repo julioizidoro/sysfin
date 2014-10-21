@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dao;
 
 import java.io.FileWriter;
@@ -16,65 +15,42 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
-import model.Contasreceber;
-import modelView.Viewcontasreceber;
-import modelView.Viewcontasreceberfluxo;
+import model.Fluxocaixa;
 import singleton.ConectionFactory;
 
 /**
  *
- * @author Wolverine
+ * @author Julio
  */
-public class ContasReceberDao {
+public class FluxoCaixaDao {
     
-    
-    public Contasreceber salvar(Contasreceber conta) throws SQLException{
+    public Fluxocaixa salvar(Fluxocaixa fluxo) throws SQLException{
         ConectionFactory conexao = new ConectionFactory();
         EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
-        conta = manager.merge(conta);
+        fluxo = manager.merge(fluxo);
         manager.getTransaction().commit();
         manager.close();
-        return conta;
+        return fluxo;
     }
     
-    public List<Viewcontasreceber> listar(String sql) throws SQLException{
+    public List<Fluxocaixa> listar(int idCliente) throws SQLException{
         ConectionFactory conexao = new ConectionFactory();
         EntityManager manager = conexao.getConnection();
-        Query q = manager.createQuery(sql);
-        List<Viewcontasreceber> lista = q.getResultList();
+        Query q = manager.createQuery("select f from Fluxocaixa f where f.cliente.idcliente=" + idCliente);
+        List<Fluxocaixa> listaFluxo = q.getResultList();
         manager.close();
-        return lista;
+        return listaFluxo;
     }
     
-    public Contasreceber consultar(int idConta) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
-        Contasreceber conta = manager.find(Contasreceber.class, idConta);
-        manager.close();
-        return conta;
-    }
-    
-    public void excluir(int idConta) throws SQLException{
+    public void excluir(int idCliente) throws SQLException{
         ConectionFactory conexao = new ConectionFactory();
         EntityManager manager = conexao.getConnection();
         manager.getTransaction().begin();
-        Contasreceber conta = manager.find(Contasreceber.class, idConta);
-        manager.remove(conta);
+        Query q = manager.createNativeQuery("Delete from fluxocaixa where cliente_idcliente=" + idCliente);
+        q.executeUpdate();
         manager.getTransaction().commit();
         manager.close();
-    }
-    
-    public Contasreceber consultarVendaFornecedor(int idVenda) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
-        Query q = manager.createQuery("Select c from Contasreceber c where c.vendaComissao=" + idVenda);
-        Contasreceber conta = null;
-        if (q.getResultList().size()>0){
-            conta =  (Contasreceber) q.getResultList().get(0);
-        }
-        manager.close();
-        return conta;
     }
     
     public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, String sql) throws IOException {
@@ -108,7 +84,7 @@ public class ContasReceberDao {
                 FileWriter excelFile = new FileWriter(caminhoSalvarExcel); // nome do arquivo  
                 excelFile.write(new String(contenu)); //aqui ele passa a String para salvar  
                 excelFile.close();
-                JOptionPane.showMessageDialog(null, "contas Receber Exportada com Sucesso");
+                JOptionPane.showMessageDialog(null, "Fluxo de Caixa Exportado com Sucesso");
                 return rs;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
@@ -123,14 +99,4 @@ public class ContasReceberDao {
         return null;
     }
     
-    public List<Viewcontasreceberfluxo> listaFluxo(String sql) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
-        manager.getTransaction().begin();
-        Query q = manager.createQuery(sql);
-        List<Viewcontasreceberfluxo> listaFluxo= q.getResultList();
-        manager.getTransaction().commit();
-        manager.close();
-        return listaFluxo;
-    }
 }

@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import model.Contasreceber;
 import modelView.Viewcontasreceber;
+import modelView.Viewcontasreceberfluxo;
 
 /**
  *
@@ -50,6 +51,11 @@ public class ContasReceberFacade {
     public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, String sql) throws IOException {
         contasReceberDao = new ContasReceberDao();
         return contasReceberDao.ExportarExcel(nomeRelatorio, local, porta, senha, banco, usuario, caminhoSalvarExcel, sql);
+    }
+    
+    public List<Viewcontasreceberfluxo> listaFluxo(String sql) throws SQLException{
+        contasReceberDao = new ContasReceberDao();
+        return contasReceberDao.listaFluxo(sql);
     }
     
 }

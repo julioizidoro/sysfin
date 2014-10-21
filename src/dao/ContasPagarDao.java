@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import model.Arquivocontaspagar;
 import model.Contaspagar;
 import modelView.Viewcontaspagar;
+import modelView.Viewcontaspagarfluxo;
 import singleton.ConectionFactory;
 
 
@@ -172,6 +173,17 @@ public class ContasPagarDao {
         }
         manager.getTransaction().commit();
         manager.close();
+    }
+    
+    public List<Viewcontaspagarfluxo> listaFluxo(String sql) throws SQLException{
+        ConectionFactory conexao = new ConectionFactory();
+        EntityManager manager = conexao.getConnection();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery(sql);
+        List<Viewcontaspagarfluxo> listaFluxo= q.getResultList();
+        manager.getTransaction().commit();
+        manager.close();
+        return listaFluxo;
     }
     
 }

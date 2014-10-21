@@ -431,8 +431,6 @@ public class FrmConsultarVendas extends javax.swing.JFrame implements IVendas{
         ColumnModel.getColumn(1).setCellRenderer(renderer);
         DefaultTableCellRenderer rendererValor = new DefaultTableCellRenderer();
         rendererValor.setHorizontalAlignment(SwingConstants.RIGHT);
-        DefaultTableCellRenderer rendererCentro = new DefaultTableCellRenderer();
-        rendererValor.setHorizontalAlignment(SwingConstants.CENTER);
         tabelaVendasrjTable.getColumnModel().getColumn(0).setPreferredWidth(80);
         tabelaVendasrjTable.getColumnModel().getColumn(1).setPreferredWidth(80);
         tabelaVendasrjTable.getColumnModel().getColumn(2).setPreferredWidth(80);
@@ -535,6 +533,8 @@ public class FrmConsultarVendas extends javax.swing.JFrame implements IVendas{
             order = " order by NomeFantasia";
         }else if (numero==4){
             order = " order by NomeCliente";
+        }else if (numero==5){
+            order = " order by valorBruto";
         }else if (numero==6){
             order = " order by Descricao";
         }

@@ -1123,7 +1123,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
             despesasFinanceirajTextField.setText(Formatacao.foramtarFloatString(venda.getDespesasFinanceiras()));
             comissaoFuncionariojTextField.setText(Formatacao.foramtarFloatString(venda.getComissaoFuncionarios()));
             comissaoTerceirosjTextField.setText(Formatacao.foramtarFloatString(venda.getComissaoTerceiros()));
-            dataPagamentoFornecedorjDateChooser.setDate(dataPagamentoFornecedorjDateChooser.getDate());
+            dataPagamentoFornecedorjDateChooser.setDate(venda.getDataPagamentoFornecedor());
             valorPagoFornecedorjTextField.setText(Formatacao.foramtarFloatString(venda.getValorPagoFornecedor()));
             nomefornecedorjTextField.setText(venda.getNomeFornecedor());
             consultorjTextField.setText(venda.getConsultor());

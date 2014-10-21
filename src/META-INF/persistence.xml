@@ -24,6 +24,9 @@
     <class>modelView.Viewrelatoriopagamento</class>
     <class>modelView.Viewrelatoriovendas</class>
     <class>modelView.Viewvendas</class>
+    <class>modelView.Viewcontaspagarfluxo</class>
+    <class>modelView.Viewcontasreceberfluxo</class>
+    <class>model.Fluxocaixa</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8082/sysfin?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="simples"/>

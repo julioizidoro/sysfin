@@ -277,7 +277,7 @@ public class FrmLancarContas extends javax.swing.JFrame {
         if (venda.getLiquidoReceber() > 0) {
             Contaspagar conta = new Contaspagar();
             ClienteController clienteController = new ClienteController();
-            Cliente cliente = clienteController.consultar(venda.getIdvendas());
+            Cliente cliente = clienteController.consultar(venda.getCliente());
             conta.setCliente(cliente);
             conta.setContaPaga("N");
             conta.setDataVencimento(dataComissaojDateChooser.getDate());

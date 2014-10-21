@@ -402,7 +402,6 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
                 sql = sql + " and v.nomeCliente like '%" + nomeClientejTextField.getText() + "%'";
             }
         }
-        sql = sql + " order by v.dataVenda";
         return sql;
     }
 

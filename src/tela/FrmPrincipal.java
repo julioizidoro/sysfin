@@ -16,6 +16,7 @@ import tela.Banco.FrmConsultaBanco;
 import tela.Cliente.FrmConsultaCliente;
 import tela.ContasPagar.FrmConsultarContasPagar;
 import tela.ContasPagar.Relatorio.FrmRelatoriosContasVencer;
+import tela.ContasPagar.Relatorio.FrmRelatoriosFluxoCaixa;
 import tela.ContasPagar.Relatorio.FrmRelatoriosPagamentos01;
 import tela.ContasReceber.FrmConsultarContasReceber;
 import tela.ContasReceber.FrmRelatorioReceber;
@@ -77,6 +78,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         excluirPlanoContasjButton3 = new javax.swing.JButton();
         excluirPlanoContasjButton4 = new javax.swing.JButton();
         excluirPlanoContasjButton5 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        adicionarPlanoContasjButton4 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -331,6 +334,40 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Relatórios", jPanel3);
 
+        adicionarPlanoContasjButton4.setForeground(new java.awt.Color(35, 135, 112));
+        adicionarPlanoContasjButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/menus/cadvendedores.png"))); // NOI18N
+        adicionarPlanoContasjButton4.setText("Fluxo de Caixa");
+        adicionarPlanoContasjButton4.setToolTipText("Cadastro de Clientes");
+        adicionarPlanoContasjButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        adicionarPlanoContasjButton4.setMaximumSize(new java.awt.Dimension(80, 90));
+        adicionarPlanoContasjButton4.setMinimumSize(new java.awt.Dimension(80, 90));
+        adicionarPlanoContasjButton4.setName(""); // NOI18N
+        adicionarPlanoContasjButton4.setPreferredSize(new java.awt.Dimension(80, 90));
+        adicionarPlanoContasjButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adicionarPlanoContasjButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(adicionarPlanoContasjButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(adicionarPlanoContasjButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(265, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Relatórios", jPanel6);
+
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setBackground(new java.awt.Color(35, 135, 112));
@@ -412,7 +449,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -503,6 +540,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         new FrmRelatorioReceber(usuarioLogadoBean);
     }//GEN-LAST:event_excluirPlanoContasjButton5ActionPerformed
 
+    private void adicionarPlanoContasjButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarPlanoContasjButton4ActionPerformed
+        new FrmRelatoriosFluxoCaixa(usuarioLogadoBean);
+    }//GEN-LAST:event_adicionarPlanoContasjButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -513,6 +554,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton adicionarPlanoContasjButton;
     private javax.swing.JButton adicionarPlanoContasjButton2;
     private javax.swing.JButton adicionarPlanoContasjButton3;
+    private javax.swing.JButton adicionarPlanoContasjButton4;
     private javax.swing.JButton consultaBancojButton;
     private javax.swing.JButton consultaBancojButton1;
     private javax.swing.JButton excluirPlanoContasjButton2;
@@ -531,6 +573,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton registrarTransferenciajButton;
     private javax.swing.JButton registrarTransferenciajButton2;

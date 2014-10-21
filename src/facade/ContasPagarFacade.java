@@ -14,6 +14,7 @@ import java.util.List;
 import model.Arquivocontaspagar;
 import model.Contaspagar;
 import modelView.Viewcontaspagar;
+import modelView.Viewcontaspagarfluxo;
 
 /**
  *
@@ -71,5 +72,10 @@ public class ContasPagarFacade {
     public void excluirArquivo(int idArquivo) throws SQLException{
         contasPagarDao = new ContasPagarDao();
         contasPagarDao.excluirArquivo(idArquivo);
+    }
+    
+    public List<Viewcontaspagarfluxo> listaFluxo(String sql) throws SQLException{
+        contasPagarDao = new ContasPagarDao();
+        return contasPagarDao.listaFluxo(sql);
     }
 }

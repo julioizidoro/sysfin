@@ -6,7 +6,6 @@
 
 package controller;
 
-import dao.ContasReceberDao;
 import facade.ContasReceberFacade;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -17,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Contasreceber;
 import modelView.Viewcontasreceber;
+import modelView.Viewcontasreceberfluxo;
 
 /**
  *
@@ -87,6 +87,17 @@ public class ContasReceberController {
         } catch (IOException ex) {
             Logger.getLogger(ContasReceberController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro Exportar Contas Receber " + ex);
+            return null;
+        }
+    }
+    
+    public List<Viewcontasreceberfluxo> listaFluxo(String sql) {
+        contasReceberFacade = new ContasReceberFacade();
+        try {
+            return contasReceberFacade.listaFluxo(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(ContasReceberController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro Listar Fluxo Contas Receber " + ex);
             return null;
         }
     }

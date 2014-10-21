@@ -9,6 +9,7 @@ package tela.ContasPagar.Relatorio;
 import com.toedter.calendar.JTextFieldDateEditor;
 import controller.ClienteController;
 import controller.ContasPagarController;
+import controller.FluxoCaixaController;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
@@ -25,6 +26,7 @@ import javax.swing.JOptionPane;
 import model.Cliente;
 import singleton.ConexaoSingletonTM;
 import tela.Cliente.FrmConsultaCliente;
+import tela.ContasPagar.FluxoCaixaBean;
 import tela.ContasPagar.IContasPagar;
 import tela.FrmSalvarAquivo;
 import tela.util.Formatacao;
@@ -35,7 +37,7 @@ import tela.util.relatoriosJasper;
  *
  * @author Wolverine
  */
-public class FrmRelatoriosContasVencer extends javax.swing.JFrame implements IContasPagar{
+public class FrmRelatoriosFluxoCaixa extends javax.swing.JFrame implements IContasPagar{
     
     private String datePattern;
     private String maskPattern;
@@ -45,7 +47,7 @@ public class FrmRelatoriosContasVencer extends javax.swing.JFrame implements ICo
     /**
      * Creates new form FrmRelatoriosVendas
      */
-    public FrmRelatoriosContasVencer(UsuarioLogadoBean usuarioLogadoBean) {
+    public FrmRelatoriosFluxoCaixa(UsuarioLogadoBean usuarioLogadoBean) {
         datePattern = "dd/MM/yyyy";
         maskPattern = "##/##/##";
         placeHolder = '_';
@@ -81,22 +83,27 @@ jLabel4 = new javax.swing.JLabel();
 jPanel3 = new javax.swing.JPanel();
 SalvarjButton = new javax.swing.JButton();
 jButton4 = new javax.swing.JButton();
-exceljButton = new javax.swing.JButton();
+jButton2 = new javax.swing.JButton();
 
 setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 setTitle("Relatório de Pagamentos");
-
-jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-jLabel1.setText("Unidade");
-
-selecionarjButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/botoes/selecionar.png"))); // NOI18N
-selecionarjButton.setText("Selecionar");
-selecionarjButton.setToolTipText("Selecionar Unidade");
-selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-        selecionarjButtonActionPerformed(evt);
+addWindowListener(new java.awt.event.WindowAdapter() {
+    public void windowClosing(java.awt.event.WindowEvent evt) {
+        formWindowClosing(evt);
     }
+    });
+
+    jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+    jLabel1.setText("Unidade");
+
+    selecionarjButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/botoes/selecionar.png"))); // NOI18N
+    selecionarjButton.setText("Selecionar");
+    selecionarjButton.setToolTipText("Selecionar Unidade");
+    selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            selecionarjButtonActionPerformed(evt);
+        }
     });
 
     unidadejTextField.setEditable(false);
@@ -164,7 +171,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     jPanel3.add(SalvarjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
     jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/botoespequenos/cancel.png"))); // NOI18N
-    jButton4.setText("Cancela");
+    jButton4.setText("Fechar");
     jButton4.setToolTipText("Cancela");
     jButton4.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,15 +180,15 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     });
     jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
 
-    exceljButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/botoespequenos/icone_excel.gif"))); // NOI18N
-    exceljButton.setText("Excel    ");
-    exceljButton.setToolTipText("Exportar para Excel");
-    exceljButton.addActionListener(new java.awt.event.ActionListener() {
+    jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/botoespequenos/icone_excel.gif"))); // NOI18N
+    jButton2.setText("Excel    ");
+    jButton2.setToolTipText("Exportar para Excel");
+    jButton2.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            exceljButtonActionPerformed(evt);
+            jButton2ActionPerformed(evt);
         }
     });
-    jPanel3.add(exceljButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, -1));
+    jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, -1, -1));
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -210,8 +217,6 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SalvarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarjButtonActionPerformed
-        SalvarjButton.setEnabled(false);
-        exceljButton.setEnabled(false);
         validarRelatorio();
     }//GEN-LAST:event_SalvarjButtonActionPerformed
 
@@ -223,11 +228,14 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
         new FrmConsultaCliente(usuarioLogadoBean, this);
     }//GEN-LAST:event_selecionarjButtonActionPerformed
 
-    private void exceljButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exceljButtonActionPerformed
-        SalvarjButton.setEnabled(false);
-        exceljButton.setEnabled(false);
-        new FrmSalvarAquivo(this);
-    }//GEN-LAST:event_exceljButtonActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       validarExecel();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        FluxoCaixaController fluxoCaixaController = new FluxoCaixaController();
+        fluxoCaixaController.excluir(cliente.getIdcliente());
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -238,7 +246,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JButton SalvarjButton;
     private com.toedter.calendar.JDateChooser dataFinaljDateChooser;
     private com.toedter.calendar.JDateChooser dataIniciojDateChooser;
-    private javax.swing.JButton exceljButton;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -272,12 +280,24 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
         if (msg.length()>5){
             JOptionPane.showMessageDialog(rootPane, msg);
         }else {
-            gerarRelatorioPagamento();
+            FluxoCaixaBean fluxoCaixa = new FluxoCaixaBean(dataIniciojDateChooser.getDate(), dataFinaljDateChooser.getDate(), cliente, this, "R");
         }
     }
     
-    public void gerarRelatorioPagamento(){
-        String url = ("tela/ContasPagar/Relatorio/reportPagamentoVencidas.jasper");
+    private void validarExecel(){
+        String msg = "";
+        if (cliente==null){
+            msg = msg + "Cliente não Selecionado\b\n"; 
+        }
+        if (msg.length()>5){
+            JOptionPane.showMessageDialog(rootPane, msg);
+        }else {
+            FluxoCaixaBean fluxoCaixa = new FluxoCaixaBean(dataIniciojDateChooser.getDate(), dataFinaljDateChooser.getDate(), cliente, this, "E");
+        }
+    }
+    
+    public void gerarRelatorioFluxoCaixa(){
+        String url = ("tela/ContasPagar/Relatorio/reportFluxoCaixa.jasper");
         Map parameters = new HashMap();
         try {
             Image logo = new ImageIcon(getClass().getResource("/imagens/logoRelatorio/logo.jpg")).getImage();
@@ -286,6 +306,7 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
             periodo = "Período : " + Formatacao.ConvercaoDataPadrao(dataIniciojDateChooser.getDate()) 
                         + "    " + Formatacao.ConvercaoDataPadrao(dataFinaljDateChooser.getDate());
             parameters.put("periodo", periodo);
+            parameters.put("nomeFantasia", cliente.getNomeFantasia());
             parameters.put("sql",gerarSql());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Não foi possível gerar o relatório " + ex);
@@ -300,16 +321,8 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     }
     
     public String gerarSql(){
-        String sql = "Select distinct contasPagar.dataVencimento, contasPagar.descricao, contasPagar.valor, contasPagar.dataAgendamento,cliente.nomeFantasia, contasPagar.fornecedor, contasPagar.numeroDocumento";
-        sql = sql + " From ";
-        sql = sql + " contasPagar join cliente on contasPagar.cliente_idcliente = cliente.idcliente ";
-        sql = sql +" where ";
-        if ((dataIniciojDateChooser.getDate()!=null) && (dataFinaljDateChooser.getDate()!=null)){
-            sql = sql + "contasPagar.dataVencimento>='" +  Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate()) +
-                    "' and contasPagar.dataVencimento<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate()) + "' and ";
-        }
-	sql = sql + " contasPagar.cliente_idcliente=" + cliente.getIdcliente() + " and contasPagar.contaPaga='N'";
-        sql = sql + " order by contasPagar.dataVencimento";
+        String sql = "Select * from fluxocaixa where cliente_idcliente=" + cliente.getIdcliente() + 
+                    " order by data";
         return sql;
     }
 
@@ -333,18 +346,11 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
         String senha = props.getProperty("senha");
         String usuario = props.getProperty("usuario");
         String porta = props.getProperty("porta");
-         String sql = "Select distinct contasPagar.dataVencimento, contasPagar.descricao, contasPagar.valor, contasPagar.dataAgendamento,cliente.nomeFantasia, contasPagar.fornecedor";
-        sql = sql + " From ";
-        sql = sql + " contasPagar join cliente on contasPagar.cliente_idcliente = cliente.idcliente ";
-        sql = sql +" where ";
-        if ((dataIniciojDateChooser.getDate()!=null) && (dataFinaljDateChooser.getDate()!=null)){
-            sql = sql + "contasPagar.dataVencimento>='" +  Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate()) +
-                    "' and contasPagar.dataVencimento<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate()) + "' and ";
-        }
-	sql = sql + " contasPagar.cliente_idcliente=" + cliente.getIdcliente() + " and contasPagar.contaPaga='N'";
-        sql = sql + " order by contasPagar.dataVencimento";
-        ContasPagarController contasPagarController = new ContasPagarController();
-        contasPagarController.ExportarExcel(nomeArquivo, local, porta, senha, banco, usuario, caminho, sql);
+        String sql = "SELECT distinct fluxocaixa.data, fluxocaixa.valorContasReceber, fluxocaixa.valorContasPagar," +
+        " fluxocaixa.saldo from fluxocaixa where fluxocaixa.cliente_idcliente=" + cliente.getIdcliente() + 
+                " order by fluxocaixa.data";
+        FluxoCaixaController fluxoCaixaController = new FluxoCaixaController();
+        fluxoCaixaController.ExportarExcel(nomeArquivo, local, porta, senha, banco, usuario, caminho, sql);
     }
     
     public void verificarUsuario(){
@@ -360,6 +366,10 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
 
     @Override
     public void imprimirFluxo(String tipo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (tipo.equalsIgnoreCase("R")){
+            gerarRelatorioFluxoCaixa();
+        }else if (tipo.equalsIgnoreCase("E")){
+            new FrmSalvarAquivo(this);
+        }
     }
 }

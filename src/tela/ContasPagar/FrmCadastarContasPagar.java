@@ -762,5 +762,10 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
             }
         }
     }
+
+    @Override
+    public void imprimirFluxo(String tipo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

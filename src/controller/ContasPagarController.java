@@ -7,7 +7,6 @@
 package controller;
 
 
-import dao.ContasPagarDao;
 import facade.ContasPagarFacade;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -19,6 +18,7 @@ import javax.swing.JOptionPane;
 import model.Arquivocontaspagar;
 import model.Contaspagar;
 import modelView.Viewcontaspagar;
+import modelView.Viewcontaspagarfluxo;
 
 /**
  *
@@ -132,6 +132,17 @@ public class ContasPagarController {
         } catch (SQLException ex) {
             Logger.getLogger(ContasPagarController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro Excluir Arquivo " + ex);
+        }
+    }
+    
+    public List<Viewcontaspagarfluxo> listaFluxo(String sql){
+        contasPagarFacade = new ContasPagarFacade();
+        try {
+            return contasPagarFacade.listaFluxo(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(ContasPagarController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro Listar Fluxo Caixa Contas Pagar " + ex);
+            return null;
         }
     }
 }

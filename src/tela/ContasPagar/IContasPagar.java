@@ -17,4 +17,5 @@ public interface IContasPagar {
     void setArquivo(File arquivo, int numeroArquivo);
     void setCliente(Cliente cliente);
     void exportarExcel(String caminho, String nomeArquivo);
+    void imprimirFluxo(String tipo);
 }
