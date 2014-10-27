@@ -639,6 +639,7 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
 
     @Override
     public void setArquivo(File arquivo, int numeroArquivo) {
+        if (arquivo.length()<=1500000){
         if (arquivo != null) {
             if (this.arquivoConta==null){
                 arquivoConta = new Arquivocontaspagar();
@@ -663,6 +664,7 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
                 }
             }
         }
+        }else JOptionPane.showMessageDialog(rootPane, "Tamanho do arquivo excede 1.5 Mega");
     }
     
     public byte[] gerarArquivoBase(File file) throws IOException {

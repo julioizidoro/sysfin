@@ -221,6 +221,8 @@ addWindowListener(new java.awt.event.WindowAdapter() {
     }//GEN-LAST:event_SalvarjButtonActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        FluxoCaixaController fluxoCaixaController = new FluxoCaixaController();
+        fluxoCaixaController.excluir(cliente.getIdcliente());
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 

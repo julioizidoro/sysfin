@@ -508,7 +508,9 @@ dataVencimentojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
             numeroDocumentojTextField.setText(conta.getNumeroDocumento());
             numeroParcelajTextField.setText(String.valueOf(conta.getNumeroParcela()));
             valorjTextField.setText(Formatacao.foramtarFloatString(conta.getValorParcela()));
-            valorRecebidojTextField.setText(Formatacao.foramtarFloatString(conta.getValorPago()));
+            if (conta.getValorPago()==0){
+                valorRecebidojTextField.setText(Formatacao.foramtarFloatString(conta.getValorParcela()));
+            }else valorRecebidojTextField.setText(Formatacao.foramtarFloatString(conta.getValorPago()));
             Banco banco = bancoController.consultar(conta.getBanco());
             contajComboBox.setSelectedItem(banco);
         }

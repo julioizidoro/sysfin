@@ -34,6 +34,18 @@
 	<field name="cliente_idcliente" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<variable name="totalReceber" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorContasReceber}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="totalPagar" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorContasPagar}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="totalSaldo" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -83,7 +95,7 @@
 				<text><![CDATA[Data]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="417" y="4" width="115" height="14" uuid="f80638d3-8726-4c31-a593-89ae0faac252"/>
+				<reportElement x="462" y="4" width="70" height="14" uuid="f80638d3-8726-4c31-a593-89ae0faac252"/>
 				<text><![CDATA[Saldo]]></text>
 			</staticText>
 			<staticText>
@@ -126,22 +138,53 @@
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="18" splitType="Stretch">
+		<band height="49" splitType="Stretch">
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="4" y="2" width="127" height="14" uuid="7ae4e633-e737-4a5a-acbf-bd9d128532ca"/>
+				<reportElement x="6" y="32" width="127" height="14" uuid="7ae4e633-e737-4a5a-acbf-bd9d128532ca"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="1" y="1" width="554" height="1" uuid="4ba21f34-2453-4c55-a360-ae335e90fc1b"/>
 			</line>
 			<textField>
-				<reportElement x="417" y="2" width="80" height="14" uuid="d6a8b6e3-019d-48d8-ab61-09b61af8dfe3"/>
+				<reportElement x="419" y="32" width="80" height="14" uuid="d6a8b6e3-019d-48d8-ab61-09b61af8dfe3"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="507" y="2" width="40" height="14" uuid="cae9b9ca-2d3d-468c-9660-ef67fa87025c"/>
+				<reportElement x="509" y="32" width="40" height="14" uuid="cae9b9ca-2d3d-468c-9660-ef67fa87025c"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="1" y="5" width="94" height="20" uuid="25985412-8c83-4500-8cb7-5ab5969fb6c6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="95" y="5" width="137" height="20" uuid="06fc9d70-9436-4261-a908-ddb685b94265"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="232" y="5" width="157" height="20" uuid="93ffe4a8-f9e4-46e2-bf36-86b59df5e1ec"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="389" y="5" width="166" height="20" uuid="f47119ad-bba7-459e-85e0-f1988fe63cbe"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="8" y="9" width="50" height="13" uuid="0c405ae1-f39c-43f6-80e2-add9817fe9ea"/>
+				<text><![CDATA[Totais]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="106" y="9" width="116" height="13" uuid="9ca75c53-9742-416e-939b-b84f62ce8b60"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{totalReceber}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="244" y="9" width="116" height="13" uuid="3e2014af-5600-4bca-abd0-cdc3da724095"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{totalPagar}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="417" y="9" width="115" height="13" uuid="1f34f2f8-0d5d-4b54-a2da-f35a9b34ecd2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{totalSaldo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
