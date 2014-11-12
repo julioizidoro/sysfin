@@ -210,8 +210,6 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SalvarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarjButtonActionPerformed
-        SalvarjButton.setEnabled(false);
-        exceljButton.setEnabled(false);
         validarRelatorio();
     }//GEN-LAST:event_SalvarjButtonActionPerformed
 

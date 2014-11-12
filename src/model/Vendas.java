@@ -80,6 +80,8 @@ public class Vendas implements Serializable {
     private String situacao;
     @Column(name = "consultor")
     private String consultor;
+    @Column(name = "observacao")
+    private String observacao;
     
     
     
@@ -137,6 +139,14 @@ public class Vendas implements Serializable {
 
     public void setConsultor(String consultor) {
         this.consultor = consultor;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
 

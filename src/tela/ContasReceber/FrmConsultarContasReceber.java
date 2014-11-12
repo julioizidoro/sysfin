@@ -11,10 +11,13 @@ import com.toedter.calendar.JTextFieldDateEditor;
 import controller.ContasReceberController;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -405,7 +408,13 @@ contasReceberjTable.setModel(new javax.swing.table.DefaultTableModel(
     }//GEN-LAST:event_excluirAPagarjButtonActionPerformed
 
     private void voltarTelajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarTelajButtonActionPerformed
-        this.dispose();
+        //this.dispose();
+        gerarBoletoAcbr boleto = new gerarBoletoAcbr();
+        try {
+            boleto.gerarBoleto();
+        } catch (IOException ex) {
+            Logger.getLogger(FrmConsultarContasReceber.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_voltarTelajButtonActionPerformed
 
     private void excluirAPagarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirAPagarjButton1ActionPerformed
