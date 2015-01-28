@@ -452,6 +452,7 @@ caixaAdicionarjButton.addActionListener(new java.awt.event.ActionListener() {
             BancoController bancoController = new BancoController();
             List<Banco> listaBanco = bancoController.listar(usuarioLogadoBean.getUsuario().getCliente());
             if (listaBanco!=null){
+                bancojComboBox.removeAllItems();
                 Formatacao.preencherComobox(listaBanco, bancojComboBox);
             }
         }
@@ -465,6 +466,7 @@ caixaAdicionarjButton.addActionListener(new java.awt.event.ActionListener() {
             BancoController bancoController = new BancoController();
             List<Banco> listaBanco = bancoController.listar(cliente.getIdcliente());
             if (listaBanco!=null){
+                bancojComboBox.removeAllItems();
                 Formatacao.preencherComobox(listaBanco, bancojComboBox);
             }
         }

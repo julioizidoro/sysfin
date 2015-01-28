@@ -29,7 +29,6 @@ import model.Emissaonota;
 import model.Formapagamento;
 import model.Produto;
 import model.Vendas;
-import model.Vendas_;
 import tela.Cliente.FrmConsultaCliente;
 import tela.util.Formatacao;
 import tela.util.LimiteTextoJedit;
@@ -105,6 +104,8 @@ public class FrmLancarVenda extends javax.swing.JFrame implements IVendas{
     clientejTextField = new javax.swing.JTextField();
     jLabel21 = new javax.swing.JLabel();
     consultorjTextField = new javax.swing.JTextField();
+    jLabel23 = new javax.swing.JLabel();
+    valorJurosjTextField = new javax.swing.JTextField();
     jPanel2 = new javax.swing.JPanel();
     jLabel11 = new javax.swing.JLabel();
     comissaoLiquidajTextField = new javax.swing.JTextField();
@@ -278,6 +279,20 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
 
     jLabel21.setText("Consultor de Vendas");
 
+    jLabel23.setText("Valor Juros");
+
+    valorJurosjTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+    valorJurosjTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+        public void focusLost(java.awt.event.FocusEvent evt) {
+            valorJurosjTextFieldFocusLost(evt);
+        }
+    });
+    valorJurosjTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+        public void keyTyped(java.awt.event.KeyEvent evt) {
+            valorJurosjTextFieldvalorjTextField1KeyTyped(evt);
+        }
+    });
+
     javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
     jPanel4.setLayout(jPanel4Layout);
     jPanel4Layout.setHorizontalGroup(
@@ -294,15 +309,19 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(dataVendajDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(totalBrutojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15))
-                    .addGap(18, 18, 18)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(valorDescontojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(valorDescontojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel16))
-                    .addGap(18, 18, 18)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(valorJurosjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel23))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(totalLiquidojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel17)))
@@ -343,13 +362,13 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel16))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(totalBrutojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(valorDescontojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(totalBrutojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(valorDescontojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel17)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -360,7 +379,10 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
                             .addComponent(dataVendajDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addComponent(consultorjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel23)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(valorJurosjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap())
     );
 
@@ -497,7 +519,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
                         .addComponent(comissaoLiquidajTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel25)
                         .addComponent(comissaoTerceirosjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -515,7 +537,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(comissaoFuncionariojTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel11))))
-                    .addGap(0, 1, Short.MAX_VALUE))
+                    .addGap(0, 3, Short.MAX_VALUE))
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(nomefornecedorjTextField)
@@ -658,13 +680,13 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
             .addContainerGap())
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(160, 160, 160)
                 .addComponent(BarradeTarefasjToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(188, Short.MAX_VALUE)))
+                .addContainerGap(191, Short.MAX_VALUE)))
     );
     jPanel1Layout.setVerticalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -729,7 +751,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
                                     .addComponent(jLabel18))
                                 .addComponent(jLabel8)
                                 .addComponent(estadojComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(0, 112, Short.MAX_VALUE))))
+                            .addGap(0, 115, Short.MAX_VALUE))))
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1018,6 +1040,22 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
         importaVenda();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void valorJurosjTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_valorJurosjTextFieldFocusLost
+        calcularValoresTotais();
+    }//GEN-LAST:event_valorJurosjTextFieldFocusLost
+
+    private void valorJurosjTextFieldvalorjTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_valorJurosjTextFieldvalorjTextField1KeyTyped
+         if (evt.getKeyChar()=='.'){
+            evt.setKeyChar(',');
+        }
+        String caracteres = "0987654321,-";
+        if (evt.getKeyChar() != '\b') {
+            if (!caracteres.contains(evt.getKeyChar() + "")) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_valorJurosjTextFieldvalorjTextField1KeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -1063,6 +1101,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -1093,6 +1132,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JTextField totalVendajTextField;
     private javax.swing.JTextField unidadejTextField;
     private javax.swing.JTextField valorDescontojTextField;
+    private javax.swing.JTextField valorJurosjTextField;
     private javax.swing.JTextField valorPagoFornecedorjTextField;
     private javax.swing.JLabel valorReceberjLabel;
     // End of variables declaration//GEN-END:variables
@@ -1134,6 +1174,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
             dataVendajDateChooser.setDate(venda.getDataVenda());
             totalBrutojTextField.setText(Formatacao.foramtarFloatString(venda.getValorBruto()));
             valorDescontojTextField.setText(Formatacao.foramtarFloatString(venda.getValorDesconto()));
+            valorJurosjTextField.setText(Formatacao.foramtarFloatString(venda.getValorJuros()));
             totalLiquidojTextField.setText(Formatacao.foramtarFloatString(venda.getValorLiquido()));
             comissaoLiquidajTextField.setText(Formatacao.foramtarFloatString(venda.getComissaoLiquidaTotal()));
             despesasFinanceirajTextField.setText(Formatacao.foramtarFloatString(venda.getDespesasFinanceiras()));
@@ -1188,7 +1229,9 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
         if (totalBrutojTextField.getText().length()>0){
             venda.setValorBruto(Formatacao.formatarStringfloat(totalBrutojTextField.getText()));
         }else venda.setValorBruto(0.0f);
-        
+        if (valorJurosjTextField.getText().length()>0){
+            venda.setValorJuros(Formatacao.formatarStringfloat(valorJurosjTextField.getText()));
+        }else venda.setValorJuros(0.0f);
         if (totalLiquidojTextField.getText().length()>0){
             venda.setValorLiquido(Formatacao.formatarStringfloat(totalLiquidojTextField.getText()));
         }else venda.setValorLiquido(0.0f);
@@ -1342,6 +1385,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
         float comissaoTerceiros = 0.0f;
         float valorBruto = 0.0f;
         float valorDesconto = 0.0f;
+        float valorJuros  = 0.0f;
         float totalLiquido = 0.0f;
         float valorFornecedor = 0.0f;
         float liquidoVendas = 0.0f;
@@ -1352,7 +1396,10 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
         if (valorDescontojTextField.getText().length()>0){
             valorDesconto = Formatacao.formatarStringfloat(valorDescontojTextField.getText());
         }
-        totalLiquido =  valorBruto - valorDesconto;
+        if (valorJurosjTextField.getText().length()>0){
+            valorJuros = Formatacao.formatarStringfloat(valorJurosjTextField.getText());
+        }
+        totalLiquido =  (valorBruto + valorJuros)  - valorDesconto;
         totalLiquidojTextField.setText(Formatacao.foramtarFloatString(totalLiquido));
         totalVendajTextField.setText(Formatacao.foramtarFloatString(totalLiquido));
         if (comissaoLiquidajTextField.getText().length()>0){

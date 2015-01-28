@@ -14,5 +14,6 @@ public interface IUsuario {
     
     void carregarModel();
     void setCliente(Cliente cliente);
+    void setCaminhoPadrao(String caminho);
     
 }

@@ -42,6 +42,8 @@ public class Vendas implements Serializable {
     private Float valorBruto;
     @Column(name = "valorDesconto")
     private Float valorDesconto;
+    @Column(name = "valorJuros")
+    private Float valorJuros;
     @Column(name = "valorLiquido")
     private Float valorLiquido;
     @Column(name = "valorPagoFornecedor")
@@ -166,6 +168,14 @@ public class Vendas implements Serializable {
 
     public Float getValorBruto() {
         return valorBruto;
+    }
+
+    public Float getValorJuros() {
+        return valorJuros;
+    }
+
+    public void setValorJuros(Float valorJuros) {
+        this.valorJuros = valorJuros;
     }
 
     public String getNomeFornecedor() {

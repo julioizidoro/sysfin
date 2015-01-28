@@ -599,7 +599,7 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
             Arquivocontaspagar arquivo = contasPagarController.consultarArquivo(listaConta.get(linha).getIdcontasPagar());
             if (arquivo!=null){
                 if (arquivo.getArquivo01()!=null){
-                    new FrmMostrar(arquivo);
+                    new FrmMostrar(arquivo, usuarioLogadoBean.getUsuario().getLocalSalvar());
                 }else JOptionPane.showMessageDialog(rootPane, " Conta não possui arquivo");
             }
         }

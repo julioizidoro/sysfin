@@ -408,13 +408,13 @@ contasReceberjTable.setModel(new javax.swing.table.DefaultTableModel(
     }//GEN-LAST:event_excluirAPagarjButtonActionPerformed
 
     private void voltarTelajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarTelajButtonActionPerformed
-        //this.dispose();
-        gerarBoletoAcbr boleto = new gerarBoletoAcbr();
-        try {
-            boleto.gerarBoleto();
-        } catch (IOException ex) {
-            Logger.getLogger(FrmConsultarContasReceber.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.dispose();
+//        gerarBoletoAcbr boleto = new gerarBoletoAcbr();
+//        try {
+//            boleto.gerarBoleto();
+//        } catch (IOException ex) {
+//            Logger.getLogger(FrmConsultarContasReceber.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_voltarTelajButtonActionPerformed
 
     private void excluirAPagarjButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirAPagarjButton1ActionPerformed

@@ -8,7 +8,11 @@ package tela.ContasPagar;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Arquivocontaspagar;
 import model.Contaspagar;
@@ -21,11 +25,13 @@ import tela.FrmSalvarAquivo;
 public class FrmMostrar extends javax.swing.JFrame {
     
     private Arquivocontaspagar arquivoConta;
+    private String caminho;
 
     /**
      * Creates new form FrmMostrar
      */
-    public FrmMostrar(Arquivocontaspagar arquivoConta) {
+    public FrmMostrar(Arquivocontaspagar arquivoConta, String caminnho) {
+        this.caminho = caminnho;
         this.arquivoConta = arquivoConta;
         initComponents();
         if (arquivoConta.getArquivo01()!=null){
@@ -187,7 +193,21 @@ public class FrmMostrar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvar01jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvar01jButtonActionPerformed
-        new FrmSalvarAquivo(arquivoConta, 1);
+        if (caminho!=null){
+            if (caminho.length()>3){
+                File file = new File(caminho + "\\" + arquivoConta.getNomeArquivo01());
+                FileOutputStream in = null;
+                try {
+                    in = new FileOutputStream(file);
+                    in.write(arquivoConta.getArquivo01());
+                    in.close();
+                    JOptionPane.showMessageDialog(rootPane, arquivoConta.getNomeArquivo01() + " Arquivo Salvo em " + caminho);
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmSalvarAquivo.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(rootPane, "Erro salvar arquivo " + ex);
+                }
+            }else new FrmSalvarAquivo(arquivoConta, 1);
+        }else new FrmSalvarAquivo(arquivoConta, 1);
     }//GEN-LAST:event_salvar01jButtonActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -195,7 +215,21 @@ public class FrmMostrar extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void salvar02jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvar02jButtonActionPerformed
-        new FrmSalvarAquivo(arquivoConta, 2);
+        if (caminho!=null){
+            if (caminho.length()>3){
+                File file = new File(caminho + "\\" + arquivoConta.getNomeArquivo02());
+                FileOutputStream in = null;
+                try {
+                    in = new FileOutputStream(file);
+                    in.write(arquivoConta.getArquivo02());
+                    in.close();
+                    JOptionPane.showMessageDialog(rootPane, arquivoConta.getNomeArquivo02() + " Arquivo Salvo em " + caminho);
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmSalvarAquivo.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(rootPane, "Erro salvar arquivo " + ex);
+                }
+            }else new FrmSalvarAquivo(arquivoConta, 2);
+        }else new FrmSalvarAquivo(arquivoConta, 2);
     }//GEN-LAST:event_salvar02jButtonActionPerformed
 
     /**

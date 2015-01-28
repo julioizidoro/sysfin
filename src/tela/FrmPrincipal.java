@@ -24,6 +24,7 @@ import tela.OutrosLancamentos.FrmConsultaOutrosLancamentos;
 import tela.OutrosLancamentos.Relatorio.FrmRelatoriosConciliacao01;
 import tela.PlanoContas.FrmConsultaPlanoContas;
 import tela.Produtos.FrmConsultaProduto;
+import tela.Usuario.FrmConfiguracaoUsuario;
 import tela.Usuario.FrmConsultarUsuario;
 import tela.Vendas.FrmConsultarVendas;
 import tela.Vendas.Relatorio.FrmRelatoriosVendas;
@@ -87,6 +88,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         usuariojLabel = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -425,6 +427,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         usuariojLabel.setForeground(new java.awt.Color(35, 135, 112));
         usuariojLabel.setText("Usuário : Julio Izidoro da Silva Junior");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/botoespequenos/configuration.png"))); // NOI18N
+        jButton1.setToolTipText("Configuração do Usuário");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -432,13 +442,17 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(usuariojLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(usuariojLabel)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(usuariojLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -544,6 +558,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         new FrmRelatoriosFluxoCaixa(usuarioLogadoBean);
     }//GEN-LAST:event_adicionarPlanoContasjButton4ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new FrmConfiguracaoUsuario(usuarioLogadoBean);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -564,6 +582,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton imprimirjButton;
     private javax.swing.JButton imprimirjButton2;
     private javax.swing.JButton imprimirjButton3;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

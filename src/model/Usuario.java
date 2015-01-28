@@ -41,6 +41,8 @@ public class Usuario implements Serializable {
     private Integer cliente;
     @Column(name = "email")
     private String email;
+    @Column(name = "localSalvar")
+    private String localSalvar;
     
     
 
@@ -89,6 +91,14 @@ public class Usuario implements Serializable {
 
     public void setCliente(Integer cliente) {
         this.cliente = cliente;
+    }
+
+    public String getLocalSalvar() {
+        return localSalvar;
+    }
+
+    public void setLocalSalvar(String localSalvar) {
+        this.localSalvar = localSalvar;
     }
 
     

@@ -15,6 +15,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.net.URL;
+import javax.swing.JFileChooser;
+import tela.Usuario.IUsuario;
 import tela.Vendas.IVendas;
 
 
@@ -28,6 +30,7 @@ public class FrmCarregarArquivo extends javax.swing.JFrame {
     private IContasPagar telaConta;
     private IVendas telaVenda;
     private int numeroArquivo;
+    private IUsuario telaIUsuario;
             
             
     /** Creates new form FrmLocalizarArquivo */
@@ -47,6 +50,15 @@ public class FrmCarregarArquivo extends javax.swing.JFrame {
         this.telaVenda = telaVenda;
         initComponents();
         carregarjFileChooser.setFileFilter(null);
+        this.setLocationRelativeTo(null);
+        setVisible(true);
+    }
+    
+    public FrmCarregarArquivo(IUsuario telaIUsuario) {
+        this.telaIUsuario = telaIUsuario;
+        initComponents();
+        carregarjFileChooser.setFileFilter(null);
+        carregarjFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         this.setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -104,11 +116,16 @@ public class FrmCarregarArquivo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void carregarjFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregarjFileChooserActionPerformed
-        File f = carregarjFileChooser.getSelectedFile();
-        if (telaConta!=null){
-            this.telaConta.setArquivo(f, this.numeroArquivo);
-        }else if (telaVenda!=null){
-            this.telaVenda.setArquivo(f);
+        if (telaIUsuario != null) {
+            File curDir = carregarjFileChooser.getCurrentDirectory();
+            this.telaIUsuario.setCaminhoPadrao(curDir.getPath());
+        } else {
+            File f = carregarjFileChooser.getSelectedFile();
+            if (telaConta != null) {
+                this.telaConta.setArquivo(f, this.numeroArquivo);
+            } else if (telaVenda != null) {
+                this.telaVenda.setArquivo(f);
+            }
         }
         this.dispose();
     }//GEN-LAST:event_carregarjFileChooserActionPerformed

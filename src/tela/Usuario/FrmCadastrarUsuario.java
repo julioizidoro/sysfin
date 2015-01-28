@@ -326,4 +326,9 @@ public class FrmCadastrarUsuario extends javax.swing.JFrame implements IUsuario{
             clientejTextField.setText("Acessa todos os Clientes");
         }
     }
+
+    @Override
+    public void setCaminhoPadrao(String caminho) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
