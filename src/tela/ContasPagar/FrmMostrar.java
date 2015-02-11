@@ -195,13 +195,15 @@ public class FrmMostrar extends javax.swing.JFrame {
     private void salvar01jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvar01jButtonActionPerformed
         if (caminho!=null){
             if (caminho.length()>3){
-                File file = new File(caminho + "\\" + arquivoConta.getNomeArquivo01());
+                String nomeArquivo = caminho + "\\" + arquivoConta.getNomeArquivo01();
+                File file = new File(nomeArquivo);
                 FileOutputStream in = null;
                 try {
                     in = new FileOutputStream(file);
                     in.write(arquivoConta.getArquivo01());
                     in.close();
                     JOptionPane.showMessageDialog(rootPane, arquivoConta.getNomeArquivo01() + " Arquivo Salvo em " + caminho);
+                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + nomeArquivo);
                 } catch (Exception ex) {
                     Logger.getLogger(FrmSalvarAquivo.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(rootPane, "Erro salvar arquivo " + ex);
@@ -217,13 +219,15 @@ public class FrmMostrar extends javax.swing.JFrame {
     private void salvar02jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvar02jButtonActionPerformed
         if (caminho!=null){
             if (caminho.length()>3){
-                File file = new File(caminho + "\\" + arquivoConta.getNomeArquivo02());
+                String nomeArquivo = caminho + "\\" + arquivoConta.getNomeArquivo02();
+                File file = new File(nomeArquivo);
                 FileOutputStream in = null;
                 try {
                     in = new FileOutputStream(file);
                     in.write(arquivoConta.getArquivo02());
                     in.close();
                     JOptionPane.showMessageDialog(rootPane, arquivoConta.getNomeArquivo02() + " Arquivo Salvo em " + caminho);
+                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + nomeArquivo);
                 } catch (Exception ex) {
                     Logger.getLogger(FrmSalvarAquivo.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(rootPane, "Erro salvar arquivo " + ex);
