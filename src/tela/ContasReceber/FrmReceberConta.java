@@ -8,7 +8,6 @@ package tela.ContasReceber;
 
 import com.toedter.calendar.JTextFieldDateEditor;
 import controller.BancoController;
-import controller.ClienteController;
 import controller.ContasReceberController;
 import controller.MovimentoBancoController;
 import java.awt.Image;
@@ -493,11 +492,9 @@ dataVencimentojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
     // End of variables declaration//GEN-END:variables
 
     public void inicilizarContasReceber(Contasreceber conta){
-        BancoController bancoController = new BancoController();
-        ClienteController clienteController = new ClienteController();
         if (conta!=null){
             this.conta = conta;
-            cliente = clienteController.consultar(conta.getCliente());
+            cliente = conta.getCliente();
             if (cliente!=null){
                 clientejTextField.setText(cliente.getNomeFantasia());
                 carregarComboBox();
@@ -511,8 +508,7 @@ dataVencimentojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
             if (conta.getValorPago()==0){
                 valorRecebidojTextField.setText(Formatacao.foramtarFloatString(conta.getValorParcela()));
             }else valorRecebidojTextField.setText(Formatacao.foramtarFloatString(conta.getValorPago()));
-            Banco banco = bancoController.consultar(conta.getBanco());
-            contajComboBox.setSelectedItem(banco);
+            contajComboBox.setSelectedItem(conta.getBanco());
         }
     }
 
@@ -539,14 +535,14 @@ dataVencimentojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
             conta.setDataPagamento(dataPagamentojDateChooser.getDate());
         }
         Banco banco = (Banco) contajComboBox.getSelectedItem();
-        conta.setBanco(banco.getIdbanco());
+        conta.setBanco(banco);
         Movimentobanco mb = new Movimentobanco();
         mb.setBanco(conta.getBanco());
-        mb.setCliente(cliente.getIdcliente());
+        mb.setCliente(cliente);
         mb.setDataVencimento(conta.getDataVencimento());
         mb.setDataRegistro(new Date());
         mb.setPlanocontas(conta.getPlanocontas());
-        mb.setUsuario(usuarioLogadoBean.getUsuario().getIdusuario());
+        mb.setUsuario(usuarioLogadoBean.getUsuario());
         mb.setValorEntrada(conta.getValorPago());
         mb.setValorSaida(0.0f);
         mb.setDataCompensacao(conta.getDataPagamento());

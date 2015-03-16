@@ -548,7 +548,7 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
     }//GEN-LAST:event_liberarjButtonActionPerformed
 
     private void pesquisarjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarjButtonActionPerformed
-        sql = "Select v from Contaspagar v where  ";
+        sql = "Select v from Contaspagar v where ";
         if (liberadasjCheckBox.isSelected()){
             sql = sql + " v.contaPaga='S' and ";
         }else sql = sql + " v.contaPaga='N' and ";
@@ -557,6 +557,8 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
         }
         if (cliente!=null){
             sql = sql + " v.cliente.idcliente=" + cliente.getIdcliente() + " and ";
+        }else {
+            sql = sql + " v.cliente.visualizacao='Operacional' and ";
         }
         if (liberadasjCheckBox.isSelected()){
             sql = sql + "v.dataLiberacao>='" + Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate()) + 
@@ -726,7 +728,9 @@ contasPagarjTable.setModel(new javax.swing.table.DefaultTableModel(
                 "' and v.dataVencimento<='" + dataFinal + "' and v.contaPaga='N' ";
          if (cliente!=null){
             sql = sql + " and v.cliente.idcliente=" + cliente.getIdcliente();
-        }
+        }else {
+             sql = sql + "  and v.cliente.visualizacao='Operacional' ";
+         }
         sql = sql + " order by v.dataVencimento";
          
         carregarModel();

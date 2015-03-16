@@ -25,32 +25,28 @@ import singleton.ConectionFactory;
 public class FluxoCaixaDao {
     
     public Fluxocaixa salvar(Fluxocaixa fluxo) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         fluxo = manager.merge(fluxo);
         manager.getTransaction().commit();
-        manager.close();
         return fluxo;
     }
     
     public List<Fluxocaixa> listar(int idCliente) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("select f from Fluxocaixa f where f.cliente.idcliente=" + idCliente);
         List<Fluxocaixa> listaFluxo = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return listaFluxo;
     }
     
     public void excluir(int idCliente) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         Query q = manager.createNativeQuery("Delete from fluxocaixa where cliente_idcliente=" + idCliente);
         q.executeUpdate();
         manager.getTransaction().commit();
-        manager.close();
     }
     
     public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, String sql) throws IOException {
@@ -85,6 +81,7 @@ public class FluxoCaixaDao {
                 excelFile.write(new String(contenu)); //aqui ele passa a String para salvar  
                 excelFile.close();
                 JOptionPane.showMessageDialog(null, "Fluxo de Caixa Exportado com Sucesso");
+                conn.close();
                 return rs;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);

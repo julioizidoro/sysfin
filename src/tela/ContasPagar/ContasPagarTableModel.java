@@ -14,7 +14,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 import model.Contaspagar;
-import modelView.Viewcontaspagar;
 import tela.util.Formatacao;
 
 /**

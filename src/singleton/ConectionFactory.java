@@ -21,22 +21,29 @@ import javax.swing.JOptionPane;
  */
 public class ConectionFactory {
     
+    public static EntityManager manager;
     
-    public EntityManager getConnection() {
-        EntityManagerFactory emf = null;
-        EntityManager manager = null;
-        Map mapa=null;
-        try {
-            mapa = DadosConexao.getDadosConexao();
-        } catch (Exception ex) {
-            Logger.getLogger(ConectionFactory.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Erro obter dados de conexão");
-        }
-        emf = Persistence.createEntityManagerFactory("SysFinPU", mapa);
-        manager = emf.createEntityManager();
-        if (!manager.isOpen()){
-            JOptionPane.showMessageDialog(null, "Conexão fechada");
+    
+    public static EntityManager getConnection() {
+        if (manager == null) {
+            EntityManagerFactory emf = null;
+            Map mapa = null;
+            try {
+                mapa = DadosConexao.getDadosConexao();
+            } catch (Exception ex) {
+                Logger.getLogger(ConectionFactory.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Erro obter dados de conexão");
+            }
+            emf = Persistence.createEntityManagerFactory("SysFinPU", mapa);
+            manager = emf.createEntityManager();
+            if (!manager.isOpen()) {
+                JOptionPane.showMessageDialog(null, "Conexão fechada");
+            }
         }
         return manager;
+    }
+    
+    public static void  desconectar(){
+        manager.close();
     }
 }

@@ -24,7 +24,7 @@ import tela.util.Formatacao;
 public class ContasReceberTableModel extends AbstractTableModel{
     
     private List<Viewcontasreceber> listaContas;
-    private String[] colunas ={"Status", "Data Vencimento", "Cliente", "Valor da Conta", "Data Recebimento", "Unidade", "No. Venda"};
+    private String[] colunas ={"Status", "Data Vencimento", "Cliente", "Valor da Conta", "Juros", "Desconto","Valor Recebido","Data Recebimento", "Unidade", "No. Venda"};
 
     public ContasReceberTableModel(List<Viewcontasreceber> listaContas) {
         this.listaContas = listaContas;
@@ -48,8 +48,14 @@ public class ContasReceberTableModel extends AbstractTableModel{
         }else if (columnIndex==3){
             return Formatacao.foramtarFloatString(listaContas.get(rowIndex).getValorParcela());
         }else if (columnIndex==4){
-            return listaContas.get(rowIndex).getDataPagamento();
+            return Formatacao.foramtarFloatString(listaContas.get(rowIndex).getJuros());
         }else if (columnIndex==5){
+            return Formatacao.foramtarFloatString(listaContas.get(rowIndex).getDesagio());
+        }else if (columnIndex==6){
+            return Formatacao.foramtarFloatString(listaContas.get(rowIndex).getValorPago());
+        }else if (columnIndex==7){
+            return listaContas.get(rowIndex).getDataPagamento();
+        }else if (columnIndex==8){
             return listaContas.get(rowIndex).getNomeFantasia();
         }else return listaContas.get(rowIndex).getVenda();
     }
@@ -68,10 +74,16 @@ public class ContasReceberTableModel extends AbstractTableModel{
          }else if (columnIndex==2){
              return String.class;
          }else if (columnIndex==3){
-             return Float.class;
+             return String.class;
          }else if (columnIndex==4){
-             return Date.class;
+             return String.class;
          }else if (columnIndex==5){
+             return String.class;
+         }else if (columnIndex==6){
+             return String.class;
+         }else if (columnIndex==7){
+             return Date.class;
+         }else if (columnIndex==8){
              return String.class;
          }else return Integer.class;
     }

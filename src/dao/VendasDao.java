@@ -28,41 +28,38 @@ import singleton.ConectionFactory;
 public class VendasDao {
     
     public Vendas salvar(Vendas venda) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         venda = manager.merge(venda);
         manager.getTransaction().commit();
-        manager.close();
         return venda;
     }
     
     public List<Viewvendas> listar(String sql) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery(sql);
         List<Viewvendas> lista = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return lista;
     }
     
     public Vendas consultar(int idVenda) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Vendas venda = manager.find(Vendas.class, idVenda);
-        manager.close();
+        manager.getTransaction().commit();
         return venda;
     }
     
     public void Excluir(int idVendas) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();manager.getTransaction().begin();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Vendas venda = manager.find(Vendas.class, idVendas);
         if (venda!=null){
             manager.remove(venda);
         }
         manager.getTransaction().commit();
-        manager.close();
     }
     
     public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, String sql) throws IOException {
@@ -97,6 +94,7 @@ public class VendasDao {
                 excelFile.write(new String(contenu)); //aqui ele passa a String para salvar  
                 excelFile.close();
                 JOptionPane.showMessageDialog(null, "Vendas Exportada com Sucesso");
+                conn.close();
                 return rs;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
@@ -111,14 +109,25 @@ public class VendasDao {
         return null;
     }
     
-    public Emissaonota salvar(Emissaonota emissaonota){
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+    public Emissaonota salvar(Emissaonota emissaonota)throws SQLException{
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         emissaonota = manager.merge(emissaonota);
         manager.getTransaction().commit();
-        manager.close();
         return emissaonota;
+    }
+    
+    public Emissaonota getEmissao(int idVendas) throws SQLException{
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery("select e from Emissaonota e where e.vendas=" + idVendas);
+        manager.getTransaction().commit();
+        if (q.getResultList().size()>0){
+            Emissaonota emissor = (Emissaonota) q.getResultList().get(0);
+            return emissor;
+        }
+        
+        return null;
     }
     
 }

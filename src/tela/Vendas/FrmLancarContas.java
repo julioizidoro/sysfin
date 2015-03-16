@@ -273,12 +273,10 @@ public class FrmLancarContas extends javax.swing.JFrame {
 
     private void registrarContaComissaojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarContaComissaojButtonActionPerformed
         BancoController bancoController = new BancoController();
-        Banco banco = bancoController.consultar(venda.getCliente(), " Nenhum");
+        Banco banco = bancoController.consultar(venda.getCliente().getIdcliente(), " Nenhum");
         if (venda.getLiquidoReceber() > 0) {
             Contaspagar conta = new Contaspagar();
-            ClienteController clienteController = new ClienteController();
-            Cliente cliente = clienteController.consultar(venda.getCliente());
-            conta.setCliente(cliente);
+            conta.setCliente(venda.getCliente());
             conta.setContaPaga("N");
             conta.setDataVencimento(dataComissaojDateChooser.getDate());
             conta.setDataEnvio(new Date());
@@ -309,7 +307,7 @@ public class FrmLancarContas extends javax.swing.JFrame {
             this.dispose();
         }else {
             Contasreceber conta = new Contasreceber();
-            conta.setBanco(banco.getIdbanco());
+            conta.setBanco(banco);
             conta.setCliente(venda.getCliente());
             conta.setDataVencimento(dataComissaojDateChooser.getDate());
             conta.setDesagio(0.0f);
@@ -319,9 +317,9 @@ public class FrmLancarContas extends javax.swing.JFrame {
             conta.setNumeroDocumento("VENDA-" + String.valueOf(venda.getIdvendas()));
             conta.setNumeroParcela(1);
             Planocontas plano = (Planocontas) planoContasComissaojComboBox.getSelectedItem();
-            conta.setPlanocontas(plano.getIdplanoContas());
+            conta.setPlanocontas(plano);
             conta.setTipodocumento(tipoDocumentoComissaojComboBox.getSelectedItem().toString());
-            conta.setUsuario(usuarioLogadoBean.getUsuario().getIdusuario());
+            conta.setUsuario(usuarioLogadoBean.getUsuario());
             conta.setValorPago(00.f);
             conta.setValorParcela(venda.getLiquidoReceber()*(-1));
             conta.setVenda(venda.getIdvendas());
@@ -413,10 +411,7 @@ public class FrmLancarContas extends javax.swing.JFrame {
                 dataComissaojDateChooser.setDate(contaReceber.getDataVencimento());
                 dataComissaojDateChooser.setEnabled(false);
                 registrarContaComissaojButton.setEnabled(false);
-                Planocontas plano = planoContasController.consultar(contaReceber.getPlanocontas());
-                if (plano!=null){
-                    planoContasComissaojComboBox.setSelectedItem(plano);
-                }
+                planoContasComissaojComboBox.setSelectedItem(contaReceber.getPlanocontas());
                 tipoDocumentoComissaojComboBox.setSelectedItem(contaReceber.getTipodocumento());
                 registrarContaComissaojButton.setEnabled(false);
                 competenciajFormattedTextField.setEnabled(false);

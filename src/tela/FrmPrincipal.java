@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import java.net.URL;
 import javax.swing.JOptionPane;
 import model.Cliente;
+import singleton.ConectionFactory;
 import tela.Banco.FrmConsultaBanco;
 import tela.Cliente.FrmConsultaCliente;
 import tela.ContasPagar.FrmConsultarContasPagar;
@@ -91,6 +92,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTabbedPane1.setForeground(new java.awt.Color(35, 135, 112));
@@ -387,7 +396,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/logoRelatorio/logotela.png"))); // NOI18N
 
         jLabel3.setForeground(new java.awt.Color(35, 135, 112));
-        jLabel3.setText("Versão 1.28");
+        jLabel3.setText("Versão 1.30");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -561,6 +570,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new FrmConfiguracaoUsuario(usuarioLogadoBean);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+       
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        ConectionFactory.desconectar();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

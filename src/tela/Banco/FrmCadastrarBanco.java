@@ -235,7 +235,7 @@ public class FrmCadastrarBanco extends javax.swing.JFrame {
         banco.setSenha(senhajTextField.getText());
         banco.setGerente(gerentejTextField.getText());
         banco.setEmailGerente(emailjTextField.getText());
-        banco.setCliente(cliente.getIdcliente());
+        banco.setCliente(cliente);
         BancoController bancoController = new BancoController();
         bancoController.salvar(banco);
         this.telaBanco.setModel();

@@ -21,32 +21,27 @@ import singleton.ConectionFactory;
 public class FormaPagamentoDao {
     
     public Formapagamento salvar(Formapagamento formaPagamento) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         formaPagamento = manager.merge(formaPagamento);
         manager.getTransaction().commit();
-        manager.close();
         return formaPagamento;
     }
     
     public void Excluir(int idFormaPagamento) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         Formapagamento formaPagamento = manager.find(Formapagamento.class, idFormaPagamento);
         manager.remove(formaPagamento);
         manager.getTransaction().commit();
-        manager.close();
     }
     
     public List<Formapagamento> listar(int idVenda) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("select f from Formapagamento f where f.vendas=" + idVenda) ;
         List<Formapagamento> lista = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return lista;
-    }
-    
+    }    
 }

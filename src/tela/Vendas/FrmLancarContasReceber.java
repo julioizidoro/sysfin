@@ -11,6 +11,7 @@ import controller.BancoController;
 import controller.ClienteController;
 import controller.ContasReceberController;
 import controller.FormaPagamentoController;
+import controller.PlanoContasController;
 import controller.VendasController;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -28,6 +29,7 @@ import model.Banco;
 import model.Cliente;
 import model.Contasreceber;
 import model.Formapagamento;
+import model.Planocontas;
 import model.Vendas;
 import modelView.Viewvendas;
 import tela.util.Formatacao;
@@ -514,8 +516,8 @@ valorBrutojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
         for(int i=0;i<listaParcelas.size();i++){
             ParcelasBean parcela = listaParcelas.get(i);
             Contasreceber conta = new Contasreceber();
-            conta.setBanco(banco.getIdbanco());
-            conta.setCliente(vendas.getClienteIdcliente());
+            conta.setBanco(banco);
+            conta.setCliente(cliente);
             conta.setDataVencimento(parcela.getDataVenciemnto());
             conta.setDesagio(0.0f);
             conta.setTipodocumento(parcela.getTipoDocumento());
@@ -525,9 +527,11 @@ valorBrutojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             conta.setNomeCliente(vendas.getNomeCliente());
             conta.setNumeroDocumento(parcela.getNumeroDocumento());
             conta.setNumeroParcela(parcela.getNumeroParcela());
-            conta.setUsuario(usuarioLogadoBean.getUsuario().getIdusuario());
+            conta.setUsuario(usuarioLogadoBean.getUsuario());
             conta.setValorParcela(parcela.getValorParcelas());
-            conta.setPlanocontas(cliente.getContaRecebimento());
+            PlanoContasController planoContasController = new PlanoContasController();
+            Planocontas plano = planoContasController.consultar(cliente.getContaRecebimento());
+            conta.setPlanocontas(plano);
             conta.setVenda(vendas.getIdvendas());
             ContasReceberController contasReceberController = new ContasReceberController();
             conta = contasReceberController.salvar(conta);
@@ -536,7 +540,7 @@ valorBrutojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
         Vendas venda = vendasController.consultar(vendas.getIdvendas());
         if (venda!=null){
             venda.setSituacao("verde");
-            vendasController.salvar(venda);
+            venda = vendasController.salvar(venda);
         }
         JOptionPane.showMessageDialog(rootPane, "Contas Registradas com Sucesso");
         this.telaVendas.setModel();

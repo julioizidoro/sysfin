@@ -21,20 +21,17 @@ public class UsuarioDao {
     
     
     public Usuario salvar(Usuario usuario) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         //abrindo uma transação
         manager.getTransaction().begin();
         usuario = manager.merge(usuario);
         //fechando uma transação
         manager.getTransaction().commit();
-        manager.close();
         return usuario;
     }
     
     public Usuario consultar(String login, String senha) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         Query q = manager.createQuery("select u from Usuario u where u.login='" + login + "' and u.senha='" + senha + "'  order by u.nome");
         Usuario usuario = null;
@@ -42,24 +39,23 @@ public class UsuarioDao {
             usuario = (Usuario) q.getResultList().get(0);
         }
         manager.getTransaction().commit();
-        manager.close();
         return usuario;
     }
     
     public List<Usuario> listar(String nome) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("select u from Usuario u where u.nome like'" + nome + "%'  order by u.nome");
         List<Usuario> lista = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return  lista;
     }
     
     public Usuario consultar(int idUsuario) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Usuario usuario = manager.find(Usuario.class, idUsuario);
-        manager.close();
+        manager.getTransaction().commit();
         return usuario;
     }
     

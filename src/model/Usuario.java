@@ -25,6 +25,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<Vendas> vendasList;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -134,5 +136,13 @@ public class Usuario implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    } 
+    }
+
+    public List<Vendas> getVendasList() {
+        return vendasList;
+    }
+
+    public void setVendasList(List<Vendas> vendasList) {
+        this.vendasList = vendasList;
+    }
 }

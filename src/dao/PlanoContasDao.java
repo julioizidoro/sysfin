@@ -20,38 +20,36 @@ import singleton.ConectionFactory;
 public class PlanoContasDao {
     
     public Planocontas salvar(Planocontas plano) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         plano = manager.merge(plano);
         manager.getTransaction().commit();
-        manager.close();
         return plano;
     }
     
     public List<Planocontas> listar() throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select p from Planocontas p order by p.descricao");
         List<Planocontas> lista = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return lista;
     }
     
     public List<Planocontas> listar(String descricao) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select p from Planocontas p where p.descricao like '%" + descricao + "%'  order by p.descricao"); 
         List<Planocontas> lista = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return lista;
     }
     
     public Planocontas consultar(int idPlanoContas) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Planocontas plano = manager.find(Planocontas.class, idPlanoContas);
-        manager.close();
+        manager.getTransaction().commit();
         return plano;
     }
     

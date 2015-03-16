@@ -476,7 +476,8 @@ public class FrmConsultarVendas extends javax.swing.JFrame implements IVendas{
                     usuarioLogadoBean.getUsuario().getCliente();
             order = " order by v.dataVenda";
         }else {
-            sql = " Select v from Viewvendas v where v.dataVenda>='" + dataInicial + 
+            sql = " Select v from Viewvendas v where v.visualizacao='Operacional' and "
+                    + "v.dataVenda>='" + dataInicial + 
                 "' and v.dataVenda<='" + dataFinal + "' and situacao<>'verde'";
             order = " order by v.dataVenda";
         }

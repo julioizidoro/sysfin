@@ -30,54 +30,48 @@ import singleton.ConectionFactory;
 public class ContasPagarDao {
     
     public Contaspagar salvar(Contaspagar conta) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         //abrindo uma transação
         manager.getTransaction().begin();
         conta = manager.merge(conta);
         //fechando uma transação
         manager.getTransaction().commit();
-        manager.close();
         return conta;
     }
     
     public List<Viewcontaspagar> listar(String sql) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery(sql);
         List<Viewcontaspagar> listaContas = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return listaContas;
     }
 
     public List<Contaspagar> listarContas(String sql) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery(sql);
         List<Contaspagar> listaContas = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return listaContas;
     }
 
     
     public Contaspagar consultar(int idConta) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         Contaspagar conta = manager.find(Contaspagar.class, idConta);
         manager.getTransaction().commit();
-        manager.close();
         return conta;
     }
     
     public void excluir(int idConta) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         Contaspagar conta = manager.find(Contaspagar.class, idConta);
         manager.remove(conta);
         manager.getTransaction().commit();
-        manager.close();
     }
     
     public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, String sql) throws IOException {
@@ -112,6 +106,7 @@ public class ContasPagarDao {
                 excelFile.write(new String(contenu)); //aqui ele passa a String para salvar  
                 excelFile.close();
                 JOptionPane.showMessageDialog(null, "Controle Exportado com Sucesso");
+                conn.close();
                 return rs;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
@@ -127,62 +122,56 @@ public class ContasPagarDao {
     }
     
     public Contaspagar consultarVenda(String sql) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().commit();
         Query q = manager.createQuery(sql);
         Contaspagar conta = null;
         if (q.getResultList().size()>0){
             conta = (Contaspagar) q.getResultList().get(0);
         }
-        manager.close();
+        manager.getTransaction().begin();
         return conta;
     }
     
    
     
     public void salvarArquivo(Arquivocontaspagar arquivo) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         //abrindo uma transação
         manager.getTransaction().begin();
         manager.merge(arquivo);
         //fechando uma transação
         manager.getTransaction().commit();
-        manager.close();
     }
     
     public Arquivocontaspagar consultarArquivo(int idContasPagar) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select c from  Arquivocontaspagar  c where c.contasPagar=" + idContasPagar);
         Arquivocontaspagar arquivo = null;
         if (q.getResultList().size()>0){
             arquivo =  (Arquivocontaspagar) q.getResultList().get(0);
         }
-        manager.close();
+        manager.getTransaction().commit();
         return arquivo;
     }
     
     public void excluirArquivo(int idArquivo) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         Arquivocontaspagar arquivo = manager.find(Arquivocontaspagar.class, idArquivo);
         if (arquivo!=null){
             manager.remove(arquivo);
         }
         manager.getTransaction().commit();
-        manager.close();
     }
     
     public List<Viewcontaspagarfluxo> listaFluxo(String sql) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         Query q = manager.createQuery(sql);
         List<Viewcontaspagarfluxo> listaFluxo= q.getResultList();
         manager.getTransaction().commit();
-        manager.close();
         return listaFluxo;
     }
     

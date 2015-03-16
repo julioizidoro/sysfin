@@ -413,21 +413,19 @@ public class FrmCadastarContasReceber extends javax.swing.JFrame implements ICon
         ClienteController clienteController = new ClienteController();
         if (conta!=null){
             this.conta = conta;
-            cliente = clienteController.consultar(conta.getCliente());
+            cliente = conta.getCliente();
             if (cliente!=null){
                 carregarComboBox();
             }
             unidadejTextField.setText(cliente.getNomeFantasia());
             dataVencimentojDateChooser.setDate(conta.getDataVencimento());
-            Planocontas plano = planoContasController.consultar(conta.getPlanocontas());
-            planoContasjComboBox.setSelectedItem(plano);
+            planoContasjComboBox.setSelectedItem(conta.getPlanocontas());
             clienteClientejTextField.setText(conta.getNomeCliente());
             tipoDocumentojComboBox.setSelectedItem(conta.getTipodocumento());
             numeroDocumentojTextField.setText(conta.getNumeroDocumento());
             numeroParcelajTextField.setText(String.valueOf(conta.getNumeroParcela()));
             valorjTextField.setText(Formatacao.foramtarFloatString(conta.getValorParcela()));
-            Banco banco = bancoController.consultar(conta.getBanco());
-            contajComboBox.setSelectedItem(banco);
+            contajComboBox.setSelectedItem(conta.getBanco());
         }else {
             this.conta = new Contasreceber();
             this.conta.setMovimentoBanco(0);
@@ -448,9 +446,9 @@ public class FrmCadastarContasReceber extends javax.swing.JFrame implements ICon
             conta.setDataVencimento(dataVencimentojDateChooser.getDate());
         }
         Planocontas plano = (Planocontas) planoContasjComboBox.getSelectedItem();
-        conta.setPlanocontas(plano.getIdplanoContas());
+        conta.setPlanocontas(plano);
         Banco banco = (Banco) contajComboBox.getSelectedItem();
-        conta.setBanco(banco.getIdbanco());
+        conta.setBanco(banco);
         conta.setNomeCliente(clienteClientejTextField.getText());
         conta.setNumeroDocumento(numeroDocumentojTextField.getText());
         if (numeroParcelajTextField.getText().length()>0){
@@ -458,8 +456,8 @@ public class FrmCadastarContasReceber extends javax.swing.JFrame implements ICon
         }else conta.setNumeroParcela(0);
         conta.setTipodocumento(tipoDocumentojComboBox.getSelectedItem().toString());
         conta.setValorParcela(Formatacao.ConvercaoMonetariaFloat(valorjTextField.getText()));
-        conta.setCliente(cliente.getIdcliente());
-        conta.setUsuario(usuarioLogadoBean.getUsuario().getIdusuario());
+        conta.setCliente(cliente);
+        conta.setUsuario(usuarioLogadoBean.getUsuario());
         ContasReceberController contasReceberController = new ContasReceberController();
         conta = contasReceberController.salvar(conta);
         telaContas.setModel();

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 import java.io.Serializable;
@@ -14,9 +13,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -34,31 +36,38 @@ public class Movimentobanco implements Serializable {
     @Column(name = "dataVencimento")
     @Temporal(TemporalType.DATE)
     private Date dataVencimento;
+    @Size(max = 200)
+    @Column(name = "descricao")
+    private String descricao;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "valorEntrada")
+    private Float valorEntrada;
+    @Column(name = "valorSaida")
+    private Float valorSaida;
     @Column(name = "dataRegistro")
     @Temporal(TemporalType.DATE)
     private Date dataRegistro;
     @Column(name = "dataCompensacao")
     @Temporal(TemporalType.DATE)
     private Date dataCompensacao;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "descricao")
-    private String descricao;
-    @Column(name = "valorEntrada")
-    private Float valorEntrada;
-    @Column(name = "valorSaida")
-    private Float valorSaida;
-    @Column(name = "usuario_idusuario")
-    private int usuario;
-    @Column(name = "planoContas_idplanoContas")
-    private int planocontas;
-    @Column(name = "banco_idbanco")
-    private int banco;
-    @Column(name = "cliente_idcliente")
-    private int cliente;
+    @Size(max = 50)
     @Column(name = "tipoDocumento")
     private String tipoDocumento;
+    @Size(max = 10)
     @Column(name = "compentencia")
     private String compentencia;
+    @JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
+    @ManyToOne(optional = false)
+    private Banco banco;
+    @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
+    @ManyToOne(optional = false)
+    private Cliente cliente;
+    @JoinColumn(name = "planoContas_idplanoContas", referencedColumnName = "idplanoContas")
+    @ManyToOne(optional = false)
+    private Planocontas planocontas;
+    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
+    @ManyToOne(optional = false)
+    private Usuario usuario;
 
     public Movimentobanco() {
     }
@@ -75,7 +84,13 @@ public class Movimentobanco implements Serializable {
         this.idmovimentoBanco = idmovimentoBanco;
     }
 
-    
+    public Date getDataVencimento() {
+        return dataVencimento;
+    }
+
+    public void setDataVencimento(Date dataVencimento) {
+        this.dataVencimento = dataVencimento;
+    }
 
     public String getDescricao() {
         return descricao;
@@ -85,12 +100,20 @@ public class Movimentobanco implements Serializable {
         this.descricao = descricao;
     }
 
-    public Date getDataVencimento() {
-        return dataVencimento;
+    public Float getValorEntrada() {
+        return valorEntrada;
     }
 
-    public void setDataVencimento(Date dataVencimento) {
-        this.dataVencimento = dataVencimento;
+    public void setValorEntrada(Float valorEntrada) {
+        this.valorEntrada = valorEntrada;
+    }
+
+    public Float getValorSaida() {
+        return valorSaida;
+    }
+
+    public void setValorSaida(Float valorSaida) {
+        this.valorSaida = valorSaida;
     }
 
     public Date getDataRegistro() {
@@ -124,56 +147,38 @@ public class Movimentobanco implements Serializable {
     public void setCompentencia(String compentencia) {
         this.compentencia = compentencia;
     }
-    
-    public Float getValorEntrada() {
-        return valorEntrada;
-    }
 
-    public void setValorEntrada(Float valorEntrada) {
-        this.valorEntrada = valorEntrada;
-    }
-
-    public Float getValorSaida() {
-        return valorSaida;
-    }
-
-    public void setValorSaida(Float valorSaida) {
-        this.valorSaida = valorSaida;
-    }
-
-    public int getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(int usuario) {
-        this.usuario = usuario;
-    }
-
-    public int getPlanocontas() {
-        return planocontas;
-    }
-
-    public void setPlanocontas(int planocontas) {
-        this.planocontas = planocontas;
-    }
-
-    public int getBanco() {
+    public Banco getBanco() {
         return banco;
     }
 
-    public void setBanco(int banco) {
+    public void setBanco(Banco banco) {
         this.banco = banco;
     }
 
-    public int getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(int cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
-   
+    public Planocontas getPlanocontas() {
+        return planocontas;
+    }
+
+    public void setPlanocontas(Planocontas planocontas) {
+        this.planocontas = planocontas;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     @Override
     public int hashCode() {
@@ -199,5 +204,5 @@ public class Movimentobanco implements Serializable {
     public String toString() {
         return "model.Movimentobanco[ idmovimentoBanco=" + idmovimentoBanco + " ]";
     }
-
+    
 }

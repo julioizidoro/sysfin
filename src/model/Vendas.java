@@ -3,22 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -27,14 +27,13 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "vendas")
 public class Vendas implements Serializable {
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "vendas")
-    private Emissaonota emissaonota;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idvendas")
     private Integer idvendas;
+    @Size(max = 100)
     @Column(name = "nomeCliente")
     private String nomeCliente;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -46,10 +45,6 @@ public class Vendas implements Serializable {
     private Float valorJuros;
     @Column(name = "valorLiquido")
     private Float valorLiquido;
-    @Column(name = "valorPagoFornecedor")
-    private Float valorPagoFornecedor;
-    @Column(name = "valorRecebido")
-    private Float valorRecebido;
     @Column(name = "dataVenda")
     @Temporal(TemporalType.DATE)
     private Date dataVenda;
@@ -64,33 +59,38 @@ public class Vendas implements Serializable {
     @Column(name = "dataPagamentoFornecedor")
     @Temporal(TemporalType.DATE)
     private Date dataPagamentoFornecedor;
-    @Column(name = "cliente_idcliente")
-    private int cliente;
-    @Column(name = "planoContas_idplanoContas")
-    private int planoContas;
-    @Column(name = "usuario_idusuario")
-    private int usuario;
-    @Column(name = "produto_idproduto")
-    private int produto;
+    @Column(name = "valorPagoFornecedor")
+    private Float valorPagoFornecedor;
+    @Column(name = "valorRecebido")
+    private Float valorRecebido;
     @Column(name = "liquidoVendas")
     private Float liquidoVendas;
+    @Size(max = 100)
     @Column(name = "nomeFornecedor")
     private String nomeFornecedor;
     @Column(name = "liquidoReceber")
     private Float liquidoReceber;
+    @Size(max = 15)
     @Column(name = "situacao")
     private String situacao;
+    @Size(max = 50)
     @Column(name = "consultor")
     private String consultor;
+    @Size(max = 200)
     @Column(name = "observacao")
     private String observacao;
-    
-    
-    
-    
-    
-    
-    
+    @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
+    @ManyToOne(optional = false)
+    private Cliente cliente;
+    @JoinColumn(name = "planoContas_idplanoContas", referencedColumnName = "idplanoContas")
+    @ManyToOne(optional = false)
+    private Planocontas planocontas;
+    @JoinColumn(name = "produto_idproduto", referencedColumnName = "idproduto")
+    @ManyToOne(optional = false)
+    private Produto produto;
+    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
+    @ManyToOne(optional = false)
+    private Usuario usuario;
 
     public Vendas() {
     }
@@ -115,75 +115,8 @@ public class Vendas implements Serializable {
         this.nomeCliente = nomeCliente;
     }
 
-    public Float getLiquidoReceber() {
-        return liquidoReceber;
-    }
-
-    public int getPlanoContas() {
-        return planoContas;
-    }
-
-    public void setPlanoContas(int planoContas) {
-        this.planoContas = planoContas;
-    }
-
-    public String getSituacao() {
-        return situacao;
-    }
-
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
-    }
-
-    public String getConsultor() {
-        return consultor;
-    }
-
-    public void setConsultor(String consultor) {
-        this.consultor = consultor;
-    }
-
-    public String getObservacao() {
-        return observacao;
-    }
-
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
-    }
-
-
-    public void setLiquidoReceber(Float liquidoReceber) {
-        this.liquidoReceber = liquidoReceber;
-    }
-
-    
-
-    public Float getLiquidoVendas() {
-        return liquidoVendas;
-    }
-
-    public void setLiquidoVendas(Float liquidoVendas) {
-        this.liquidoVendas = liquidoVendas;
-    }
-
     public Float getValorBruto() {
         return valorBruto;
-    }
-
-    public Float getValorJuros() {
-        return valorJuros;
-    }
-
-    public void setValorJuros(Float valorJuros) {
-        this.valorJuros = valorJuros;
-    }
-
-    public String getNomeFornecedor() {
-        return nomeFornecedor;
-    }
-
-    public void setNomeFornecedor(String nomeFornecedor) {
-        this.nomeFornecedor = nomeFornecedor;
     }
 
     public void setValorBruto(Float valorBruto) {
@@ -194,24 +127,16 @@ public class Vendas implements Serializable {
         return valorDesconto;
     }
 
-    public Float getValorPagoFornecedor() {
-        return valorPagoFornecedor;
-    }
-
-    public void setValorPagoFornecedor(Float valorPagoFornecedor) {
-        this.valorPagoFornecedor = valorPagoFornecedor;
-    }
-
-    public Float getValorRecebido() {
-        return valorRecebido;
-    }
-
-    public void setValorRecebido(Float valorRecebido) {
-        this.valorRecebido = valorRecebido;
-    }
-
     public void setValorDesconto(Float valorDesconto) {
         this.valorDesconto = valorDesconto;
+    }
+
+    public Float getValorJuros() {
+        return valorJuros;
+    }
+
+    public void setValorJuros(Float valorJuros) {
+        this.valorJuros = valorJuros;
     }
 
     public Float getValorLiquido() {
@@ -270,38 +195,102 @@ public class Vendas implements Serializable {
         this.dataPagamentoFornecedor = dataPagamentoFornecedor;
     }
 
-    public int getCliente() {
+    public Float getValorPagoFornecedor() {
+        return valorPagoFornecedor;
+    }
+
+    public void setValorPagoFornecedor(Float valorPagoFornecedor) {
+        this.valorPagoFornecedor = valorPagoFornecedor;
+    }
+
+    public Float getValorRecebido() {
+        return valorRecebido;
+    }
+
+    public void setValorRecebido(Float valorRecebido) {
+        this.valorRecebido = valorRecebido;
+    }
+
+    public Float getLiquidoVendas() {
+        return liquidoVendas;
+    }
+
+    public void setLiquidoVendas(Float liquidoVendas) {
+        this.liquidoVendas = liquidoVendas;
+    }
+
+    public String getNomeFornecedor() {
+        return nomeFornecedor;
+    }
+
+    public void setNomeFornecedor(String nomeFornecedor) {
+        this.nomeFornecedor = nomeFornecedor;
+    }
+
+    public Float getLiquidoReceber() {
+        return liquidoReceber;
+    }
+
+    public void setLiquidoReceber(Float liquidoReceber) {
+        this.liquidoReceber = liquidoReceber;
+    }
+
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
+    }
+
+    public String getConsultor() {
+        return consultor;
+    }
+
+    public void setConsultor(String consultor) {
+        this.consultor = consultor;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(int cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
-    public int getUsuario() {
-        return usuario;
+
+    public Planocontas getPlanocontas() {
+        return planocontas;
     }
 
-    public void setUsuario(int usuario) {
-        this.usuario = usuario;
+    public void setPlanocontas(Planocontas planocontas) {
+        this.planocontas = planocontas;
     }
 
-    public int getProduto() {
+    public Produto getProduto() {
         return produto;
     }
 
-    public void setProduto(int produto) {
+    public void setProduto(Produto produto) {
         this.produto = produto;
     }
 
-    public Emissaonota getEmissaonota() {
-        return emissaonota;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setEmissaonota(Emissaonota emissaonota) {
-        this.emissaonota = emissaonota;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
-
 
     @Override
     public int hashCode() {
@@ -327,6 +316,5 @@ public class Vendas implements Serializable {
     public String toString() {
         return "model.Vendas[ idvendas=" + idvendas + " ]";
     }
-
-
+    
 }

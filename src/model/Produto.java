@@ -109,4 +109,5 @@ public class Produto implements Serializable {
     public void setCodigosystm(Integer codigosystm) {
         this.codigosystm = codigosystm;
     }
+
 }

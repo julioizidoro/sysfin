@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import model.Emissaonota;
 import model.Vendas;
 import modelView.Viewvendas;
 
@@ -47,4 +48,15 @@ public class VendasFacade {
         return vendasDao.ExportarExcel(nomeRelatorio, local, porta, senha, banco, usuario, caminhoSalvarExcel, sql);
     }
     
+    public Emissaonota salvar(Emissaonota emissaonota)throws SQLException{
+        vendasDao = new VendasDao();
+        return vendasDao.salvar(emissaonota);
+    }
+    
+    public Emissaonota getEmissao(int idVendas)throws SQLException{
+        vendasDao = new VendasDao();
+        return vendasDao.getEmissao(idVendas);
+    }
+    
+   
 }

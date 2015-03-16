@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -44,8 +46,10 @@ public class Banco implements Serializable {
     private String gerente;
     @Column(name = "emailGerente")
     private String emailGerente;
-    @Column(name = "cliente_idcliente")
-    private int cliente;
+    @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
+    @ManyToOne(optional = false)
+    private Cliente cliente;
+    
 
     public Banco() {
     }
@@ -66,13 +70,6 @@ public class Banco implements Serializable {
         return numeroBanco;
     }
 
-    public int getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(int cliente) {
-        this.cliente = cliente;
-    }
 
     public void setNumeroBanco(String numeroBanco) {
         this.numeroBanco = numeroBanco;
@@ -157,6 +154,15 @@ public class Banco implements Serializable {
     @Override
     public String toString() {
         return getNumeroBanco() + " - " + getNome();
+    }
+
+    
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
 }

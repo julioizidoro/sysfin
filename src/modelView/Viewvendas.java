@@ -67,6 +67,8 @@ public class Viewvendas implements Serializable {
     @Size(max = 100)
     @Column(name = "descricao")
     private String descricao;
+    @Column(name = "visualizacao")
+    private String visualizacao;
 
     public Viewvendas() {
     }
@@ -93,6 +95,14 @@ public class Viewvendas implements Serializable {
 
     public void setNomeCliente(String nomeCliente) {
         this.nomeCliente = nomeCliente;
+    }
+
+    public String getVisualizacao() {
+        return visualizacao;
+    }
+
+    public void setVisualizacao(String visualizacao) {
+        this.visualizacao = visualizacao;
     }
 
     public Float getValorBruto() {

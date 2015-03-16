@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 import java.io.Serializable;
@@ -14,9 +13,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -31,8 +33,10 @@ public class Contasreceber implements Serializable {
     @Basic(optional = false)
     @Column(name = "idcontasReceber")
     private Integer idcontasReceber;
+    @Size(max = 50)
     @Column(name = "numeroDocumento")
     private String numeroDocumento;
+    @Size(max = 100)
     @Column(name = "nomeCliente")
     private String nomeCliente;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -47,28 +51,32 @@ public class Contasreceber implements Serializable {
     private Float juros;
     @Column(name = "desagio")
     private Float desagio;
-    @Column(name = "dataPagamento")
-    @Temporal(TemporalType.DATE)
-    private Date dataPagamento;
-    @Column(name = "valorPago")
-    private Float valorPago;
+    @Size(max = 50)
     @Column(name = "tipodocumento")
     private String tipodocumento;
-    @Column(name = "cliente_idcliente")
-    private int cliente;
-    @Column(name = "usuario_idusuario")
-    private int usuario;
-    @Column(name = "banco_idbanco")
-    private int banco;
-    @Column(name = "planoContas_idplanoContas")
-    private int planocontas;    @Column(name = "movimentoBanco")
+    @Column(name = "movimentoBanco")
     private Integer movimentoBanco;
     @Column(name = "venda")
     private Integer venda;
+    @Column(name = "valorPago")
+    private Float valorPago;
+    @Column(name = "dataPagamento")
+    @Temporal(TemporalType.DATE)
+    private Date dataPagamento;
     @Column(name = "vendaComissao")
     private Integer vendaComissao;
-
-    
+    @JoinColumn(name = "banco_idbanco", referencedColumnName = "idbanco")
+    @ManyToOne(optional = false)
+    private Banco banco;
+    @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")
+    @ManyToOne(optional = false)
+    private Cliente cliente;
+    @JoinColumn(name = "planoContas_idplanoContas", referencedColumnName = "idplanoContas")
+    @ManyToOne(optional = false)
+    private Planocontas planocontas;
+    @JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
+    @ManyToOne(optional = false)
+    private Usuario usuario;
 
     public Contasreceber() {
     }
@@ -85,25 +93,8 @@ public class Contasreceber implements Serializable {
         this.idcontasReceber = idcontasReceber;
     }
 
-    public String getTipodocumento() {
-        return tipodocumento;
-    }
-
-
-    public void setTipodocumento(String tipodocumento) {
-        this.tipodocumento = tipodocumento;
-    }
-
     public String getNumeroDocumento() {
         return numeroDocumento;
-    }
-
-    public int getPlanocontas() {
-        return planocontas;
-    }
-
-    public void setPlanocontas(int planocontas) {
-        this.planocontas = planocontas;
     }
 
     public void setNumeroDocumento(String numeroDocumento) {
@@ -117,31 +108,6 @@ public class Contasreceber implements Serializable {
     public void setNomeCliente(String nomeCliente) {
         this.nomeCliente = nomeCliente;
     }
-
-    public Date getDataPagamento() {
-        return dataPagamento;
-    }
-
-    public void setDataPagamento(Date dataPagamento) {
-        this.dataPagamento = dataPagamento;
-    }
-
-    public Float getValorPago() {
-        return valorPago;
-    }
-
-    public void setValorPago(Float valorPago) {
-        this.valorPago = valorPago;
-    }
-
-    public int getBanco() {
-        return banco;
-    }
-
-    public void setBanco(int banco) {
-        this.banco = banco;
-    }
-
 
     public Float getValorParcela() {
         return valorParcela;
@@ -183,26 +149,85 @@ public class Contasreceber implements Serializable {
         this.desagio = desagio;
     }
 
+    public String getTipodocumento() {
+        return tipodocumento;
+    }
 
-   
+    public void setTipodocumento(String tipodocumento) {
+        this.tipodocumento = tipodocumento;
+    }
 
-    public int getCliente() {
+    public Integer getMovimentoBanco() {
+        return movimentoBanco;
+    }
+
+    public void setMovimentoBanco(Integer movimentoBanco) {
+        this.movimentoBanco = movimentoBanco;
+    }
+
+    public Integer getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Integer venda) {
+        this.venda = venda;
+    }
+
+    public Float getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(Float valorPago) {
+        this.valorPago = valorPago;
+    }
+
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public Integer getVendaComissao() {
+        return vendaComissao;
+    }
+
+    public void setVendaComissao(Integer vendaComissao) {
+        this.vendaComissao = vendaComissao;
+    }
+
+    public Banco getBanco() {
+        return banco;
+    }
+
+    public void setBanco(Banco banco) {
+        this.banco = banco;
+    }
+
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(int cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
-    public int getUsuario() {
+    public Planocontas getPlanocontas() {
+        return planocontas;
+    }
+
+    public void setPlanocontas(Planocontas planocontas) {
+        this.planocontas = planocontas;
+    }
+
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(int usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-
-    
 
     @Override
     public int hashCode() {
@@ -228,29 +253,5 @@ public class Contasreceber implements Serializable {
     public String toString() {
         return "model.Contasreceber[ idcontasReceber=" + idcontasReceber + " ]";
     }
-
-    public Integer getMovimentoBanco() {
-        return movimentoBanco;
-    }
-
-    public void setMovimentoBanco(Integer movimentoBanco) {
-        this.movimentoBanco = movimentoBanco;
-    }
-
-    public Integer getVenda() {
-        return venda;
-    }
-
-    public void setVenda(Integer venda) {
-        this.venda = venda;
-    }
-
-    public Integer getVendaComissao() {
-        return vendaComissao;
-    }
-
-    public void setVendaComissao(Integer vendaComissao) {
-        this.vendaComissao = vendaComissao;
-    }
-
+    
 }

@@ -20,42 +20,40 @@ import singleton.ConectionFactory;
 public class BancoDao {
     
     public Banco salvar(Banco banco) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         banco = manager.merge(banco);
         manager.getTransaction().commit();
-        manager.close();
         return banco;
     }
     
     public List<Banco> listar(int idCliente) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select b from Banco b where b.cliente=" + idCliente);
         List<Banco> lista = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return lista;
     }
     
     public Banco consultar(int idBanco) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Banco banco = manager.find(Banco.class, idBanco);
-        manager.close();
+        manager.getTransaction().commit();
         return banco;
     }
     
     public Banco consultar(int idCliente, String nome) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select b from Banco b where b.cliente=" + idCliente +
                 " and b.nome='" + nome + "'");
         Banco banco = null;
         if (q.getResultList().size()>0){
             banco= (Banco) q.getResultList().get(0);
         }
-        manager.close();
+        manager.getTransaction().commit();
         return banco;
     }
 }

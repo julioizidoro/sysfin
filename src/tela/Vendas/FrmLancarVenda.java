@@ -13,6 +13,7 @@ import IntegracaoSysTM.Viewvendasintegracao;
 import com.toedter.calendar.JTextFieldDateEditor;
 import controller.ClienteController;
 import controller.FormaPagamentoController;
+import controller.PlanoContasController;
 import controller.ProdutoController;
 import controller.VendasController;
 import java.awt.Image;
@@ -27,6 +28,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import model.Cliente;
 import model.Emissaonota;
 import model.Formapagamento;
+import model.Planocontas;
 import model.Produto;
 import model.Vendas;
 import tela.Cliente.FrmConsultaCliente;
@@ -49,6 +51,7 @@ public class FrmLancarVenda extends javax.swing.JFrame implements IVendas{
     private Cliente cliente;
     private List<Formapagamento> listaForma;
     private ConsultaFormaPagamentoTableModel modelForma;
+    private Emissaonota emissaonota;
     
     /**
      * Creates new form FrmLancarVenda
@@ -1164,12 +1167,12 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
         this.venda = vendasController.consultar(idVenda);
         if (venda!=null){
             selecionarjButton.setEnabled(false);
-            cliente = clienteController.consultar(venda.getCliente());
+            cliente = clienteController.consultar(venda.getCliente().getIdcliente());
             unidadejTextField.setText(cliente.getNomeFantasia());
             carregarComboBox(cliente.getIdcliente());
             clientejTextField.setText(venda.getNomeCliente());
             ProdutoController produtoController = new ProdutoController();
-            Produto produto = produtoController.consultar(venda.getProduto());
+            Produto produto = produtoController.consultar(venda.getProduto().getIdproduto());
             produtojComboBox.setSelectedItem(produto);
             dataVendajDateChooser.setDate(venda.getDataVenda());
             totalBrutojTextField.setText(Formatacao.foramtarFloatString(venda.getValorBruto()));
@@ -1186,16 +1189,17 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
             consultorjTextField.setText(venda.getConsultor());
             observacoesjTextField.setText(venda.getObservacao());
             calcularValoresTotais();
-            if (venda.getEmissaonota()!=null){
-                nomejTextField.setText(venda.getEmissaonota().getNome());
-                enderecojTextField.setText(venda.getEmissaonota().getEndereco());
-                complementojTextField.setText(venda.getEmissaonota().getComplemento());
-                bairrojTextField.setText(venda.getEmissaonota().getBairro());
-                cidadejTextField.setText(venda.getEmissaonota().getCidade());
-                cepjFormattedTextField.setText(venda.getEmissaonota().getCep());
-                estadojComboBox.setSelectedItem(venda.getEmissaonota().getEstado());
-                cnpjjTextField.setText(venda.getEmissaonota().getCpnj());
-                iejTextField.setText(venda.getEmissaonota().getIe());
+            emissaonota =  vendasController.getEmissao(venda.getIdvendas());
+            if (emissaonota!=null){
+                nomejTextField.setText(emissaonota.getNome());
+                enderecojTextField.setText(emissaonota.getEndereco());
+                complementojTextField.setText(emissaonota.getComplemento());
+                bairrojTextField.setText(emissaonota.getBairro());
+                cidadejTextField.setText(emissaonota.getCidade());
+                cepjFormattedTextField.setText(emissaonota.getCep());
+                estadojComboBox.setSelectedItem(emissaonota.getEstado());
+                cnpjjTextField.setText(emissaonota.getCpnj());
+                iejTextField.setText(emissaonota.getIe());
             }
         }
         carregarFormaPagamento();
@@ -1210,10 +1214,12 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
     }
     
     public void salvarVenda(){
-        venda.setCliente(cliente.getIdcliente());
+        venda.setCliente(cliente);
         venda.setNomeCliente(clientejTextField.getText());
         venda.setDataVenda(dataVendajDateChooser.getDate());
-        venda.setPlanoContas(cliente.getContaReceita());
+        PlanoContasController planoContasController = new PlanoContasController();
+        Planocontas plano = planoContasController.consultar(cliente.getContaRecebimento());
+        venda.setPlanocontas(plano);
         if (comissaoFuncionariojTextField.getText().length()>0){
             venda.setComissaoFuncionarios(Formatacao.formatarStringfloat(comissaoFuncionariojTextField.getText()));
         }else venda.setComissaoFuncionarios(0.0f);
@@ -1263,9 +1269,9 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
        venda.setObservacao(observacoesjTextField.getText());
         venda.setConsultor(consultorjTextField.getText());
         venda.setNomeFornecedor(nomefornecedorjTextField.getText());
-        venda.setUsuario(usuarioLogadoBean.getUsuario().getIdusuario());
+        venda.setUsuario(usuarioLogadoBean.getUsuario());
         Produto produto = (Produto) produtojComboBox.getSelectedItem();
-        venda.setProduto(produto.getIdproduto());
+        venda.setProduto(produto);
         if (venda.getSituacao() != null) {
             if (!venda.getSituacao().equalsIgnoreCase("verde")) {
                 if (listaForma != null) {
@@ -1289,24 +1295,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
                 venda.setSituacao("vermenlho");
             }
         }
-        if (nomejTextField.getText().length() > 0) {
-            Emissaonota emissao = null;
-            if (venda.getEmissaonota() == null) {
-                emissao = new Emissaonota();
-            } else {
-                emissao = venda.getEmissaonota();
-            }
-            emissao.setNome(nomejTextField.getText());
-            emissao.setEndereco(enderecojTextField.getText());
-            emissao.setComplemento(complementojTextField.getText());
-            emissao.setBairro(bairrojTextField.getText());
-            emissao.setEstado(estadojComboBox.getSelectedItem().toString());
-            emissao.setCep(cepjFormattedTextField.getText());
-            emissao.setCpnj(cnpjjTextField.getText());
-            emissao.setIe(iejTextField.getText());
-            emissao.setVendas(venda);
-            venda.setEmissaonota(emissao);
-        }
+        
         VendasController vendasController = new VendasController();
         venda= vendasController.salvar(venda);
         if (listaForma!=null){
@@ -1317,7 +1306,21 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
                 formaPagamentoController.salvar(forma);
             }
         }
-        
+        if (nomejTextField.getText().length() > 0) {
+            if (emissaonota == null) {
+                emissaonota = new Emissaonota();
+            } 
+            emissaonota.setNome(nomejTextField.getText());
+            emissaonota.setEndereco(enderecojTextField.getText());
+            emissaonota.setComplemento(complementojTextField.getText());
+            emissaonota.setBairro(bairrojTextField.getText());
+            emissaonota.setEstado(estadojComboBox.getSelectedItem().toString());
+            emissaonota.setCep(cepjFormattedTextField.getText());
+            emissaonota.setCpnj(cnpjjTextField.getText());
+            emissaonota.setIe(iejTextField.getText());
+            emissaonota.setVendas(venda.getIdvendas());
+            vendasController.salvar(emissaonota);
+        }
         this.telaVednas.setModel();
         this.dispose();
     }

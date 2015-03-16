@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Emissaonota;
 import model.Vendas;
 import modelView.Viewvendas;
 
@@ -76,6 +77,28 @@ public class VendasController {
         } catch (IOException ex) {
              Logger.getLogger(VendasController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro exportar relatório Vendas");
+            return null;
+        }
+    }
+    
+    public Emissaonota salvar(Emissaonota emissaonota){
+        vendasFacade = new VendasFacade();
+        try {
+            return vendasFacade.salvar(emissaonota);
+        } catch (SQLException ex) {
+            Logger.getLogger(VendasController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, " Erro Salvar Emissão");
+            return null;
+        }
+    }
+    
+    public Emissaonota getEmissao(int idVendas){
+        vendasFacade = new VendasFacade();
+        try {
+            return vendasFacade.getEmissao(idVendas);
+         } catch (SQLException ex) {
+            Logger.getLogger(VendasController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, " Erro Consultar Emissão");
             return null;
         }
     }

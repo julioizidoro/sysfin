@@ -26,33 +26,29 @@ import singleton.ConectionFactory;
 public class MovimentoBancoDao {
     
     public Movimentobanco salvar(Movimentobanco movimento) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         movimento = manager.merge(movimento);
         manager.getTransaction().commit();
-        manager.close();
         return movimento;
     }
     
     public List<Movimentobanco> listaMovimento(String sql) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery(sql);
         List<Movimentobanco> lista = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return lista;
     }
     
     
     public void excluir(int idMovimento) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         Movimentobanco movimento = manager.find(Movimentobanco.class, idMovimento);
         manager.remove(movimento);
         manager.getTransaction().commit();
-        manager.close();
     }
     
     public ResultSet ExportarExcel(String nomeRelatorio, String local, String porta, String senha, String banco, String usuario, String caminhoSalvarExcel, String sql) throws IOException {
@@ -87,6 +83,7 @@ public class MovimentoBancoDao {
                 excelFile.write(new String(contenu)); //aqui ele passa a String para salvar  
                 excelFile.close();
                 JOptionPane.showMessageDialog(null, "Controle Exportado com Sucesso");
+                conn.close();
                 return rs;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);

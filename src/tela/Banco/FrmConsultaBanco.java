@@ -235,7 +235,7 @@ public class FrmConsultaBanco extends javax.swing.JFrame implements IBanco{
         int linha = bancojTable.getSelectedRow();
         if (linha>=0){
             ClienteController clienteController = new ClienteController();
-            cliente = clienteController.consultar(listaBanco.get(linha).getCliente());
+            cliente = clienteController.consultar(listaBanco.get(linha).getCliente().getIdcliente());
             nomejTextField.setText(cliente.getNomeFantasia());
             new FrmCadastrarBanco(cliente, listaBanco.get(linha), this);
         }

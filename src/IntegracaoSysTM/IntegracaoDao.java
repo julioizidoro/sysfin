@@ -48,31 +48,27 @@ public class IntegracaoDao {
     
     
     public Produto consultarProduto(int idCliente, int codigosystm) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("Select p from Produto p where p.cliente=" + idCliente + " and p.codigosystm=" + codigosystm);
         Produto produto = null;
         if (q.getResultList().size()>0){
             produto = (Produto) q.getResultList().get(0);
         }
-        manager.close();
         return null;
     }
     
     public Cliente consultarClietne(int codigosystm) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select c from Cliente c where c.codigosystm=" + codigosystm);
         Cliente cliente = null;
         if (q.getResultList().size()>0){
             cliente = (Cliente) q.getResultList().get(0);
         }
-        manager.close();
         return cliente;
     }
     
     public Orcamentoprodutosorcamento consultarOrcamentoProdutoOrcamento(int idOrcamento, int idProdutoOrcamento) throws SQLException{
-        manager = ConexaoSingletonTM.getConexao();
+        EntityManager manager = ConectionFactory.getConnection();
         Query q = manager.createQuery("select o from Orcamentoprodutosorcamento o where o.orcamento=" + idOrcamento + 
                 " and o.produtosOrcamento=" + idProdutoOrcamento);
         if (q.getResultList().size() > 0) {
@@ -116,6 +112,7 @@ public class IntegracaoDao {
         String sql = "Update vendas set vendaimportada=1 where idvendas=" + idVenda + " ";
         try {
             stm.executeUpdate(sql);
+            conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(IntegracaoDao.class.getName()).log(Level.SEVERE, null, ex);
         }

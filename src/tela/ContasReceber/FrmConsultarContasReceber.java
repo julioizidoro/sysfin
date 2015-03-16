@@ -11,13 +11,10 @@ import com.toedter.calendar.JTextFieldDateEditor;
 import controller.ContasReceberController;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -436,10 +433,12 @@ contasReceberjTable.setModel(new javax.swing.table.DefaultTableModel(
             }
             sql = sql + "v.dataPagamento>='" + Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate())
                     + "' and v.dataPagamento<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate())
-                    + "' and valorPago>0 order by v.dataPagamento";
+                    + "' and valorPago>0 order by v.dataVencimento";
         } else {
             if (cliente != null) {
                 sql = sql + " v.clienteIdcliente=" + cliente.getIdcliente() + " and ";
+            }else {
+                sql = sql + " v.visualizacao='Operacional' and ";
             }
             sql = sql + "v.dataVencimento>='" + Formatacao.ConvercaoDataSql(dataIniciojDateChooser.getDate())
                     + "' and v.dataVencimento<='" + Formatacao.ConvercaoDataSql(dataFinaljDateChooser.getDate())
@@ -541,10 +540,11 @@ contasReceberjTable.setModel(new javax.swing.table.DefaultTableModel(
         if (usuarioLogadoBean.getUsuario().getCliente()>0){
             sql = " Select v from Viewcontasreceber v where v.dataVencimento<='" + dataFinal + 
                 "' and v.valorPago=0 and v.clienteIdcliente=" + usuarioLogadoBean.getUsuario().getCliente() + 
-                    " order by v.dataVencimento, v.nomeCliente";
+                    " order by v.dataVencimento";
         }else {
-            sql = " Select v from Viewcontasreceber v where v.dataVencimento<='" + dataFinal + 
-                "' and v.valorPago=0 order by v.dataVencimento, v.nomeCliente";
+            sql = " Select v from Viewcontasreceber v where v.visualizacao='Operacional' and "
+                    + "v.dataVencimento<='" + dataFinal + 
+                "' and v.valorPago=0 order by v.dataVencimento";
         }
         carregarModel();
     }

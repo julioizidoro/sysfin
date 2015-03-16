@@ -385,6 +385,13 @@ selecionarjButton.addActionListener(new java.awt.event.ActionListener() {
             }else {
                 sql = sql + " and v.clienteIdcliente=" + cliente.getIdcliente();
             }
+        }else {
+            if (!linha){
+                sql = sql + " v.visualizacao='Operacional'";
+                linha=true;
+            }else {
+                sql = sql + " and v.visualizacao='Operacional'";
+            }
         }
         if (numeroVendajTextField.getText().length()>0){
             int numero = Integer.parseInt(numeroVendajTextField.getText());

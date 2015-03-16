@@ -14,16 +14,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 /**
  *
- * @author Julio
+ * @author Wolverine
  */
 @Entity
 @Table(name = "emissaonota")
+@NamedQueries({
+    @NamedQuery(name = "Emissaonota.findAll", query = "SELECT e FROM Emissaonota e")})
 public class Emissaonota implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -58,9 +61,8 @@ public class Emissaonota implements Serializable {
     @Size(max = 30)
     @Column(name = "ie")
     private String ie;
-    @JoinColumn(name = "vendas_idvendas", referencedColumnName = "idvendas")
-    @OneToOne(optional = false)
-    private Vendas vendas;
+    @Column(name = "vendas_idvendas")
+    private int vendas;
 
     public Emissaonota() {
     }
@@ -149,13 +151,14 @@ public class Emissaonota implements Serializable {
         this.ie = ie;
     }
 
-    public Vendas getVendas() {
+    public int getVendas() {
         return vendas;
     }
 
-    public void setVendas(Vendas vendas) {
+    public void setVendas(int vendas) {
         this.vendas = vendas;
     }
+
 
     @Override
     public int hashCode() {

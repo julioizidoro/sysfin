@@ -29,51 +29,47 @@ public class ContasReceberDao {
     
     
     public Contasreceber salvar(Contasreceber conta) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         conta = manager.merge(conta);
         manager.getTransaction().commit();
-        manager.close();
         return conta;
     }
     
     public List<Viewcontasreceber> listar(String sql) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery(sql);
         List<Viewcontasreceber> lista = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return lista;
     }
     
     public Contasreceber consultar(int idConta) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Contasreceber conta = manager.find(Contasreceber.class, idConta);
-        manager.close();
+        manager.getTransaction().commit();
         return conta;
     }
     
     public void excluir(int idConta) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         Contasreceber conta = manager.find(Contasreceber.class, idConta);
         manager.remove(conta);
         manager.getTransaction().commit();
-        manager.close();
     }
     
     public Contasreceber consultarVendaFornecedor(int idVenda) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select c from Contasreceber c where c.vendaComissao=" + idVenda);
         Contasreceber conta = null;
         if (q.getResultList().size()>0){
             conta =  (Contasreceber) q.getResultList().get(0);
         }
-        manager.close();
+        manager.getTransaction().commit();
         return conta;
     }
     
@@ -109,6 +105,7 @@ public class ContasReceberDao {
                 excelFile.write(new String(contenu)); //aqui ele passa a String para salvar  
                 excelFile.close();
                 JOptionPane.showMessageDialog(null, "contas Receber Exportada com Sucesso");
+                conn.close();
                 return rs;
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
@@ -124,13 +121,11 @@ public class ContasReceberDao {
     }
     
     public List<Viewcontasreceberfluxo> listaFluxo(String sql) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         Query q = manager.createQuery(sql);
         List<Viewcontasreceberfluxo> listaFluxo= q.getResultList();
         manager.getTransaction().commit();
-        manager.close();
         return listaFluxo;
     }
 }

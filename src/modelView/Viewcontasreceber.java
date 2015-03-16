@@ -65,6 +65,8 @@ public class Viewcontasreceber implements Serializable {
     private String razaoSocial;
     @Column(name = "nomeFantasia")
     private String nomeFantasia;
+    @Column(name = "visualizacao")
+    private String visualizacao;
 
     public String getNomeFantasia() {
         return nomeFantasia;
@@ -75,6 +77,14 @@ public class Viewcontasreceber implements Serializable {
     }
 
     public Viewcontasreceber() {
+    }
+
+    public String getVisualizacao() {
+        return visualizacao;
+    }
+
+    public void setVisualizacao(String visualizacao) {
+        this.visualizacao = visualizacao;
     }
 
     public int getIdContasReceber() {

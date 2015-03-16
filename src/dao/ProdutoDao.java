@@ -22,29 +22,27 @@ public class ProdutoDao {
     
     
     public List<Produto> listar(int idCliente) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Query q = manager.createQuery("Select p from Produto p where p.cliente=" + idCliente);
         List<Produto> lista = q.getResultList();
-        manager.close();
+        manager.getTransaction().commit();
         return lista;
     }
     
     public Produto consultar(int idProduto) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
+        manager.getTransaction().begin();
         Produto produto = manager.find(Produto.class, idProduto);
-        manager.close();
+        manager.getTransaction().commit();
         return produto;
     }
     
     public Produto salvar(Produto produto) throws SQLException{
-        ConectionFactory conexao = new ConectionFactory();
-        EntityManager manager = conexao.getConnection();
+        EntityManager manager = ConectionFactory.getConnection();
         manager.getTransaction().begin();
         manager.merge(produto);
         manager.getTransaction().commit();
-        manager.close();
         return produto;
     }
     
