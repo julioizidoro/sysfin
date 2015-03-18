@@ -54,7 +54,7 @@ public class IntegracaoDao {
         if (q.getResultList().size()>0){
             produto = (Produto) q.getResultList().get(0);
         }
-        return null;
+        return produto;
     }
     
     public Cliente consultarClietne(int codigosystm) throws SQLException{

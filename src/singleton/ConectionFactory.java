@@ -45,5 +45,6 @@ public class ConectionFactory {
     
     public static void  desconectar(){
         manager.close();
+        manager=null;
     }
 }

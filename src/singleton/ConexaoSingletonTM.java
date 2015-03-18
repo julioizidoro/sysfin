@@ -31,48 +31,49 @@ public class ConexaoSingletonTM {
    
 
     public static EntityManager getConexao()throws SQLException{
-         String localIni = System.getProperty("user.dir");
-        localIni = localIni + "/systm.properties";
-        File file = new File(localIni);
-        Properties props = new Properties();
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(file);
-            //lÃª os dados que estÃ£o no arquivo
-            props.load(fis);
-            fis.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ConexaoSingletonTM.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String banco = props.getProperty("banco");
-        String local = props.getProperty("local");
-        String senha = props.getProperty("senha");
-        String usuario = props.getProperty("usuario");
-        String porta = props.getProperty("porta");
-        Map mapa = new HashMap();
-        mapa.put("hibernate.connection.url", "jdbc:mysql://" + local + ":" + porta + "/" +
-                banco);
-        mapa.put("hibernate.connection.driver_class","com.mysql.jdbc.Driver");
-        mapa.put("hibernate.connection.password",senha);
-        mapa.put("hibernate.connection.username",usuario);
-        mapa.put("hibernate.cache.provider_class","org.hibernate.cache.NoCacheProvider");
-        mapa.put("hibernate.show_sql","true");
-        mapa.put("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
+        if (manager == null) {
+            String localIni = System.getProperty("user.dir");
+            localIni = localIni + "/systm.properties";
+            File file = new File(localIni);
+            Properties props = new Properties();
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(file);
+                //lÃª os dados que estÃ£o no arquivo
+                props.load(fis);
+                fis.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ConexaoSingletonTM.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            String banco = props.getProperty("banco");
+            String local = props.getProperty("local");
+            String senha = props.getProperty("senha");
+            String usuario = props.getProperty("usuario");
+            String porta = props.getProperty("porta");
+            Map mapa = new HashMap();
+            mapa.put("hibernate.connection.url", "jdbc:mysql://" + local + ":" + porta + "/"
+                    + banco);
+            mapa.put("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
+            mapa.put("hibernate.connection.password", senha);
+            mapa.put("hibernate.connection.username", usuario);
+            mapa.put("hibernate.cache.provider_class", "org.hibernate.cache.NoCacheProvider");
+            mapa.put("hibernate.show_sql", "true");
+            mapa.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 
-        try{
-            if(emf == null)
+            try {
                 emf = Persistence.createEntityManagerFactory("SysTMPU", mapa);
                 manager = emf.createEntityManager();
-                return manager; 
-        }catch (Exception e){
-            e.printStackTrace();
-           JOptionPane.showMessageDialog(null, "Erro " + e.getMessage());
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Erro " + e.getMessage());
 
+            }
         }
-        return null;
+        return manager;
     }
     
     public static void desconectar()throws SQLException{
+        manager.close();
         emf = null;
         manager = null;
     }

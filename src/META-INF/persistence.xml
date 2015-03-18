@@ -2,9 +2,6 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="SysFinPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <class>IntegracaoSysTM.Orcamentoprodutosorcamento</class>
-    <class>IntegracaoSysTM.SParcelamentopagamento</class>
-    <class>IntegracaoSysTM.Viewvendasintegracao</class>
     <class>model.Arquivocontaspagar</class>
     <class>model.Banco</class>
     <class>model.Cliente</class>
@@ -32,6 +29,19 @@
       <property name="javax.persistence.jdbc.password" value="simples"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="SysTMPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>IntegracaoSysTM.Orcamentoprodutosorcamento</class>
+    <class>IntegracaoSysTM.SParcelamentopagamento</class>
+    <class>IntegracaoSysTM.Viewvendasintegracao</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8082/systm?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="simples"/>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
     </properties>
   </persistence-unit>
