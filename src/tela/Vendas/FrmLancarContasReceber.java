@@ -6,6 +6,7 @@
 
 package tela.Vendas;
 
+import IntegracaoSysTM.Viewvendasintegracao;
 import com.toedter.calendar.JTextFieldDateEditor;
 import controller.BancoController;
 import controller.ClienteController;
@@ -781,6 +782,11 @@ valorBrutojTextField.addKeyListener(new java.awt.event.KeyAdapter() {
 
     @Override
     public void setNumeroColuna(int numero) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void importarVendasSysTM(Viewvendasintegracao vendaImportada) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

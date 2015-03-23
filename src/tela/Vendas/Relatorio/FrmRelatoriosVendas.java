@@ -6,6 +6,7 @@
 
 package tela.Vendas.Relatorio;
 
+import IntegracaoSysTM.Viewvendasintegracao;
 import com.toedter.calendar.JTextFieldDateEditor;
 import controller.ClienteController;
 import controller.VendasController;
@@ -371,6 +372,11 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
 
     @Override
     public void setNumeroColuna(int numero) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void importarVendasSysTM(Viewvendasintegracao vendaImportada) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

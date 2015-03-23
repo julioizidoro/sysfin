@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package IntegracaoSysTM;
 
 import java.io.Serializable;
@@ -15,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -25,6 +26,7 @@ import javax.persistence.TemporalType;
 public class Viewvendasintegracao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "idvendas")
     @Id
     private int idvendas;
@@ -32,30 +34,44 @@ public class Viewvendasintegracao implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataVenda;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "produtos_idprodutos")
     private int produtosIdprodutos;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "unidadeNegocio_idunidadeNegocio")
     private int unidadeNegocioidunidadeNegocio;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "cliente_idcliente")
     private int clienteIdcliente;
+    @Size(max = 100)
     @Column(name = "nomeCliente")
     private String nomeCliente;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "idformaPagamento")
     private int idformaPagamento;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "totalMoedaNacional")
     private Float totalMoedaNacional;
-    @Column(name = "valorJuros")
-    private Float valorJuros;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "idorcamento")
     private int idorcamento;
-   
-    
-    
+    @Column(name = "valorJuros")
+    private Float valorJuros;
+    @Column(name = "vendaimportada")
+    private Integer vendaimportada;
+    @Size(max = 50)
+    @Column(name = "descricao")
+    private String descricao;
+    @Size(max = 100)
+    @Column(name = "nomeFantasia")
+    private String nomeFantasia;
+    @Size(max = 100)
+    @Column(name = "nomeconsultor")
+    private String nomeconsultor;
 
     public Viewvendasintegracao() {
     }
@@ -82,14 +98,6 @@ public class Viewvendasintegracao implements Serializable {
 
     public void setProdutosIdprodutos(int produtosIdprodutos) {
         this.produtosIdprodutos = produtosIdprodutos;
-    }
-
-    public Float getValorJuros() {
-        return valorJuros;
-    }
-
-    public void setValorJuros(Float valorJuros) {
-        this.valorJuros = valorJuros;
     }
 
     public int getUnidadeNegocioidunidadeNegocio() {
@@ -138,6 +146,46 @@ public class Viewvendasintegracao implements Serializable {
 
     public void setIdorcamento(int idorcamento) {
         this.idorcamento = idorcamento;
+    }
+
+    public Float getValorJuros() {
+        return valorJuros;
+    }
+
+    public void setValorJuros(Float valorJuros) {
+        this.valorJuros = valorJuros;
+    }
+
+    public Integer getVendaimportada() {
+        return vendaimportada;
+    }
+
+    public void setVendaimportada(Integer vendaimportada) {
+        this.vendaimportada = vendaimportada;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getNomeFantasia() {
+        return nomeFantasia;
+    }
+
+    public void setNomeFantasia(String nomeFantasia) {
+        this.nomeFantasia = nomeFantasia;
+    }
+
+    public String getNomeconsultor() {
+        return nomeconsultor;
+    }
+
+    public void setNomeconsultor(String nomeconsultor) {
+        this.nomeconsultor = nomeconsultor;
     }
     
 }

@@ -6,6 +6,7 @@
 
 package tela.Vendas;
 
+import IntegracaoSysTM.Viewvendasintegracao;
 import controller.ClienteController;
 import controller.ContasReceberController;
 import controller.FormaPagamentoController;
@@ -541,6 +542,11 @@ public class FrmConsultarVendas extends javax.swing.JFrame implements IVendas{
         }
         
         carregarModel(sql, order);
+    }
+
+    @Override
+    public void importarVendasSysTM(Viewvendasintegracao vendaImportada) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

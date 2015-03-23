@@ -6,6 +6,7 @@
 
 package IntegracaoSysTM;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,10 +23,10 @@ public class IntegracaoController {
     
     IntegracaoFacade integracaoFacade;
     
-    public Viewvendasintegracao consultarVendas(int idVenda) {
+    public List<Viewvendasintegracao> consultarVendas() {
         integracaoFacade = new IntegracaoFacade();
         try {
-            return integracaoFacade.consultarVendas(idVenda);
+            return integracaoFacade.consultarVendas();
         } catch (SQLException ex) {
             Logger.getLogger(IntegracaoController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro consultar vendas " + ex);
@@ -74,6 +75,16 @@ public class IntegracaoController {
             Logger.getLogger(IntegracaoController.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro consultar produto orçamento " + ex);
             return null;
+        }
+    }
+    
+    public void salvarVendaSysTM(int idVenda) {
+        integracaoFacade = new IntegracaoFacade();
+        try {
+            integracaoFacade.salvarVendaSysTM(idVenda);
+        } catch (IOException ex) {
+            Logger.getLogger(IntegracaoController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro salvar venda SysTM " + ex);
         }
     }
     

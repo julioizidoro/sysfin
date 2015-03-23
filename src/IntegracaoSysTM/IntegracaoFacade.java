@@ -6,6 +6,7 @@
 
 package IntegracaoSysTM;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import model.Cliente;
@@ -19,9 +20,9 @@ public class IntegracaoFacade {
     
     IntegracaoDao integracaoDao;
     
-    public Viewvendasintegracao consultarVendas(int idVenda) throws SQLException{
+    public List<Viewvendasintegracao> consultarVendas() throws SQLException{
         integracaoDao = new IntegracaoDao();
-        return integracaoDao.consultarVendas(idVenda);
+        return integracaoDao.consultarVendas();
     }
     
   
@@ -46,6 +47,11 @@ public class IntegracaoFacade {
     public Orcamentoprodutosorcamento consultarOrcamentoProdutoOrcamento(int idOrcamento, int idProdutoOrcamento) throws SQLException{
         integracaoDao = new IntegracaoDao();
         return integracaoDao.consultarOrcamentoProdutoOrcamento(idOrcamento, idProdutoOrcamento);
+    }
+    
+    public void salvarVendaSysTM(int idVenda) throws IOException {
+        integracaoDao = new IntegracaoDao();
+        integracaoDao.salvarVendaSysTM(idVenda);
     }
     
 }

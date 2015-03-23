@@ -20,8 +20,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -31,6 +34,7 @@ import model.Formapagamento;
 import model.Planocontas;
 import model.Produto;
 import model.Vendas;
+import singleton.ConexaoSingletonTM;
 import tela.Cliente.FrmConsultaCliente;
 import tela.util.Formatacao;
 import tela.util.LimiteTextoJedit;
@@ -823,7 +827,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
             .addComponent(jTabbedPane1)
             .addContainerGap())
         .addGroup(layout.createSequentialGroup()
-            .addGap(57, 57, 57)
+            .addGap(71, 71, 71)
             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
@@ -1440,69 +1444,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
     }
     
     public void importaVenda(){
-        boolean validar = false;
-        int numeroVenda = Integer.parseInt(JOptionPane.showInputDialog("Informe o Número da Venda"));
-        IntegracaoController integracaoController = new IntegracaoController();
-        Viewvendasintegracao sVenda = integracaoController.consultarVendas(numeroVenda);
-        if (sVenda != null) {
-            cliente = integracaoController.consultarClietne(sVenda.getUnidadeNegocioidunidadeNegocio());
-            Produto produto = null;
-            if (cliente != null) {
-                carregarComboBox(cliente.getIdcliente());
-                validar = true;
-                produto = integracaoController.consultarProduto(cliente.getIdcliente(), sVenda.getProdutosIdprodutos());
-                if (produto != null) {
-                    validar = true;
-                } else {
-                    validar = false;
-                    JOptionPane.showMessageDialog(rootPane, "Produto não Localizado");
-                }
-            } else {
-                validar = false;
-                JOptionPane.showMessageDialog(rootPane, "Unidade não Localizada");
-            }
-            if (validar) {
-                List<SParcelamentopagamento> listaParcelamento = integracaoController.listarParcelmanetoFormaPagamento(sVenda.getIdformaPagamento());
-                unidadejTextField.setText(cliente.getNomeFantasia());
-                produtojComboBox.setSelectedItem(produto);
-                dataVendajDateChooser.setDate(sVenda.getDataVenda());
-                clientejTextField.setText(sVenda.getNomeCliente());
-                if (listaParcelamento != null) {
-                    for (int i = 0; i < listaParcelamento.size(); i++) {
-                        Formapagamento forma = new Formapagamento();
-                        String dataVencimento = JOptionPane.showInputDialog("Informe Data Vencimento");
-                        forma.setDataVencimento(Formatacao.ConvercaoStringDataBrasil(dataVencimento));
-                        forma.setNomeCliente(clientejTextField.getText());
-                        forma.setNumeroParcelas(listaParcelamento.get(i).getNumeroParcelas());
-                        forma.setTipoDocumento(listaParcelamento.get(i).getFormaPagamento());
-                        forma.setValor(listaParcelamento.get(i).getValorParcelamento());
-                        forma.setValorParcela(listaParcelamento.get(i).getValorParcela());
-                        listaForma.add(forma);
-                    }
-                }
-                Orcamentoprodutosorcamento produtoOrcamento = integracaoController.consultarOrcamentoProdutoOrcamento(sVenda.getIdorcamento(), 5);
-                Float valorSeguroAssist = 0.0f;
-                if (produtoOrcamento != null) {
-                    valorSeguroAssist = produtoOrcamento.getValorMoedaNacional();
-                }
-                produtoOrcamento = integracaoController.consultarOrcamentoProdutoOrcamento(sVenda.getIdorcamento(), 21);
-                Float valorSeguroGoveramental = 0.0f;
-                if (produtoOrcamento != null) {
-                    valorSeguroGoveramental = produtoOrcamento.getValorMoedaNacional();
-                }
-                produtoOrcamento = integracaoController.consultarOrcamentoProdutoOrcamento(sVenda.getIdorcamento(), 9);
-                Float valorDesconto = 0.0f;
-                if (produtoOrcamento != null) {
-                    valorDesconto = produtoOrcamento.getValorMoedaNacional();
-                }
-                Float valorTotalVenda = (sVenda.getTotalMoedaNacional() - valorDesconto + sVenda.getValorJuros()) - (valorSeguroAssist + valorSeguroGoveramental);
-                totalBrutojTextField.setText(Formatacao.foramtarFloatString(valorTotalVenda));
-                String vd = Formatacao.foramtarFloatString(valorDesconto);
-                valorDescontojTextField.setText(Formatacao.retirarNegativo(vd));
-                totalLiquidojTextField.setText(Formatacao.foramtarFloatString(sVenda.getTotalMoedaNacional() + sVenda.getValorJuros()));
-                carregarFormaPagamento();
-            }
-        }
+        new FrmVendasSysTM(this);
     }
     
     @Override
@@ -1525,5 +1467,75 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
         cidadejTextField.setDocument(new LimiteTextoJedit(50));
         cnpjjTextField.setDocument(new LimiteTextoJedit(18));
         iejTextField.setDocument(new LimiteTextoJedit(30));
+    }
+
+    @Override
+    public void importarVendasSysTM(Viewvendasintegracao vendaImportada) {
+        IntegracaoController integracaoController = new IntegracaoController();
+        boolean validar = false;
+        cliente = integracaoController.consultarClietne(vendaImportada.getUnidadeNegocioidunidadeNegocio());
+        Produto produto = null;
+        if (cliente != null) {
+                carregarComboBox(cliente.getIdcliente());
+                validar = true;
+                produto = integracaoController.consultarProduto(cliente.getIdcliente(), vendaImportada.getProdutosIdprodutos());
+                if (produto != null) {
+                    validar = true;
+                } else {
+                    validar = false;
+                    JOptionPane.showMessageDialog(rootPane, "Produto não Localizado");
+                }
+        } else {
+            validar = false;
+            JOptionPane.showMessageDialog(rootPane, "Unidade não Localizada");
+        }
+        if (validar) {
+            consultorjTextField.setText(vendaImportada.getNomeconsultor());
+            List<SParcelamentopagamento> listaParcelamento = integracaoController.listarParcelmanetoFormaPagamento(vendaImportada.getIdformaPagamento());
+            unidadejTextField.setText(cliente.getNomeFantasia());
+            produtojComboBox.setSelectedItem(produto);
+            dataVendajDateChooser.setDate(vendaImportada.getDataVenda());
+            clientejTextField.setText(vendaImportada.getNomeCliente());
+            if (listaParcelamento != null) {
+                for (int i = 0; i < listaParcelamento.size(); i++) {
+                    Formapagamento forma = new Formapagamento();
+                    String dataVencimento = JOptionPane.showInputDialog("Informe Data Vencimento");
+                    forma.setDataVencimento(Formatacao.ConvercaoStringDataBrasil(dataVencimento));
+                    forma.setNomeCliente(clientejTextField.getText());
+                    forma.setNumeroParcelas(listaParcelamento.get(i).getNumeroParcelas());
+                    forma.setTipoDocumento(listaParcelamento.get(i).getFormaPagamento());
+                    forma.setValor(listaParcelamento.get(i).getValorParcelamento());
+                    forma.setValorParcela(listaParcelamento.get(i).getValorParcela());
+                    listaForma.add(forma);
+                }
+            }
+            Orcamentoprodutosorcamento produtoOrcamento = integracaoController.consultarOrcamentoProdutoOrcamento(vendaImportada.getIdorcamento(), 5);
+            Float valorSeguroAssist = 0.0f;
+            if (produtoOrcamento != null) {
+                valorSeguroAssist = produtoOrcamento.getValorMoedaNacional();
+            }
+            produtoOrcamento = integracaoController.consultarOrcamentoProdutoOrcamento(vendaImportada.getIdorcamento(), 21);
+            Float valorSeguroGoveramental = 0.0f;
+            if (produtoOrcamento != null) {
+                    valorSeguroGoveramental = produtoOrcamento.getValorMoedaNacional();
+            }
+            produtoOrcamento = integracaoController.consultarOrcamentoProdutoOrcamento(vendaImportada.getIdorcamento(), 9);
+            Float valorDesconto = 0.0f;
+            if (produtoOrcamento != null) {
+                    valorDesconto = produtoOrcamento.getValorMoedaNacional();
+            }
+            Float valorTotalVenda = (vendaImportada.getTotalMoedaNacional() - valorDesconto + vendaImportada.getValorJuros()) - (valorSeguroAssist + valorSeguroGoveramental);
+            totalBrutojTextField.setText(Formatacao.foramtarFloatString(valorTotalVenda));
+            String vd = Formatacao.foramtarFloatString(valorDesconto);
+            valorDescontojTextField.setText(Formatacao.retirarNegativo(vd));
+            totalLiquidojTextField.setText(Formatacao.foramtarFloatString(vendaImportada.getTotalMoedaNacional() + vendaImportada.getValorJuros()));
+            carregarFormaPagamento();
+            integracaoController.salvarVendaSysTM(vendaImportada.getIdvendas());
+            try {
+                ConexaoSingletonTM.desconectar();
+            } catch (SQLException ex) {
+                Logger.getLogger(FrmLancarVenda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else JOptionPane.showMessageDialog(rootPane, "Erro ao importa venda SysTM");
     }
 }

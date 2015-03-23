@@ -6,11 +6,14 @@
 
 package IntegracaoSysTM;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -30,14 +33,14 @@ public class IntegracaoDao {
     
     
     
-    public Viewvendasintegracao consultarVendas(int idVenda) throws SQLException{
+    public List<Viewvendasintegracao> consultarVendas() throws SQLException{
         manager = ConexaoSingletonTM.getConexao();
-        Query q = manager.createQuery("select v from Viewvendasintegracao v where v.idvendas=" + idVenda);
-        if (q.getResultList().size() > 0) {
-            return  (Viewvendasintegracao) q.getResultList().get(0);
-        } else {
-            return null;
-        }
+        manager.getTransaction().begin();
+        String sql = "select v from Viewvendasintegracao v order by v.dataVenda";
+        Query q = manager.createQuery(sql);
+        List<Viewvendasintegracao> listaVendas = q.getResultList();
+        manager.getTransaction().commit();
+        return listaVendas;
     }
     
     public List<SParcelamentopagamento> listarParcelmanetoFormaPagamento(int idFormaPagamento) throws SQLException{
@@ -68,7 +71,7 @@ public class IntegracaoDao {
     }
     
     public Orcamentoprodutosorcamento consultarOrcamentoProdutoOrcamento(int idOrcamento, int idProdutoOrcamento) throws SQLException{
-        EntityManager manager = ConectionFactory.getConnection();
+        EntityManager manager = ConexaoSingletonTM.getConexao();
         Query q = manager.createQuery("select o from Orcamentoprodutosorcamento o where o.orcamento=" + idOrcamento + 
                 " and o.produtosOrcamento=" + idProdutoOrcamento);
         if (q.getResultList().size() > 0) {
@@ -78,8 +81,25 @@ public class IntegracaoDao {
         }
     }
     
-    public void salvar(String local, String porta, String senha, String banco, String usuario, int idVenda) throws IOException {
-
+    public void salvarVendaSysTM(int idVenda) throws IOException {
+        String localIni = System.getProperty("user.dir");
+        localIni = localIni + "/systm.properties";
+        File file = new File(localIni);
+        Properties props = new Properties();
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+            //lÃª os dados que estÃ£o no arquivo
+            props.load(fis);
+            fis.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ConexaoSingletonTM.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String banco = props.getProperty("banco");
+        String local = props.getProperty("local");
+        String senha = props.getProperty("senha");
+        String usuario = props.getProperty("usuario");
+        String porta = props.getProperty("porta");
         ResultSet rs;
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
