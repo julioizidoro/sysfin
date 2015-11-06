@@ -24,9 +24,10 @@
     <class>modelView.Viewrelatoriopagamento</class>
     <class>modelView.Viewrelatoriovendas</class>
     <class>modelView.Viewvendas</class>
+    <validation-mode>NONE</validation-mode>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:8082/sysfin?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.password" value="simples"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://200.175.61.147:8082/systm?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
