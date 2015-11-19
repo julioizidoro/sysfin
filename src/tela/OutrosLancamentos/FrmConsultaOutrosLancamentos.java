@@ -51,6 +51,7 @@ public class FrmConsultaOutrosLancamentos extends javax.swing.JFrame  implements
     private char placeHolder;
     private int numero;
     private String sql;
+    
 
     /** Creates new form FrmConsultaCaixa */
     public FrmConsultaOutrosLancamentos(UsuarioLogadoBean usuarioLogadoBean) {
