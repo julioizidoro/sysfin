@@ -123,13 +123,13 @@ public class ContasPagarDao {
     
     public Contaspagar consultarVenda(String sql) throws SQLException{
         EntityManager manager = ConectionFactory.getConnection();
-        manager.getTransaction().commit();
+        manager.getTransaction().begin();
         Query q = manager.createQuery(sql);
         Contaspagar conta = null;
         if (q.getResultList().size()>0){
             conta = (Contaspagar) q.getResultList().get(0);
         }
-        manager.getTransaction().begin();
+        manager.getTransaction().commit();
         return conta;
     }
     

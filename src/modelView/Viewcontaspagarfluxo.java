@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -25,12 +24,10 @@ import javax.validation.constraints.NotNull;
 public class Viewcontaspagarfluxo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "idcontaspagar")
     @Id
     private int idcontaspagar;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "cliente_idcliente")
     private int clienteIdcliente;
     @Column(name = "dataVencimento")

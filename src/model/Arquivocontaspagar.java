@@ -15,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -30,13 +29,11 @@ public class Arquivocontaspagar implements Serializable {
     @Basic(optional = false)
     @Column(name = "idarquivoContasPagar")
     private Integer idarquivoContasPagar;
-    @Size(max = 100)
     @Column(name = "nomeArquivo01")
     private String nomeArquivo01;
     @Lob
     @Column(name = "arquivo01")
     private byte[] arquivo01;
-    @Size(max = 100)
     @Column(name = "nomeArquivo02")
     private String nomeArquivo02;
     @Lob

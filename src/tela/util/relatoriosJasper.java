@@ -25,7 +25,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.swing.JRViewer;
 import singleton.ConexaoSingletonTM;
-import javax.servlet.ServletOutputStream;
 
 /**
  *

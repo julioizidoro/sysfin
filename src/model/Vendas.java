@@ -18,7 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -33,7 +32,6 @@ public class Vendas implements Serializable {
     @Basic(optional = false)
     @Column(name = "idvendas")
     private Integer idvendas;
-    @Size(max = 100)
     @Column(name = "nomeCliente")
     private String nomeCliente;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -65,18 +63,14 @@ public class Vendas implements Serializable {
     private Float valorRecebido;
     @Column(name = "liquidoVendas")
     private Float liquidoVendas;
-    @Size(max = 100)
     @Column(name = "nomeFornecedor")
     private String nomeFornecedor;
     @Column(name = "liquidoReceber")
     private Float liquidoReceber;
-    @Size(max = 15)
     @Column(name = "situacao")
     private String situacao;
-    @Size(max = 50)
     @Column(name = "consultor")
     private String consultor;
-    @Size(max = 200)
     @Column(name = "observacao")
     private String observacao;
     @JoinColumn(name = "cliente_idcliente", referencedColumnName = "idcliente")

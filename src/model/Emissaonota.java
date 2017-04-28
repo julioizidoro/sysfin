@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -34,31 +33,22 @@ public class Emissaonota implements Serializable {
     @Basic(optional = false)
     @Column(name = "idemissaoNota")
     private Integer idemissaoNota;
-    @Size(max = 100)
     @Column(name = "nome")
     private String nome;
-    @Size(max = 100)
     @Column(name = "endereco")
     private String endereco;
-    @Size(max = 50)
     @Column(name = "complemento")
     private String complemento;
-    @Size(max = 50)
     @Column(name = "bairro")
     private String bairro;
-    @Size(max = 50)
     @Column(name = "cidade")
     private String cidade;
-    @Size(max = 9)
     @Column(name = "cep")
     private String cep;
-    @Size(max = 2)
     @Column(name = "estado")
     private String estado;
-    @Size(max = 18)
     @Column(name = "cpnj")
     private String cpnj;
-    @Size(max = 30)
     @Column(name = "ie")
     private String ie;
     @Column(name = "vendas_idvendas")

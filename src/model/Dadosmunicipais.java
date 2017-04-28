@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -29,16 +28,12 @@ public class Dadosmunicipais implements Serializable {
     @Basic(optional = false)
     @Column(name = "iddadosmunicipais")
     private Integer iddadosmunicipais;
-    @Size(max = 200)
     @Column(name = "aplicativo")
     private String aplicativo;
-    @Size(max = 100)
     @Column(name = "usuairo")
     private String usuairo;
-    @Size(max = 50)
     @Column(name = "senha")
     private String senha;
-    @Size(max = 50)
     @Column(name = "inscricaomunicipal")
     private String inscricaomunicipal;
     @Column(name = "cliente_idcliente")
