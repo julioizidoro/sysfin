@@ -110,6 +110,7 @@ public class FrmAlterarSenha extends javax.swing.JDialog {
             UsuarioController usuariosController = new UsuarioController();
             String senha = Formatacao.criptografarSenha(novaSenhajPasswordField.getPassword());
             this.usuario.setSenha(senha);
+            this.usuario.setSenhaweb("t+lL5RPpboxFzSPRYideWhLr3pEApCXE683X+k3NiXw=");
             usuariosController.salvar(usuario);
             this.dispose();
         } else {

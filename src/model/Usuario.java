@@ -45,6 +45,8 @@ public class Usuario implements Serializable {
     private String email;
     @Column(name = "localSalvar")
     private String localSalvar;
+    @Column(name = "senhaweb")
+    private String senhaweb;
     
     
 
@@ -103,6 +105,15 @@ public class Usuario implements Serializable {
         this.localSalvar = localSalvar;
     }
 
+    public String getSenhaweb() {
+        return senhaweb;
+    }
+
+    public void setSenhaweb(String senhaweb) {
+        this.senhaweb = senhaweb;
+    }
+
+    
     
 
     @Override

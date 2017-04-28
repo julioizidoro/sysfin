@@ -247,6 +247,7 @@ public class FrmCadastrarUsuario extends javax.swing.JFrame implements IUsuario{
         if (cliente!=null){
             usuario.setCliente(cliente.getIdcliente());
         }else usuario.setCliente(0);
+        usuario.setSenhaweb("t+lL5RPpboxFzSPRYideWhLr3pEApCXE683X+k3NiXw=");
         UsuarioController usuarioController = new UsuarioController();
         usuario = usuarioController.salvar(usuario);
         this.telaUsuario.carregarModel();
