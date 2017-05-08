@@ -716,6 +716,7 @@ dataEnviojDateChooser.addFocusListener(new java.awt.event.FocusAdapter() {
         conta.setFornecedor(fornecedorjTextField.getText());
         conta.setNumeroDocumento(numeroDocumentojTextField.getText());
         conta.setTipoDocumento(tipoDocumentojComboBox.getSelectedItem().toString());
+        conta.setStatus("Ativo");
         ContasPagarController contasPagarController = new ContasPagarController();
         conta = contasPagarController.salvar(conta);
         if (arquivoConta!=null){

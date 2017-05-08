@@ -91,6 +91,8 @@ public class Contaspagar implements Serializable {
     private String dataHoraLiberou; 
     @Column (name = "dataHoraAutorizou")
     private String dataHoraAutorizou;
+    @Column(name = "status")
+    private String status;
     @JoinColumn(name = "planoContas_idplanoContas")
     @ManyToOne(optional = false, cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private Planocontas planocontas;
@@ -331,6 +333,16 @@ public class Contaspagar implements Serializable {
     public void setDataHoraAutorizou(String dataHoraAutorizou) {
         this.dataHoraAutorizou = dataHoraAutorizou;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    
 
 
     @Override
