@@ -1323,6 +1323,7 @@ jButton1.addActionListener(new java.awt.event.ActionListener() {
             emissaonota.setCpnj(cnpjjTextField.getText());
             emissaonota.setIe(iejTextField.getText());
             emissaonota.setVendas(venda.getIdvendas());
+            emissaonota.setCidade(cidadejTextField.getText());
             vendasController.salvar(emissaonota);
         }
         this.telaVednas.setModel();
